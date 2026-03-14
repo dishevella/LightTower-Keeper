@@ -1,0 +1,7 @@
+The water textures in this package are sourced by :
+
+https://cc0-textures.com/
+
+Under the CC0 License. 
+
+This licence is open source and free for any use.
