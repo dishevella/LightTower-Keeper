@@ -29,7 +29,7 @@ Preset:
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: 'm_ValidKeywords.Array.data[0]'
+    propertyPath: m_ValidKeywords.Array.data[0]
     value: _SURFACE_TYPE_TRANSPARENT
     objectReference: {fileID: 0}
   - target: {fileID: 0}
@@ -37,11 +37,11 @@ Preset:
     value: 2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: 'm_InvalidKeywords.Array.data[0]'
+    propertyPath: m_InvalidKeywords.Array.data[0]
     value: _ALPHABLEND_ON
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: 'm_InvalidKeywords.Array.data[1]'
+    propertyPath: m_InvalidKeywords.Array.data[1]
     value: _ZWRITE_ON
     objectReference: {fileID: 0}
   - target: {fileID: 0}
@@ -346,7 +346,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.size
-    value: 72
+    value: 70
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[0].first
@@ -574,15 +574,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[28].first
-    value: _DstBlendAlpha
+    value: _Enable_Depth
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[28].second
-    value: 0
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[29].first
-    value: _Enable_Depth
+    value: _Enable_Refraction
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[29].second
@@ -590,7 +590,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[30].first
-    value: _Enable_Refraction
+    value: _Enable_Side_Fresnel
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[30].second
@@ -598,95 +598,95 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[31].first
-    value: _Enable_Side_Fresnel
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[31].second
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[32].first
     value: _Enable_Top_Projection
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[32].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[31].second
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[33].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[32].first
     value: _Enable_Triplanar
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[33].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[32].second
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[34].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[33].first
     value: _Fade_Amount
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[34].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[33].second
     value: 38.6
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[35].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[34].first
     value: _Fresnel_Border
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[35].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[34].second
     value: 6.15
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[36].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[35].first
     value: _Fresnel_Power
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[36].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[35].second
     value: 1.75
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[37].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[36].first
     value: _Inner_Distortion
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[37].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[36].second
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[38].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[37].first
     value: _Inner_Distortion_Power
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[38].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[37].second
     value: 0.0024
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[39].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[38].first
     value: _Metallic
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[39].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[38].second
     value: 0.461
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[40].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[39].first
     value: _Noise_Tiling
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[40].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[39].second
     value: -28.3
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[41].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[40].first
     value: _Opacity
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[41].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[40].second
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[42].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[41].first
     value: _QueueControl
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SavedProperties.m_Floats.Array.data[41].second
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SavedProperties.m_Floats.Array.data[42].first
+    value: _QueueOffset
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[42].second
@@ -694,127 +694,127 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[43].first
-    value: _QueueOffset
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[43].second
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[44].first
     value: _ReceiveShadows
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[44].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[43].second
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[45].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[44].first
     value: _Refraction_Power
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[45].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[44].second
     value: 0.94
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[46].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[45].first
     value: _Refraction_Tiling
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[46].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[45].second
     value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[47].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[46].first
     value: _Shallow_Power
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[47].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[46].second
     value: 0.4
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[48].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[47].first
     value: _Side_Alpha
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[48].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[47].second
     value: 0.95
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[49].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[48].first
     value: _Side_Metallic
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[49].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[48].second
     value: 0.391
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[50].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[49].first
     value: _Side_Normal_Intensity
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[50].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[49].second
     value: -0.4
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[51].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[50].first
     value: _Side_Opacity
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[51].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[50].second
     value: 0.9
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[52].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[51].first
     value: _Side_Specular_Power
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[52].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[51].second
     value: 0.006
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[53].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[52].first
     value: _Side_TIling
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[53].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[52].second
     value: 0.2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[54].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[53].first
     value: _Smootheness
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[54].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[53].second
     value: 0.456
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[55].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[54].first
     value: _Smoothness
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[55].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[54].second
     value: 0.2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[56].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[55].first
     value: _Spread
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[56].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[55].second
     value: 0.337
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[57].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[56].first
     value: _SrcBlend
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[57].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[56].second
     value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: m_SavedProperties.m_Floats.Array.data[57].first
+    value: _Steps
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SavedProperties.m_Floats.Array.data[57].second
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[58].first
-    value: _SrcBlendAlpha
+    value: _Surface
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[58].second
@@ -822,15 +822,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[59].first
-    value: _Steps
+    value: _Tiling
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[59].second
-    value: 0
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[60].first
-    value: _Surface
+    value: _Top_Alpha
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[60].second
@@ -838,15 +838,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[61].first
-    value: _Tiling
+    value: _Top_Metallic
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[61].second
-    value: 1
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[62].first
-    value: _Top_Alpha
+    value: _Top_Normal_Intensity
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[62].second
@@ -854,74 +854,58 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SavedProperties.m_Floats.Array.data[63].first
-    value: _Top_Metallic
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[63].second
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[64].first
-    value: _Top_Normal_Intensity
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[64].second
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[65].first
     value: _Top_Opacity
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[65].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[63].second
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[66].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[64].first
     value: _Top_Specular_Power
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[66].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[64].second
     value: 0.529
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[67].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[65].first
     value: _Top_Tiling
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[67].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[65].second
     value: 0.2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[68].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[66].first
     value: _WorkflowMode
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[68].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[66].second
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[69].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[67].first
     value: _ZTest
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[69].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[67].second
     value: 4
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[70].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[68].first
     value: _ZWrite
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[70].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[68].second
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[71].first
+    propertyPath: m_SavedProperties.m_Floats.Array.data[69].first
     value: _ZWriteControl
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_SavedProperties.m_Floats.Array.data[71].second
+    propertyPath: m_SavedProperties.m_Floats.Array.data[69].second
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
@@ -1132,13 +1116,4 @@ Preset:
     propertyPath: m_BuildTextureStacks.Array.size
     value: 0
     objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: m_AllowLocking
-    value: 1
-    objectReference: {fileID: 0}
   m_ExcludedProperties: []
-  m_CoupledType:
-    m_NativeTypeID: 0
-    m_ManagedTypePPtr: {fileID: 0}
-    m_ManagedTypeFallback: 
-  m_CoupledProperties: []

@@ -1,53 +1,50 @@
+using JetBrains.Annotations;
 using System;
 using UnityEngine;
 
-public class TaskSystem : MonoBehaviour
+public class TaskSystem : IGameSystem
 {
-    public static TaskSystem Instance { get; private set; }
-    public string CurrentTaskId { get; private set; }
-    public string CurrentTaskTitle { get; private set; }
-    public string CurrentTaskDescription { get; private set; }
-    public bool IsTaskComplete { get; private set; }
+    private GameApp app;
+    private TaskModel taskModel;
 
-    public event Action<string, string, bool> OnTaskUpdated;
-
-    private void Awake()
+    public void Initialize(GameApp app)
     {
-        if(Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        this.app = app;
+        taskModel = app.GetModel<TaskModel>();
     }
-    public void SetTask(string taskId, string taskTitle, string taskDescription)
+    public void SetTask(string taskId,string title, string description)
     {
-        CurrentTaskId = taskId;
-        CurrentTaskTitle = taskTitle;
-        CurrentTaskDescription = taskDescription;
-        IsTaskComplete = false;
-        NotifyTaskUpdated();
-    }
-    public bool IsCurrentTask(string taskId)
-    {
-        return CurrentTaskId == taskId;
+        taskModel.TaskId = taskId;
+        taskModel.TaskTitle = title;
+        taskModel.TaskDescription = description;
+        taskModel.IsCompleted = false;
+        taskModel.HasTask = true;
+        Publish();
     }
     public void CompleteCurrentTask()
     {
-        if (string.IsNullOrEmpty(CurrentTaskId)) return;
-        IsTaskComplete = true;
-        NotifyTaskUpdated();
+        if (!taskModel.HasTask) return;
+        taskModel.IsCompleted = true;
+        Publish();
     }
     public void ClearTask()
     {
-        CurrentTaskId = string.Empty;
-        CurrentTaskTitle = string.Empty;
-        CurrentTaskDescription = string.Empty;
-        IsTaskComplete = false;
-        NotifyTaskUpdated();
+        taskModel.TaskId = string.Empty;
+        taskModel.TaskTitle = string.Empty;
+        taskModel.TaskDescription = string.Empty;
+        taskModel.IsCompleted = false;
+        taskModel.HasTask = false;
+        Publish();
     }
-    private void NotifyTaskUpdated()
+    private void Publish()
     {
-        OnTaskUpdated?.Invoke(CurrentTaskTitle, CurrentTaskDescription, IsTaskComplete);
+        app.Events.Publish(new TaskChangedEvent
+        {
+            TaskId = taskModel.TaskId,
+            Title = taskModel.TaskTitle,
+            Description = taskModel.TaskDescription,
+            IsCompleted = taskModel.IsCompleted
+        });
     }
+   
 }

@@ -1,49 +1,33 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Xml.Serialization;
 
-public class TimeSystem : MonoBehaviour
+public class TimeSystem : IGameSystem
 {
-    public static TimeSystem Instance { get; private set; }
-    [SerializeField] private DayTransitionPanel dayTransitionpanel;
-    public int CurrentDay { get; private set; } = 0;
-    public event Action<int> OnDayChanged;
-    private bool isTransitioning;
-    private void Awake()
+    private GameApp app;
+    private GameStateModel statemodel;
+
+    public void Initialize(GameApp app)
     {
-        if(Instance!=null&& Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        this.app = app;
+        statemodel = app.GetModel<GameStateModel>();
     }
     public void SetDay(int day)
     {
-        CurrentDay = day;
-        OnDayChanged?.Invoke(CurrentDay);
+        statemodel.CurrentDay = day;
+        Publish();
     }
-    public void GoToNextDay(Action onFinished = null)
+    public void GoToNextDay()
     {
-        if (isTransitioning) return;
-        StartCoroutine(GoToNextDayRoutine(onFinished));
+        statemodel.CurrentDay++;
+        Publish();
     }
-    private IEnumerator GoToNextDayRoutine(Action onFinished)
+    private void Publish()
     {
-        isTransitioning = true;
-
-        CurrentDay++;
-
-        if (dayTransitionpanel != null)
+        app.Events.Publish(new DayChangedEvent
         {
-            yield return dayTransitionpanel.PlayTransition(CurrentDay);
-        }
-
-        OnDayChanged?.Invoke(CurrentDay);
-
-        onFinished?.Invoke();
-
-        isTransitioning = false;
+            Day = statemodel.CurrentDay
+        });
     }
-
 }
