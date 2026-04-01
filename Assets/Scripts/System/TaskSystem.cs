@@ -1,49 +1,48 @@
-using JetBrains.Annotations;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class TaskSystem : IGameSystem
+public class TaskSystem : SystemAbstract
 {
-    private GameApp app;
     private TaskModel taskModel;
 
-    public void Initialize(GameApp app)
+    protected override void OnInit()
     {
-        this.app = app;
-        taskModel = app.GetModel<TaskModel>();
+        taskModel = this.GetModel<TaskModel>();
     }
     public void SetTask(string taskId,string title, string description)
     {
-        taskModel.TaskId = taskId;
-        taskModel.TaskTitle = title;
-        taskModel.TaskDescription = description;
-        taskModel.IsCompleted = false;
-        taskModel.HasTask = true;
+        if (taskModel == null) return;
+        taskModel.TaskId.Value = taskId;
+        taskModel.TaskTitle.Value = title;
+        taskModel.TaskDescription.Value = description;
+        taskModel.IsCompleted.Value = false;
+        taskModel.HasTask.Value = true;
         Publish();
     }
     public void CompleteCurrentTask()
     {
-        if (!taskModel.HasTask) return;
-        taskModel.IsCompleted = true;
+        if (!taskModel.HasTask.Value) return;
+        taskModel.IsCompleted.Value = true;
         Publish();
     }
     public void ClearTask()
     {
-        taskModel.TaskId = string.Empty;
-        taskModel.TaskTitle = string.Empty;
-        taskModel.TaskDescription = string.Empty;
-        taskModel.IsCompleted = false;
-        taskModel.HasTask = false;
+        taskModel.TaskId.Value = string.Empty;
+        taskModel.TaskTitle.Value = string.Empty;
+        taskModel.TaskDescription.Value = string.Empty;
+        taskModel.IsCompleted.Value = false;
+        taskModel.HasTask.Value = false;
         Publish();
     }
     private void Publish()
     {
-        app.Events.Publish(new TaskChangedEvent
+        this.GetEvent().Send(new TaskChangedEvent
         {
-            TaskId = taskModel.TaskId,
-            Title = taskModel.TaskTitle,
-            Description = taskModel.TaskDescription,
-            IsCompleted = taskModel.IsCompleted
+            TaskId = taskModel.TaskId.Value,
+            Title = taskModel.TaskTitle.Value,
+            Description = taskModel.TaskDescription.Value,
+            IsCompleted = taskModel.IsCompleted.Value
         });
     }
    

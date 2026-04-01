@@ -1,11 +1,19 @@
 using System;
 using System.Globalization;
 [Serializable]
-public class TaskModel : IGameModel
+public class TaskModel : ModelAbstract
 {
-    public string TaskId;
-    public string TaskTitle;
-    public string TaskDescription;
-    public bool IsCompleted;
-    public bool HasTask;
+    protected override void OnInit()
+    {
+        TaskId = new BindableProperty<string>(string.Empty);
+        TaskTitle = new BindableProperty<string>(string.Empty);
+        TaskDescription = new BindableProperty<string>(string.Empty);
+        IsCompleted = new BindableProperty<bool>(false);
+        HasTask = new BindableProperty<bool>(false);
+    }
+    public BindableProperty<string> TaskId { get; set; }
+    public BindableProperty<string> TaskTitle { get; set; }
+    public BindableProperty<string> TaskDescription { get; set; }
+    public BindableProperty<bool> IsCompleted { get; set; }
+    public BindableProperty<bool> HasTask { get; set; }
 }

@@ -35,7 +35,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_CAD82441:
-        m_Texture: {fileID: 2800000, guid: 0b3a0e12190cfa94883e2e453790150a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7423c96d3498df240abc09c46b92906c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:

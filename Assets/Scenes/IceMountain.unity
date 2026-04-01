@@ -447,6 +447,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_01 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7762398154056494862, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_RootOrder
       value: 45
@@ -767,6 +771,10 @@ PrefabInstance:
     - target: {fileID: 3893115069299701331, guid: 791f0c4ed019a604aa26fe88f8cc4945, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 3893115069299701331, guid: 791f0c4ed019a604aa26fe88f8cc4945, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4417133122393763049, guid: 791f0c4ed019a604aa26fe88f8cc4945, type: 3}
       propertyPath: m_RootOrder
@@ -1173,6 +1181,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (34)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -4186,6 +4198,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (37)
       objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
       value: 149
@@ -4431,6 +4447,10 @@ PrefabInstance:
     - target: {fileID: 4855465986667352296, guid: 1854ad4f47313f04d975f3d21ab2f114, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Oar_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855465986667352296, guid: 1854ad4f47313f04d975f3d21ab2f114, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5199903000058710610, guid: 1854ad4f47313f04d975f3d21ab2f114, type: 3}
       propertyPath: m_RootOrder
@@ -6061,6 +6081,10 @@ PrefabInstance:
     - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_05 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2944971462940339796, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_RootOrder
@@ -8444,7 +8468,7 @@ Transform:
   m_GameObject: {fileID: 83766739}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.2, y: 0.434, z: -209.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9065,6 +9089,10 @@ PrefabInstance:
     - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
@@ -11212,6 +11240,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_03 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2580852319986054229, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2925887501777415919, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
       propertyPath: m_RootOrder
       value: 29
@@ -12678,6 +12710,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_03 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2580852319986054229, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2925887501777415919, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -12981,6 +13017,10 @@ PrefabInstance:
     - target: {fileID: 2580852319986054229, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_03 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2580852319986054229, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2925887501777415919, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
       propertyPath: m_RootOrder
@@ -18430,6 +18470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
       value: 44
@@ -20286,6 +20330,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_06 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 2435297151220180101, guid: e582d0f399d34854aaffd8b731628775, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3062510932800290367, guid: e582d0f399d34854aaffd8b731628775, type: 3}
       propertyPath: m_RootOrder
       value: 69
@@ -20889,6 +20937,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_05 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5339810787366532089, guid: 005669bdde6220c42b535f2dcf0884da, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5844033969551069740, guid: 005669bdde6220c42b535f2dcf0884da, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -21063,6 +21115,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_01 (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7762398154056494862, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_RootOrder
       value: 88
@@ -21140,6 +21196,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -22096,6 +22156,10 @@ PrefabInstance:
     - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_05 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2944971462940339796, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_RootOrder
@@ -25004,6 +25068,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
       value: 93
@@ -26691,6 +26759,10 @@ PrefabInstance:
     - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_05 (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2944971462940339796, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_RootOrder
@@ -29718,6 +29790,10 @@ PrefabInstance:
     - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_01 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7762398154056494862, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_RootOrder
@@ -32802,6 +32878,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_06 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 2435297151220180101, guid: e582d0f399d34854aaffd8b731628775, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3062510932800290367, guid: e582d0f399d34854aaffd8b731628775, type: 3}
       propertyPath: m_RootOrder
       value: 81
@@ -34267,6 +34347,10 @@ PrefabInstance:
     - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (31)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
@@ -37065,6 +37149,10 @@ PrefabInstance:
     - target: {fileID: 2580852319986054229, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_03 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2580852319986054229, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2925887501777415919, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
       propertyPath: m_RootOrder
@@ -40512,6 +40600,10 @@ PrefabInstance:
     - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
@@ -49651,6 +49743,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -52173,6 +52269,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (57)
       objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
       value: 170
@@ -52250,6 +52350,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -55093,6 +55197,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01
       objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
       value: 29
@@ -56516,6 +56624,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -59924,6 +60036,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
       value: 21
@@ -60243,6 +60359,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (52)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -61698,6 +61818,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (39)
       objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
       value: 151
@@ -62592,6 +62716,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
       value: 27
@@ -63445,6 +63573,10 @@ PrefabInstance:
     - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
@@ -65588,6 +65720,10 @@ PrefabInstance:
     - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_05 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2944971462940339796, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_RootOrder
@@ -68701,6 +68837,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_05 (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2944971462940339796, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_RootOrder
       value: 78
@@ -69428,6 +69568,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_02
       objectReference: {fileID: 0}
+    - target: {fileID: 407676489873815429, guid: a8592c840f6e14d439d894085f765397, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1072854204860902719, guid: a8592c840f6e14d439d894085f765397, type: 3}
       propertyPath: m_RootOrder
       value: 55
@@ -70068,6 +70212,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (45)
       objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
       value: 157
@@ -70438,6 +70586,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -70593,6 +70745,10 @@ PrefabInstance:
     - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
@@ -70983,6 +71139,10 @@ PrefabInstance:
     - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7762398154056494862, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_RootOrder
@@ -72781,6 +72941,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_02
       objectReference: {fileID: 0}
+    - target: {fileID: 407676489873815429, guid: a8592c840f6e14d439d894085f765397, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1072854204860902719, guid: a8592c840f6e14d439d894085f765397, type: 3}
       propertyPath: m_RootOrder
       value: 52
@@ -73174,6 +73338,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -75068,6 +75236,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (35)
       objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
       value: 145
@@ -75937,6 +76109,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (42)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -77041,6 +77217,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Oar_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4855465986667352296, guid: 1854ad4f47313f04d975f3d21ab2f114, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5199903000058710610, guid: 1854ad4f47313f04d975f3d21ab2f114, type: 3}
       propertyPath: m_RootOrder
       value: 21
@@ -77614,6 +77794,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (49)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -80052,6 +80236,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -83852,6 +84040,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_01 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7762398154056494862, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_RootOrder
       value: 37
@@ -87234,6 +87426,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (44)
       objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
       value: 156
@@ -87311,6 +87507,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -87615,6 +87815,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (43)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -91524,6 +91728,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Pine_02
       objectReference: {fileID: 0}
+    - target: {fileID: 7456868699675954396, guid: 0585e61d38f41a04da13822d2106bd11, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7797928047215793766, guid: 0585e61d38f41a04da13822d2106bd11, type: 3}
       propertyPath: m_RootOrder
       value: 43
@@ -91683,6 +91891,10 @@ PrefabInstance:
     - target: {fileID: 407676489873815429, guid: a8592c840f6e14d439d894085f765397, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 407676489873815429, guid: a8592c840f6e14d439d894085f765397, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1072854204860902719, guid: a8592c840f6e14d439d894085f765397, type: 3}
       propertyPath: m_RootOrder
@@ -97032,6 +97244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
       value: 52
@@ -97979,6 +98195,10 @@ PrefabInstance:
     - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
@@ -99145,6 +99365,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_05 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2944971462940339796, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_RootOrder
       value: 28
@@ -99540,7 +99764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &960440452
 AudioListener:
   m_ObjectHideFlags: 0
@@ -102144,6 +102368,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01
       objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -103166,6 +103394,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_01 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7762398154056494862, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_RootOrder
       value: 50
@@ -103699,6 +103931,10 @@ PrefabInstance:
     - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
@@ -104945,6 +105181,10 @@ PrefabInstance:
     - target: {fileID: 5339810787366532089, guid: 005669bdde6220c42b535f2dcf0884da, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_05 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339810787366532089, guid: 005669bdde6220c42b535f2dcf0884da, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5844033969551069740, guid: 005669bdde6220c42b535f2dcf0884da, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -107181,6 +107421,10 @@ PrefabInstance:
     - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7762398154056494862, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_RootOrder
@@ -111860,6 +112104,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01
       objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
       value: 137
@@ -111941,6 +112189,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (38)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -113731,6 +113983,10 @@ PrefabInstance:
     - target: {fileID: 2435297151220180101, guid: e582d0f399d34854aaffd8b731628775, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_06 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435297151220180101, guid: e582d0f399d34854aaffd8b731628775, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3062510932800290367, guid: e582d0f399d34854aaffd8b731628775, type: 3}
       propertyPath: m_RootOrder
@@ -116091,6 +116347,10 @@ PrefabInstance:
     - target: {fileID: 5339810787366532089, guid: 005669bdde6220c42b535f2dcf0884da, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339810787366532089, guid: 005669bdde6220c42b535f2dcf0884da, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5844033969551069740, guid: 005669bdde6220c42b535f2dcf0884da, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -118543,6 +118803,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Jetty_01 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 9014903474380808421, guid: fde05243df28eae43b89f72a275413bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -119847,6 +120111,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (48)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -122504,6 +122772,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
       value: 51
@@ -123559,6 +123831,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Jetty_01 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 9014903474380808421, guid: fde05243df28eae43b89f72a275413bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -123658,6 +123934,10 @@ PrefabInstance:
     - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_01 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7762398154056494862, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_RootOrder
@@ -124750,7 +125030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1206716405
 Transform:
   m_ObjectHideFlags: 0
@@ -125349,6 +125629,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_06
       objectReference: {fileID: 0}
+    - target: {fileID: 2435297151220180101, guid: e582d0f399d34854aaffd8b731628775, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3062510932800290367, guid: e582d0f399d34854aaffd8b731628775, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -125878,6 +126162,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -131178,7 +131466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1326529228127729992, guid: 49762ed1f23ece342a2b671c0148dd1c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1811317737113887730, guid: 49762ed1f23ece342a2b671c0148dd1c, type: 3}
       propertyPath: m_RootOrder
@@ -132961,6 +133249,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_03 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 2580852319986054229, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2925887501777415919, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
       propertyPath: m_RootOrder
       value: 68
@@ -134106,6 +134398,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_03 (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 2580852319986054229, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2925887501777415919, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
       propertyPath: m_RootOrder
       value: 90
@@ -134249,6 +134545,10 @@ PrefabInstance:
     - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_01 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7762398154056494862, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_RootOrder
@@ -134650,6 +134950,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (62)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -135828,6 +136132,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -136681,6 +136989,10 @@ PrefabInstance:
     - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_05 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2944971462940339796, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_RootOrder
@@ -137728,6 +138040,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
       value: 79
@@ -138015,6 +138331,10 @@ PrefabInstance:
     - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
@@ -139099,6 +139419,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (36)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -140687,6 +141011,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (41)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -143117,6 +143445,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (40)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -147025,6 +147357,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
       value: 99
@@ -147168,6 +147504,10 @@ PrefabInstance:
     - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2944971462940339796, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_RootOrder
@@ -147964,6 +148304,10 @@ PrefabInstance:
     - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_05 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2944971462940339796, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_RootOrder
@@ -149107,6 +149451,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
       value: 63
@@ -149250,6 +149598,10 @@ PrefabInstance:
     - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
@@ -150019,6 +150371,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
       value: 46
@@ -150685,6 +151041,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_05 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2944971462940339796, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_RootOrder
       value: 59
@@ -151222,6 +151582,10 @@ PrefabInstance:
     - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
@@ -155213,6 +155577,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
       value: 92
@@ -155278,6 +155646,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -156055,6 +156427,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
       value: 75
@@ -156526,6 +156902,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -157849,6 +158229,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_06 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2435297151220180101, guid: e582d0f399d34854aaffd8b731628775, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3062510932800290367, guid: e582d0f399d34854aaffd8b731628775, type: 3}
       propertyPath: m_RootOrder
       value: 40
@@ -158360,6 +158744,10 @@ PrefabInstance:
     - target: {fileID: 5339810787366532089, guid: 005669bdde6220c42b535f2dcf0884da, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_05 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339810787366532089, guid: 005669bdde6220c42b535f2dcf0884da, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5844033969551069740, guid: 005669bdde6220c42b535f2dcf0884da, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -160126,6 +160514,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_02
       objectReference: {fileID: 0}
+    - target: {fileID: 407676489873815429, guid: a8592c840f6e14d439d894085f765397, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1072854204860902719, guid: a8592c840f6e14d439d894085f765397, type: 3}
       propertyPath: m_RootOrder
       value: 51
@@ -160829,6 +161221,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
       value: 57
@@ -161502,6 +161898,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -163181,6 +163581,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_01 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7762398154056494862, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_RootOrder
       value: 95
@@ -164441,6 +164845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
       value: 94
@@ -165663,6 +166071,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -167022,6 +167434,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -168422,6 +168838,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_05 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5339810787366532089, guid: 005669bdde6220c42b535f2dcf0884da, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5844033969551069740, guid: 005669bdde6220c42b535f2dcf0884da, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -169202,6 +169622,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (46)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -172191,6 +172615,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Canoe_01
       objectReference: {fileID: 0}
+    - target: {fileID: 6950411851589338073, guid: e6845302cbdbc5640b9e3c7426078b8d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7727898155082422627, guid: e6845302cbdbc5640b9e3c7426078b8d, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -174233,6 +174661,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_06 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 2435297151220180101, guid: e582d0f399d34854aaffd8b731628775, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3062510932800290367, guid: e582d0f399d34854aaffd8b731628775, type: 3}
       propertyPath: m_RootOrder
       value: 73
@@ -176233,6 +176665,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (47)
       objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
       value: 159
@@ -177172,6 +177608,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -178332,7 +178772,7 @@ Transform:
   m_GameObject: {fileID: 1797579903}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 142, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -179614,6 +180054,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_02
       objectReference: {fileID: 0}
+    - target: {fileID: 407676489873815429, guid: a8592c840f6e14d439d894085f765397, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1072854204860902719, guid: a8592c840f6e14d439d894085f765397, type: 3}
       propertyPath: m_RootOrder
       value: 56
@@ -180618,6 +181062,10 @@ PrefabInstance:
     - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_01 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7762398154056494862, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_RootOrder
@@ -182343,6 +182791,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
       value: 60
@@ -183833,6 +184285,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -185795,6 +186251,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (58)
       objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
       value: 171
@@ -186644,6 +187104,10 @@ PrefabInstance:
     - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_01 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7762398154056494862, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_RootOrder
@@ -188426,6 +188890,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_06 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 2435297151220180101, guid: e582d0f399d34854aaffd8b731628775, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3062510932800290367, guid: e582d0f399d34854aaffd8b731628775, type: 3}
       propertyPath: m_RootOrder
       value: 66
@@ -189045,6 +189513,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01 (63)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -191870,6 +192342,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
       value: 83
@@ -193027,6 +193503,10 @@ PrefabInstance:
     - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (29)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
@@ -195323,6 +195803,10 @@ PrefabInstance:
     - target: {fileID: 2580852319986054229, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_03 (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2580852319986054229, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2925887501777415919, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
       propertyPath: m_RootOrder
@@ -200485,6 +200969,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_05 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2564082409759372526, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2944971462940339796, guid: 71e73fce454799542b64aff85c826dfc, type: 3}
       propertyPath: m_RootOrder
       value: 38
@@ -203054,6 +203542,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -206857,6 +207349,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01
       objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -207078,6 +207574,10 @@ PrefabInstance:
     - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_01 (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6985719991926470068, guid: ec008b58c74a24a419027ef91168b135, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7762398154056494862, guid: ec008b58c74a24a419027ef91168b135, type: 3}
       propertyPath: m_RootOrder
@@ -207452,6 +207952,10 @@ PrefabInstance:
     - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_Cliff_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246661524465380592, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735248634936014410, guid: 9ae9bd8f1f8017a45800a9d29abe39c7, type: 3}
       propertyPath: m_RootOrder
@@ -208080,6 +208584,10 @@ PrefabInstance:
     - target: {fileID: 2580852319986054229, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_03 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2580852319986054229, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2925887501777415919, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
       propertyPath: m_RootOrder
@@ -209941,6 +210449,10 @@ PrefabInstance:
     - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder
@@ -212655,6 +213167,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_03
       objectReference: {fileID: 0}
+    - target: {fileID: 2580852319986054229, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2925887501777415919, guid: 77e4586f54992274f8970ed4c6743d95, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -212715,6 +213231,10 @@ PrefabInstance:
     - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082529612211784142, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8890450324494865268, guid: 914c6c12cb6c5094589af4ace5251bcc, type: 3}
       propertyPath: m_RootOrder
@@ -212922,6 +213442,10 @@ PrefabInstance:
     - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ice_Sheet_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584083669564502211, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8965288282781903481, guid: ed8d31ee7e1b07248afa6e65471de2eb, type: 3}
       propertyPath: m_RootOrder

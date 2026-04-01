@@ -1,5 +1,11 @@
 
-public interface IGameSystem
+public interface IGameSystem : 
+    IBelongToApp,
+    ICanSetApp,
+    ICanGetSystem,
+    ICanGetModel,
+    ICanSendCommand,
+    ICanGetEvent
 {
-    void Initialize(GameApp app);
+    void Initialize();
 }

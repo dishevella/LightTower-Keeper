@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Sides:
-        m_Texture: {fileID: 2800000, guid: 1dfa88b5ade2b814b856b1626e12f310, type: 3}
+        m_Texture: {fileID: 2800000, guid: 98a9f77fb6304fb448296c812deff4f9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SidesEmissive:
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Top:
-        m_Texture: {fileID: 2800000, guid: 1d0b4cd34f364f64db07922fd022cfc9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8dc14c2e07b67e941a8fef904e1e888e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TopEmissive:
@@ -93,3 +93,4 @@ Material:
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

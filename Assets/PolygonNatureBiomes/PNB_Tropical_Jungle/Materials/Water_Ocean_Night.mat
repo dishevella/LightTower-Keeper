@@ -105,6 +105,7 @@ Material:
     - _Distortion_Speed: 0.2
     - _Distortion_Strength: 0.06
     - _DstBlend: 10
+    - _DstBlendAlpha: 0
     - _EdgePower: 0
     - _Enable_Animation: 1
     - _Enable_Caustics: 1
@@ -183,6 +184,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
+    - _SrcBlendAlpha: 1
     - _Surface: 1
     - _UVSec: 0
     - _UseVoronoiNoiseForCaustics: 0
@@ -223,7 +225,7 @@ Material:
     - _Scrolling_Texture_Direction: {r: 0, g: -0.01, b: 0, a: 0}
     - _Scrolling_Texture_Tiling: {r: 40, g: 40, b: 0, a: 0}
     - _Scrolling_Texture_Tint: {r: 0.37121746, g: 0.7245609, b: 0.8113207, a: 0}
-    - _Shallow_Color: {r: 0.9309737, g: 0.5058824, b: 1, a: 1}
+    - _Shallow_Color: {r: 0.28627452, g: 0.43921572, b: 0.4039216, a: 1}
     - _Shore_Foam_Color_Tint: {r: 0.69411767, g: 0.96470594, b: 1, a: 1}
     - _Shore_Foam_Noise_Scale: {r: 1, g: 1, b: 0, a: 0}
     - _Shore_Glow_Color: {r: 1, g: 1, b: 1, a: 0}

@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
 
-public class FinishBoatIntroCommand : IGameCommand
+public class FinishBoatIntroCommand : CommandAbstract
 {
-    public void Execute(GameApp app)
+    protected  override void OnExecute()
     {
-     app.GetSystem<GameFlowSystem>().OnBoatIntroFinished();
+        
+            this.GetSystem<GameFlowSystem>().EnterPhase(StoryPhase.Day0_Forest);
+        
     }
 }

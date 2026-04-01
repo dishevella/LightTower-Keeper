@@ -1,4 +1,4 @@
-public interface IGameModel
+public interface IGameModel : IBelongToApp,ICanSetApp,ICanGetEvent
 {
-
+    void Initialize();
 }

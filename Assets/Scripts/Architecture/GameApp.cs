@@ -1,21 +1,37 @@
 using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 
 
-public sealed class GameApp // sealed means can not be inherited anymore
+public sealed class GameApp : IApp// sealed means can not be inherited anymore
 {
-    private static readonly GameApp instance = new GameApp(); // readonly means you only can give it a value when you define it or in the constructor function
-    public static GameApp Instance => instance;
+    private static GameApp instance; // readonly means you only can give it a value when you define it or in the constructor function
+
     private readonly Dictionary<Type, IGameSystem> systems = new();
     private readonly Dictionary<Type, IGameModel> models = new();
-    public EventBus Events { get; }
-    public CommandDispatcher Commands { get; }
+
+    private readonly List<IGameModel> pendingModels = new();
+    private readonly List<IGameSystem> pendingSystems = new();
+    public ITypeEventSystem Events { get; }
+   
 
     private bool initialized;
     private GameApp()
     {
-        Events = new EventBus();
-        Commands = new CommandDispatcher(this);
+        Events = new TypeEventSystem();
+        
+    }
+    public static IApp Interface
+    { 
+        get
+        {
+            if(instance == null)
+            {
+                instance = new GameApp();
+                instance.Initialize();
+            }
+            return instance;
+        }
     }
     public void Initialize()
     {
@@ -26,20 +42,44 @@ public sealed class GameApp // sealed means can not be inherited anymore
         RegisterSystem(new TaskSystem());
         RegisterSystem(new TimeSystem());
         RegisterSystem(new GameFlowSystem());
-
-        foreach (var system in systems.Values)
-        {
-            system.Initialize(this);
+        foreach(var model in pendingModels)
+        {  
+            model.Initialize();
         }
-        initialized = true;
+        pendingModels.Clear();
+        foreach (var system in pendingSystems)
+        {
+            system.Initialize();
+        }
+        pendingSystems.Clear();
     }
+
+   
     public void RegisterSystem<T>(T system) where T : class, IGameSystem
     {
+        system.SetApp(this);
         systems[typeof(T)] = system;
+        if(initialized)
+        {
+            system.Initialize();
+        }
+        else
+        {
+            pendingSystems.Add(system);
+        }
     }
     public void RegisterModel<T>(T model) where T : class, IGameModel
     {
+        model.SetApp(this);
         models[typeof(T)] = model;
+        if(initialized)
+        {
+            model.Initialize();
+        }
+        else
+        {
+            pendingModels.Add(model);
+        }
     }
     public T GetSystem<T>() where T : class, IGameSystem
     {
@@ -56,5 +96,16 @@ public sealed class GameApp // sealed means can not be inherited anymore
             return model as T;
         }
         return null;
+    }
+    public void SendCommand<T>() where T :class, IGameCommand, new()
+    {
+        var command = new T();
+        ((ICanSetApp)command).SetApp(this);
+        command.Execute();
+    }
+    public void SendCommand<T>(T command) where T :class, IGameCommand
+    {
+        ((ICanSetApp)command).SetApp(this);
+        command.Execute();
     }
 }

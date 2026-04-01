@@ -1,66 +1,53 @@
 using System.Globalization;
 using UnityEngine;
 
-public class GameFlowSystem : IGameSystem
+public class GameFlowSystem : SystemAbstract
 {
-    private GameApp app;
-    private TaskSystem taskSystem;
-    public StoryPhase CurrentPhase { get; private set; } = StoryPhase.None;
+    
+    private GameStateModel gameState;
 
-    public void Initialize(GameApp app)
+    protected override void OnInit()
     {
-        this.app = app;
-        taskSystem = app.GetSystem<TaskSystem>();
+        gameState = this.GetModel<GameStateModel>();
     }
     public void StartGame()
     {
         EnterPhase(StoryPhase.Day0_BoatIntro);
     }
-    public void EnterPhase(StoryPhase phase)
+    public void EnterPhase(StoryPhase newphase)
     {
-        if (CurrentPhase == phase) return;
-        CurrentPhase = phase;
-        app.Events.Publish(new StoryPhaseChangedEvent
-        {
-            Phase = phase
-        });
+        if (gameState == null) return;
+        if (gameState.CurrentPhase.Value == newphase) return;
+        var oldphase = gameState.CurrentPhase.Value;
+        gameState.CurrentPhase.Value = newphase;
+        this.GetEvent().Send(new StoryPhaseChangedEvent(oldphase, newphase));
 
-        switch (phase)
+        switch (newphase)
         {
             case StoryPhase.Day0_BoatIntro:
-                app.Events.Publish(new BoatIntroStartedEvent());
+                this.GetEvent().Send(new BoatIntroStartedEvent());
                 break;
 
-            case StoryPhase.Day0_BeachPath:
-                taskSystem.SetTask(
-                   "goto_lighthouse","go to the lighthouse","walk along the path, finding the lighthouse"
-                );
+            case StoryPhase.Day0_Forest:
+                this.GetEvent().Send(new ForestPathStartedEvent());
                 break;
 
-            case StoryPhase.Day0_GoSleep:
-                taskSystem.SetTask(
-                    "TASK_SLEEP",
-                    "Go to Bed",
-                    "Sleep to begin the next day."
-                );
+            case StoryPhase.Day0_ApproachLighthouse:
+                this.GetEvent().Send(new ApproachLighthouseStartedEvent());
+                break;
+
+            case StoryPhase.Day0_CheckIn:
+                this.GetEvent().Send(new CheckInStartedEvent());
+                break;
+
+            case StoryPhase.Day0_Rest:
+                this.GetEvent().Send(new RestStartedEvent());
                 break;
 
             case StoryPhase.Day1_Start:
-                EnterPhase(StoryPhase.Day1_InspectInside);
-                break;
-
-            case StoryPhase.Day1_InspectInside:
-                taskSystem.SetTask(
-                    "TASK_DAY1_INSPECT",
-                    "Inspect the Lighthouse",
-                    "Check the interior of the lighthouse."
-                );
+                this.GetEvent().Send(new Day1StartedEvent());
                 break;
         }
-    }
-    public void OnBoatIntroFinished()
-    {
-        EnterPhase(StoryPhase.Day0_BeachPath);
     }
   
 }

@@ -105,6 +105,7 @@ Material:
     - _Distortion_Speed: 0.2
     - _Distortion_Strength: 0.06
     - _DstBlend: 10
+    - _DstBlendAlpha: 0
     - _EdgePower: 0
     - _Enable_Animation: 1
     - _Enable_Caustics: 1
@@ -183,6 +184,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
+    - _SrcBlendAlpha: 1
     - _Surface: 1
     - _UVSec: 0
     - _UseVoronoiNoiseForCaustics: 0

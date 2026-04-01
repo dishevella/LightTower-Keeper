@@ -1,4 +1,10 @@
-public interface IGameCommand
+public interface IGameCommand: 
+    IBelongToApp, 
+    ICanSetApp,
+    ICanGetSystem,
+    ICanGetModel,
+    ICanSendCommand
+    
 {
-    void Execute(GameApp app);
+    void Execute();
 }
