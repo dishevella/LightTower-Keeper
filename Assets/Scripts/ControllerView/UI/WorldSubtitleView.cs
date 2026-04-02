@@ -169,7 +169,7 @@ public class WorldSubtitleView : MonoBehaviour
         canvasGroup.alpha = 0f;
 
         OnFinished?.Invoke();
-
+        OnFinished = null;
         playRoutine = null;
 
         

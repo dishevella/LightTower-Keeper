@@ -96,7 +96,7 @@ public class ForestSubtitleTriggerController : ControllerAbstract
                     step.view.OnFinished += HandleLastSubtitleFinished;
                 }
                 step.view.Play();
-                step.view.OnFinished -= HandleLastSubtitleFinished;
+                //step.view.OnFinished -= HandleLastSubtitleFinished;
                 Debug.Log($"Forest subtitle triggered: {i} at {step.triggerPoint.name}");
             }
         }
