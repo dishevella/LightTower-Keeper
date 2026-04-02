@@ -3,7 +3,8 @@ public interface IGameCommand:
     ICanSetApp,
     ICanGetSystem,
     ICanGetModel,
-    ICanSendCommand
+    ICanSendCommand,
+    ICanGetEvent
     
 {
     void Execute();

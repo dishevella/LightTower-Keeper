@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -8,6 +6,7 @@ public class PlayerController : MonoBehaviour
     [Header("Reference")]
     [SerializeField] private Transform cameraRoot;
     [SerializeField] private Camera playerCamera;
+    [SerializeField] private Animator playerAnimator;
 
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 3.5f;
@@ -48,19 +47,70 @@ public class PlayerController : MonoBehaviour
     public bool CanCrouch = true;
     public bool CanJump = true;
 
+    [Header("Animation Driving")]
+    [SerializeField] private bool driveLocomotionAnimation = true;
+    [SerializeField] private float animationCrossFade = 0.08f;
+    [SerializeField] private float landStateHoldTime = 0.12f;
+    [SerializeField] private float jumpStartHoldTime = 0.12f;
+
+    [Header("Landing Detection")]
+    [SerializeField] private float minAirTimeForLand = 0.12f;
+    [SerializeField] private float minFallSpeedForLand = -4f;
+    [Header("Animation Grounding Grace")]
+    [SerializeField] private float fallAnimationMinAirTime = 0.18f;
+    [SerializeField] private float fallAnimationMinSpeed = -3.5f;
+
+    [Header("Animation State Names")]
+    [SerializeField] private string idleStandingState = "A_Idle_Standing_Masc";
+    [SerializeField] private string idleCrouchingState = "A_Idle_Crouching_Masc";
+    [SerializeField] private string crouchWalkState = "A_Crouch_FwdStrafeF_Masc";
+
+    [SerializeField] private string walkForwardState = "A_Walk_F_Masc";
+    
+    [SerializeField] private string runForwardState = "A_Run_F_Masc";
+    
+    [SerializeField] private string jumpIdleState = "A_Jump_Idle_Masc";
+    [SerializeField] private string jumpWalkingState = "A_Jump_Walking_Masc";
+    [SerializeField] private string jumpRunningState = "A_Jump_Running_Masc";
+
+    [SerializeField] private string inAirFallShortState = "A_InAir_FallShort_Masc";
+
+    [SerializeField] private string landIdleSoftState = "A_Land_IdleSoft_Masc";
+    [SerializeField] private string landWalkingState = "A_Land_Walking_Masc";
+    [SerializeField] private string landRunningState = "A_Land_Running_Masc";
+
     private CharacterController controller;
 
     private float pitch;
     private float verticalVelocity;
 
-    //the state specifically belong to playercontroller and it only can be read outside and only can be modity inside
+
+    private float lastAirborneVerticalVelocity;
+    private float timeSinceGrounded;
+    private bool animationGrounded;
+
+    private float jumpStartTimer;
+
     public bool isGrounded { get; private set; }
     public bool isRunning { get; private set; }
     public bool isCrouching { get; private set; }
     public bool isJumping { get; private set; }
 
+    public Transform CameraRootTransform => cameraRoot;
+
     private float currentSpeed;
-    private Vector3 moveDierection;
+    private Vector3 moveDirection;
+
+    private float rawInputX;
+    private float rawInputZ;
+    private bool hasMoveInput;
+
+    private bool wasGroundedLastFrame;
+    private bool lastGroundHadMoveInput;
+    private bool lastGroundWasRunning;
+    private float landStateTimer;
+
+    private string currentAnimationState;
 
     private void Awake()
     {
@@ -74,13 +124,17 @@ public class PlayerController : MonoBehaviour
             camLocalPos.y = standingCameraY;
             cameraRoot.localPosition = camLocalPos;
         }
-        if(playerCamera != null)
+
+        if (playerCamera != null)
         {
             playerCamera.fieldOfView = normalFOV;
         }
+
+       
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
+
     private void Update()
     {
         UpdateGroundedState();
@@ -90,50 +144,114 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         ApplyGravity();
         ApplyFOV();
+        UpdateAnimationState();
+
+        wasGroundedLastFrame = isGrounded;
+
+        if (isGrounded)
+        {
+            lastGroundHadMoveInput = hasMoveInput;
+            lastGroundWasRunning = isRunning;
+        }
     }
+
     private void UpdateGroundedState()
     {
+        bool wasGrounded = isGrounded;
+
         isGrounded = controller.isGrounded;
+
+        if (isGrounded)
+        {
+            timeSinceGrounded = 0f;
+        }
+        else
+        {
+            timeSinceGrounded += Time.deltaTime;
+        }
+
+        
+        bool allowAirAnimation =
+            timeSinceGrounded >= fallAnimationMinAirTime &&
+            verticalVelocity <= fallAnimationMinSpeed;
+
+        
+        animationGrounded = isGrounded || !allowAirAnimation;
+
+        if (!wasGrounded && isGrounded)
+        {
+            bool shouldPlayLand =
+                timeSinceGrounded >= minAirTimeForLand ||
+                lastAirborneVerticalVelocity <= minFallSpeedForLand;
+
+            if (shouldPlayLand)
+            {
+                landStateTimer = landStateHoldTime;
+            }
+
+            lastAirborneVerticalVelocity = 0f;
+        }
+
+        if (!isGrounded)
+        {
+            lastAirborneVerticalVelocity = verticalVelocity;
+        }
+
         if (isGrounded && verticalVelocity < 0f)
         {
             verticalVelocity = groundStickForce;
         }
     }
+
+
     private void HandleLook()
     {
         if (!CanLook) return;
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-
+        Debug.Log($"mouseX={mouseX}, mouseY={mouseY}");
         pitch -= mouseY;
-        pitch = Mathf.Clamp(pitch, minPitch, maxPitch); //clamp means: clamp(x,a,b) ifx<a, then remains a, same with the other side
+        pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
         if (cameraRoot != null)
         {
-            cameraRoot.localRotation = Quaternion.Euler(pitch, 0f, 0f);//player object control the yaw, and apply the pitch to the camera which controls the up and down
+            cameraRoot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
         }
-        transform.Rotate(Vector3.up * mouseX); //equal to (0, mouseX,0), rotate by Y
+
+        transform.Rotate(Vector3.up * mouseX);
     }
-    void HandleMovement()
+
+    private void HandleMovement()
     {
         if (!CanMove)
         {
-            moveDierection = Vector3.zero;
+            rawInputX = 0f;
+            rawInputZ = 0f;
+            hasMoveInput = false;
+            moveDirection = Vector3.zero;
             currentSpeed = 0f;
             isRunning = false;
+
+            Vector3 lockedMove = Vector3.zero;
+            lockedMove.y = verticalVelocity;
+            controller.Move(lockedMove * Time.deltaTime);
             return;
         }
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputZ = Input.GetAxisRaw("Vertical");//raw means 0,1 or -1. it turns immediately not like turning smoothly
-        //forward means the front side of the character
-        Vector3 inputDirection = (transform.right * inputX + transform.forward * inputZ).normalized; // normalize means unitlize, transverting every digit to 1 and not changing the directions
 
-        bool hasMoveInput = inputDirection.sqrMagnitude > 0.01f;// length of vector square, which is to determine if there's a direction
+        rawInputX = Input.GetAxisRaw("Horizontal");
+        rawInputZ = Input.GetAxisRaw("Vertical");
+
+        Vector3 inputDirection = (transform.right * rawInputX + transform.forward * rawInputZ).normalized;
+        hasMoveInput = inputDirection.sqrMagnitude > 0.01f;
+
         bool wantsToRun = Input.GetKey(runKey);
 
-        isRunning = hasMoveInput && wantsToRun && CanRun && !isCrouching;
+        
+        bool forwardRunAllowed = rawInputZ > 0.1f;
+        isRunning = hasMoveInput && wantsToRun && CanRun && !isCrouching && forwardRunAllowed;
 
-        if(isCrouching)
+        if (isCrouching)
         {
             currentSpeed = crouchSpeed;
         }
@@ -141,26 +259,33 @@ public class PlayerController : MonoBehaviour
         {
             currentSpeed = isRunning ? runSpeed : walkSpeed;
         }
-        moveDierection = inputDirection * currentSpeed;
-        Vector3 finalMove = moveDierection;
+
+        moveDirection = inputDirection * currentSpeed;
+
+        Vector3 finalMove = moveDirection;
         finalMove.y = verticalVelocity;
         controller.Move(finalMove * Time.deltaTime);
     }
+   
     private void ApplyGravity()
     {
         verticalVelocity += gravity * Time.deltaTime;
     }
+
     private void HandleCrouch()
     {
         if (!CanCrouch) return;
-        if(Input.GetKeyDown(crouchKey))
+
+        if (Input.GetKeyDown(crouchKey))
         {
-            isCrouching = !isCrouching; // invert the bool
+            isCrouching = !isCrouching;
         }
+
         float targetHeight = isCrouching ? crouchHeight : standingHeight;
-        float newHeight = Mathf.Lerp(controller.height, targetHeight, crouchTransitionSpeed* Time.deltaTime);
+        float newHeight = Mathf.Lerp(controller.height, targetHeight, crouchTransitionSpeed * Time.deltaTime);
         controller.height = newHeight;
         controller.center = new Vector3(0f, controller.height / 2f, 0f);
+
         if (cameraRoot != null)
         {
             float targetCameraY = isCrouching ? crouchCameraY : standingCameraY;
@@ -169,29 +294,110 @@ public class PlayerController : MonoBehaviour
             cameraRoot.localPosition = camLocalPos;
         }
     }
+
     private void HandleJump()
     {
         if (!CanJump) return;
-        if(isGrounded)
+
+        if (isGrounded)
         {
             isJumping = false;
         }
-        if(isGrounded&&Input.GetKeyDown(jumpKey))
+
+        if (isGrounded && Input.GetKeyDown(jumpKey))
         {
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
             isJumping = true;
+            jumpStartTimer = jumpStartHoldTime;
         }
     }
+   
     private void ApplyFOV()
     {
         if (playerCamera == null) return;
+
         float targetFOV = isRunning ? runFOV : normalFOV;
         playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, fovSmoothSpeed * Time.deltaTime);
     }
-   public void SetCanMove(bool value)
+
+    private void UpdateAnimationState()
+    {
+
+        if (!driveLocomotionAnimation || playerAnimator == null) return;
+
+        string targetState = GetTargetAnimationState();
+
+        if (string.IsNullOrEmpty(targetState)) return;
+        if (currentAnimationState == targetState) return;
+
+        playerAnimator.CrossFadeInFixedTime(targetState, animationCrossFade);
+        currentAnimationState = targetState;
+    }
+
+    private string GetTargetAnimationState()
+    {
+        if (!animationGrounded)
+        {
+            if (jumpStartTimer > 0f)
+            {
+                jumpStartTimer -= Time.deltaTime;
+                return jumpIdleState;
+            }
+
+            if (verticalVelocity > 0.1f)
+            {
+                if (isRunning) return jumpRunningState;
+                if (hasMoveInput) return jumpWalkingState;
+                return jumpIdleState;
+            }
+
+            return inAirFallShortState;
+        }
+        if (landStateTimer > 0f)
+        {
+            landStateTimer -= Time.deltaTime;
+
+            if (lastGroundWasRunning) return landRunningState;
+            if (lastGroundHadMoveInput) return landWalkingState;
+            return landIdleSoftState;
+        }
+
+        if (!animationGrounded)
+        {
+            if (verticalVelocity > 0.1f)
+            {
+                if (isRunning) return jumpRunningState;
+                if (hasMoveInput) return jumpWalkingState;
+                return jumpIdleState;
+            }
+
+            return inAirFallShortState;
+        }
+
+        if (isCrouching)
+        {
+            if (hasMoveInput) return crouchWalkState;
+            return idleCrouchingState;
+        }
+
+        if (!hasMoveInput)
+        {
+            return idleStandingState;
+        }
+
+        if (isRunning)
+        {
+            return runForwardState;
+        }
+
+        return walkForwardState;
+    }
+
+    public void SetCanMove(bool value)
     {
         CanMove = value;
     }
+
     public void SetCanLook(bool value)
     {
         CanLook = value;
@@ -206,17 +412,54 @@ public class PlayerController : MonoBehaviour
     {
         CanCrouch = value;
     }
+
     public void SetCanJump(bool value)
     {
         CanJump = value;
     }
+
     public void ForceStandUp()
     {
         isCrouching = false;
-    }    
+    }
+
     public void SetCursorLocked(bool locked)
     {
         Cursor.lockState = locked ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = !locked;
     }
-} 
+
+    public void SetAnimationDriving(bool value)
+    {
+        driveLocomotionAnimation = value;
+
+        if (!value)
+        {
+            currentAnimationState = string.Empty;
+        }
+    }
+
+    public void PlayExternalAnimationState(string stateName, float crossFade = 0.08f)
+    {
+        if (playerAnimator == null || string.IsNullOrEmpty(stateName)) return;
+
+        playerAnimator.CrossFadeInFixedTime(stateName, crossFade);
+        currentAnimationState = stateName;
+    }
+    public void ClearMotionForCutscene()
+    {
+        rawInputX = 0f;
+        rawInputZ = 0f;
+        hasMoveInput = false;
+
+        moveDirection = Vector3.zero;
+        currentSpeed = 0f;
+
+        isRunning = false;
+        isJumping = false;
+
+        verticalVelocity = controller != null && controller.isGrounded
+            ? groundStickForce
+            : 0f;
+    }
+}

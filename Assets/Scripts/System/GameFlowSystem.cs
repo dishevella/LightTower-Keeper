@@ -47,6 +47,22 @@ public class GameFlowSystem : SystemAbstract
             case StoryPhase.Day1_Start:
                 this.GetEvent().Send(new Day1StartedEvent());
                 break;
+
+            case StoryPhase.Day1_GoDock:
+                this.GetEvent().Send(new Day1GoDockStartedEvent());
+                break;
+
+            case StoryPhase.Day1_ReturnRoute:
+                this.GetEvent().Send(new Day1ReturnRouteStartedEvent());
+                break;
+
+            case StoryPhase.Day1_NightDuty:
+                this.GetEvent().Send(new Day1NightDutyStartedEvent());
+                break;
+
+            case StoryPhase.Day1_Complete:
+                this.GetEvent().Send(new Day1CompletedEvent());
+                break;
         }
     }
   

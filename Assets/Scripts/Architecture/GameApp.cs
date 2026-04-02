@@ -38,6 +38,8 @@ public sealed class GameApp : IApp// sealed means can not be inherited anymore
         if (initialized) return;
         RegisterModel(new GameStateModel());
         RegisterModel(new TaskModel());
+        RegisterModel(new ToolInventoryModel());
+        RegisterModel(new LighthouseDutyModel());
 
         RegisterSystem(new TaskSystem());
         RegisterSystem(new TimeSystem());

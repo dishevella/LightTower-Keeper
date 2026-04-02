@@ -1,0 +1,207 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RightHandMask
+  m_Mask: 00000000000000000000000000000000000000000000000001000000000000000100000000000000000000000000000000000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Chr_Adventure_Peasant_01
+    m_Weight: 1
+  - m_Path: Chr_Adventure_ShopKeeper_01
+    m_Weight: 1
+  - m_Path: Chr_Adventure_Viking_01
+    m_Weight: 1
+  - m_Path: Chr_Adventure_Warrior_01
+    m_Weight: 1
+  - m_Path: Chr_Dungeon_GoblinChief_01
+    m_Weight: 1
+  - m_Path: Chr_Dungeon_GoblinFemale_01
+    m_Weight: 1
+  - m_Path: Chr_Dungeon_GoblinMale_01
+    m_Weight: 1
+  - m_Path: Chr_Dungeon_GoblinShaman_01
+    m_Weight: 1
+  - m_Path: Chr_Dungeon_GoblinWarriorFemale_01
+    m_Weight: 1
+  - m_Path: Chr_Dungeon_GoblinWarriorMale_01
+    m_Weight: 1
+  - m_Path: Chr_Dungeon_KnightFemale_01
+    m_Weight: 1
+  - m_Path: Chr_Dungeon_KnightMale_01
+    m_Weight: 1
+  - m_Path: Chr_Dungeon_RockGolem_01
+    m_Weight: 1
+  - m_Path: Chr_Dungeon_Skeleton_01
+    m_Weight: 1
+  - m_Path: Chr_Dungeon_SkeletonKnight_01
+    m_Weight: 1
+  - m_Path: Chr_Dungeon_SkeletonSoldier_01
+    m_Weight: 1
+  - m_Path: Chr_Dungeon_SkeletonSoldier_02
+    m_Weight: 1
+  - m_Path: Chr_Fantasy_Bard_01
+    m_Weight: 1
+  - m_Path: Chr_Fantasy_Druid_01
+    m_Weight: 1
+  - m_Path: Chr_Fantasy_FemalePeasant_01
+    m_Weight: 1
+  - m_Path: Chr_Fantasy_Gypsy_01
+    m_Weight: 1
+  - m_Path: Chr_Fantasy_King_01
+    m_Weight: 1
+  - m_Path: Chr_Fantasy_MalePeasant_01
+    m_Weight: 1
+  - m_Path: Chr_Fantasy_PeasantWoman_01
+    m_Weight: 1
+  - m_Path: Chr_Fantasy_Queen_01
+    m_Weight: 1
+  - m_Path: Chr_Fantasy_RougeMale_01
+    m_Weight: 1
+  - m_Path: Chr_Fantasy_Sorcerer_01
+    m_Weight: 1
+  - m_Path: Chr_Fantasy_Witch_01
+    m_Weight: 1
+  - m_Path: Chr_Fantasy_Wizard_01
+    m_Weight: 1
+  - m_Path: Chr_Knights_Dark_01
+    m_Weight: 1
+  - m_Path: Chr_Knights_Light_01
+    m_Weight: 1
+  - m_Path: Chr_Knights_Soldier_01
+    m_Weight: 1
+  - m_Path: Chr_Pirates_Blackbeard_01
+    m_Weight: 1
+  - m_Path: Chr_Pirates_Captain_01
+    m_Weight: 1
+  - m_Path: Chr_Pirates_Deckhand_01
+    m_Weight: 1
+  - m_Path: Chr_Pirates_EnglishCaptain_01
+    m_Weight: 1
+  - m_Path: Chr_Pirates_EnglishSoldier_01
+    m_Weight: 1
+  - m_Path: Chr_Pirates_FemalePirate_01
+    m_Weight: 1
+  - m_Path: Chr_Pirates_Firstmate_01
+    m_Weight: 1
+  - m_Path: Chr_Pirates_Gentleman_01
+    m_Weight: 1
+  - m_Path: Chr_Pirates_GovDaughter_01
+    m_Weight: 1
+  - m_Path: Chr_Samurai_Geisha_01
+    m_Weight: 1
+  - m_Path: Chr_Samurai_Grunt_01
+    m_Weight: 1
+  - m_Path: Chr_Samurai_Ninja_01
+    m_Weight: 1
+  - m_Path: Chr_Samurai_SamuraiWarrior_01
+    m_Weight: 1
+  - m_Path: Chr_Samurai_Sensei_01
+    m_Weight: 1
+  - m_Path: Chr_Samurai_VillageMan_01
+    m_Weight: 1
+  - m_Path: Chr_Samurai_VillageWoman_01
+    m_Weight: 1
+  - m_Path: Chr_Vikings_Chief_01
+    m_Weight: 1
+  - m_Path: Chr_Vikings_ShieldMaiden_01
+    m_Weight: 1
+  - m_Path: Chr_Vikings_Warrior_01
+    m_Weight: 1
+  - m_Path: Chr_Vikings_Warrior_02
+    m_Weight: 1
+  - m_Path: Chr_Western_Badguy_01
+    m_Weight: 1
+  - m_Path: Chr_Western_Cowboy_01
+    m_Weight: 1
+  - m_Path: Chr_Western_Cowgirl_01
+    m_Weight: 1
+  - m_Path: Chr_Western_Gunman_01
+    m_Weight: 1
+  - m_Path: Chr_Western_Sheriff_01
+    m_Weight: 1
+  - m_Path: Chr_Western_TownMan_01
+    m_Weight: 1
+  - m_Path: Chr_Western_Woman_01
+    m_Weight: 1
+  - m_Path: Chr_Western_WorkingGirl_01
+    m_Weight: 1
+  - m_Path: root
+    m_Weight: 1
+  - m_Path: root/pelvis
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_l
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_l/upperarm_l
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_l/upperarm_l/lowerarm_l
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_l/upperarm_l/lowerarm_l/hand_l
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_l/upperarm_l/lowerarm_l/hand_l/middle_01_l
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_l/upperarm_l/lowerarm_l/hand_l/middle_01_l/middle_02_l
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_l/upperarm_l/lowerarm_l/hand_l/thumb_01_l
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_l/upperarm_l/lowerarm_l/hand_l/thumb_01_l/thumb_02_l
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_l/upperarm_l/lowerarm_l/hand_l/thumb_01_l/thumb_02_l/thumb_03_l
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_r
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_r/upperarm_r
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_r/upperarm_r/lowerarm_r
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_r/upperarm_r/lowerarm_r/hand_r
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_r/upperarm_r/lowerarm_r/hand_r/middle_01_r
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_r/upperarm_r/lowerarm_r/hand_r/middle_01_r/middle_02_r
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_r/upperarm_r/lowerarm_r/hand_r/thumb_01_r
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_r/upperarm_r/lowerarm_r/hand_r/thumb_01_r/thumb_02_r
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/clavicle_r/upperarm_r/lowerarm_r/hand_r/thumb_01_r/thumb_02_r/thumb_03_r
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/neck_01
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/neck_01/head
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/neck_01/head/eyebrows
+    m_Weight: 1
+  - m_Path: root/pelvis/spine_01/spine_02/spine_03/neck_01/head/eyes
+    m_Weight: 1
+  - m_Path: root/pelvis/thigh_l
+    m_Weight: 1
+  - m_Path: root/pelvis/thigh_l/calf_l
+    m_Weight: 1
+  - m_Path: root/pelvis/thigh_l/calf_l/foot_l
+    m_Weight: 1
+  - m_Path: root/pelvis/thigh_l/calf_l/foot_l/ball_l
+    m_Weight: 1
+  - m_Path: root/pelvis/thigh_l/calf_l/foot_l/ball_l/toes_l
+    m_Weight: 1
+  - m_Path: root/pelvis/thigh_r
+    m_Weight: 1
+  - m_Path: root/pelvis/thigh_r/calf_r
+    m_Weight: 1
+  - m_Path: root/pelvis/thigh_r/calf_r/foot_r
+    m_Weight: 1
+  - m_Path: root/pelvis/thigh_r/calf_r/foot_r/ball_r
+    m_Weight: 1
+  - m_Path: root/pelvis/thigh_r/calf_r/foot_r/ball_r/toes_r
+    m_Weight: 1
