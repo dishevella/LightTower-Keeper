@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class InteractionHintPanel : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class InteractionHintPanel : MonoBehaviour
 
     private void Awake()
     {
+        ConfigureNonBlocking();
         Hide();
     }
     public void Show(string Message)
@@ -21,5 +23,14 @@ public class InteractionHintPanel : MonoBehaviour
     {
         if (rootObject != null)
             rootObject.SetActive(false);
+    }
+
+    private void ConfigureNonBlocking()
+    {
+        Graphic[] graphics = GetComponentsInChildren<Graphic>(true);
+        for (int i = 0; i < graphics.Length; i++)
+        {
+            graphics[i].raycastTarget = false;
+        }
     }
 }

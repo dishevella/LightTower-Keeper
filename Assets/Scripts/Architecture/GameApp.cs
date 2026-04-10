@@ -35,16 +35,22 @@ public sealed class GameApp : IApp// sealed means can not be inherited anymore
     }
     public void Initialize()
     {
+
         if (initialized) return;
         RegisterModel(new GameStateModel());
         RegisterModel(new TaskModel());
         RegisterModel(new ToolInventoryModel());
         RegisterModel(new LighthouseDutyModel());
+        RegisterModel(new InventoryModel());
+        RegisterModel(new Day1RouteModel());
+        RegisterModel(new TimeOfDayModel());
 
         RegisterSystem(new TaskSystem());
         RegisterSystem(new TimeSystem());
         RegisterSystem(new GameFlowSystem());
-        foreach(var model in pendingModels)
+        RegisterSystem(new InventorySystem());
+
+        foreach (var model in pendingModels)
         {  
             model.Initialize();
         }
@@ -54,9 +60,11 @@ public sealed class GameApp : IApp// sealed means can not be inherited anymore
             system.Initialize();
         }
         pendingSystems.Clear();
+        initialized = true;
+
     }
 
-   
+
     public void RegisterSystem<T>(T system) where T : class, IGameSystem
     {
         system.SetApp(this);
@@ -102,12 +110,12 @@ public sealed class GameApp : IApp// sealed means can not be inherited anymore
     public void SendCommand<T>() where T :class, IGameCommand, new()
     {
         var command = new T();
-        ((ICanSetApp)command).SetApp(this);
+        command.SetApp(this);
         command.Execute();
     }
     public void SendCommand<T>(T command) where T :class, IGameCommand
     {
-        ((ICanSetApp)command).SetApp(this);
+        command.SetApp(this);
         command.Execute();
     }
 }

@@ -18,7 +18,7 @@ public class PlayerInteractionController : MonoBehaviour
 
     private void Update()
     {
-        if(!interactionEnabled)
+        if(!interactionEnabled || MessageSubtitlePanel.HasVisibleMessageSubtitle)
         {
             ClearCurrentInteractable();
             return;
@@ -71,8 +71,8 @@ public class PlayerInteractionController : MonoBehaviour
         if(Input.GetKeyDown(interactKey)&& currentInteractable.CanInteract())
         {
             currentInteractable.Interact();
+            HideHint();
         }
-        HideHint();
     }
     private void ClearCurrentInteractable()
     {

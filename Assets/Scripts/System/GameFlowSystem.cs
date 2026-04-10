@@ -36,10 +36,6 @@ public class GameFlowSystem : SystemAbstract
                 this.GetEvent().Send(new ApproachLighthouseStartedEvent());
                 break;
 
-            case StoryPhase.Day0_CheckIn:
-                this.GetEvent().Send(new CheckInStartedEvent());
-                break;
-
             case StoryPhase.Day0_Rest:
                 this.GetEvent().Send(new RestStartedEvent());
                 break;

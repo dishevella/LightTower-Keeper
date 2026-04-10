@@ -1,6 +1,7 @@
 using UnityEngine;
+using System.Collections;
 
-public class ToolPickupInteractable : InteractableAbstract
+public class ToolPickupInteractable : SingleUseInteractableBase
 {
     public enum ToolType
     {
@@ -10,21 +11,19 @@ public class ToolPickupInteractable : InteractableAbstract
 
     [SerializeField] private string interactionText = "Pick up tool";
     [SerializeField] private ToolType toolType = ToolType.SmallAxe;
-    [SerializeField] private StoryPhase[] availablePhases;
-    [SerializeField] private WorldSubtitleView pickupSubtitleView;
+    [Header("Pickup Message")]
+    [SerializeField] private InteractableMessageSubtitle pickupMessageSubtitle;
     [SerializeField] private GameObject[] objectsToDisableOnPickup;
     [SerializeField] private GameObject[] objectsToEnableOnPickup;
-
-    private bool pickedUp;
 
     public override string GetInteractionText()
     {
         return interactionText;
     }
 
-    public override bool CanInteract()
+    protected override bool IsInteractionBlocked()
     {
-        return !pickedUp && IsPhaseAllowed() && !AlreadyOwnTool();
+        return AlreadyOwnTool() || base.IsInteractionBlocked();
     }
 
     public override void Interact()
@@ -42,56 +41,20 @@ public class ToolPickupInteractable : InteractableAbstract
                 break;
         }
 
-        pickedUp = true;
+        MarkCompleted();
 
-        if (pickupSubtitleView != null)
-        {
-            pickupSubtitleView.ResetView();
-            pickupSubtitleView.Play();
-        }
+        PlaySubtitle(pickupMessageSubtitle);
 
-        SetObjectsActive(objectsToDisableOnPickup, false);
-        SetObjectsActive(objectsToEnableOnPickup, true);
+        ApplySuccessState(objectsToDisableOnPickup, objectsToEnableOnPickup);
     }
 
     private bool AlreadyOwnTool()
     {
-        var toolInventory = this.GetModel<ToolInventoryModel>();
+        var toolInventory = GetToolInventoryModel();
         if (toolInventory == null) return false;
 
         return toolType == ToolType.SmallAxe
             ? toolInventory.HasSmallAxe.Value
             : toolInventory.HasChainsaw.Value;
-    }
-
-    private bool IsPhaseAllowed()
-    {
-        if (availablePhases == null || availablePhases.Length == 0)
-        {
-            return base.CanInteract();
-        }
-
-        var gameState = this.GetModel<GameStateModel>();
-        if (gameState == null) return false;
-
-        var currentPhase = gameState.CurrentPhase.Value;
-        for (int i = 0; i < availablePhases.Length; i++)
-        {
-            if (availablePhases[i] == currentPhase)
-                return true;
-        }
-
-        return false;
-    }
-
-    private void SetObjectsActive(GameObject[] objects, bool active)
-    {
-        if (objects == null) return;
-
-        for (int i = 0; i < objects.Length; i++)
-        {
-            if (objects[i] != null)
-                objects[i].SetActive(active);
-        }
     }
 }

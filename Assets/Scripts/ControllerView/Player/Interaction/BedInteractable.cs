@@ -1,34 +1,38 @@
 using System.Collections;
 using UnityEngine;
 
-public class BedInteractable : InteractableAbstract
+public class BedInteractable : SingleUseInteractableBase
 {
     [SerializeField] private string interactionText = "Go to sleep";
     [SerializeField] private FadePanel fadePanel;
     [SerializeField] private float fadeToBlackDuration = 2f;
+    [SerializeField] private float idleSettleDuration = 0.12f;
+    [SerializeField] private PlayerController playerController;
     [SerializeField] private MonoBehaviour[] playerControlComponents;
-
-    private bool sleeping;
 
     public override string GetInteractionText()
     {
         return interactionText;
     }
 
-    public override bool CanInteract()
-    {
-        return !sleeping && base.CanInteract();
-    }
-
     public override void Interact()
     {
-        if (sleeping) return;
+        if (!CanInteract()) return;
+        if (!playerController.isGrounded) return;
+
         StartCoroutine(SleepRoutine());
     }
 
     private IEnumerator SleepRoutine()
     {
-        sleeping = true;
+        MarkCompleted();
+        PreparePlayerForSleep();
+
+        if (idleSettleDuration > 0f)
+        {
+            yield return new WaitForSeconds(idleSettleDuration);
+        }
+
         SetPlayerLocked(true);
 
         if (fadePanel != null)
@@ -37,6 +41,19 @@ public class BedInteractable : InteractableAbstract
         }
 
         this.SendCommand(new FinishDay0RestCommand());
+    }
+
+    private void PreparePlayerForSleep()
+    {
+        if (playerController == null) return;
+
+        playerController.ClearMotionForCutscene();
+        playerController.SetCanMove(false);
+        playerController.SetCanLook(false);
+        playerController.SetCanRun(false);
+        playerController.SetCanCrouch(false);
+        playerController.SetCanJump(false);
+        playerController.ForceStandUp();
     }
 
     private void SetPlayerLocked(bool locked)

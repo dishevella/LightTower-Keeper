@@ -19,6 +19,13 @@ public class Day1ReturnRouteController : ControllerAbstract
     {
         this.GetEvent().Register<Day1ReturnRouteStartedEvent>(OnDay1ReturnRouteStarted)
             .UnRegisterWhenGameObjectDestroyed(gameObject);
+        this.GetEvent().Register<Day1BridgeCollapsedEvent>(OnDay1BridgeCollapsed)
+            .UnRegisterWhenGameObjectDestroyed(gameObject);
+    }
+
+    private void Start()
+    {
+        RefreshBridgeState();
     }
 
     private void Update()
@@ -43,24 +50,32 @@ public class Day1ReturnRouteController : ControllerAbstract
     {
         activePhase = true;
         completed = false;
-
-        if (intactBridgeRoot != null)
-            intactBridgeRoot.SetActive(false);
-
-        if (brokenBridgeRoot != null)
-            brokenBridgeRoot.SetActive(true);
+        RefreshBridgeState();
 
         SetObjectsActive(objectsToEnableOnReturnRoute, true);
         SetObjectsActive(objectsToDisableOnReturnRoute, false);
 
-        var taskSystem = this.GetSystem<TaskSystem>();
-        if (taskSystem != null)
-        {
-            taskSystem.SetTask(
-                Task_ReturnToLighthouse,
-                "Return to the Lighthouse",
-                "Find the only safe route back to the lighthouse before dark.");
-        }
+        this.SendCommand(new SetTaskCommand(
+            Task_ReturnToLighthouse,
+            "Return to the Lighthouse",
+            "Find the only safe route back to the lighthouse before dark."));
+    }
+
+    private void OnDay1BridgeCollapsed(Day1BridgeCollapsedEvent evt)
+    {
+        RefreshBridgeState();
+    }
+
+    private void RefreshBridgeState()
+    {
+        var routeModel = this.GetModel<Day1RouteModel>();
+        bool bridgeCollapsed = routeModel != null && routeModel.BridgeCollapsed.Value;
+
+        if (intactBridgeRoot != null)
+            intactBridgeRoot.SetActive(!bridgeCollapsed);
+
+        if (brokenBridgeRoot != null)
+            brokenBridgeRoot.SetActive(bridgeCollapsed);
     }
 
     private void SetObjectsActive(GameObject[] objects, bool active)

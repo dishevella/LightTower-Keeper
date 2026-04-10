@@ -7,7 +7,6 @@ public enum StoryPhase
    Day0_BoatIntro,
    Day0_Forest,
    Day0_ApproachLighthouse,
-   Day0_CheckIn,
    Day0_Rest,
 
    Day1_Start = 100,

@@ -159,16 +159,7 @@ public class ApproachLighthouseController : ControllerAbstract
             }
             playerCameraPivot.rotation = endRot;
         }
-        var taskSystem = this.GetSystem<TaskSystem>();
-
-        if (taskSystem!=null)
-            {
-                taskSystem.SetTask(
-                    Task_EnterLightHouse,
-                    "Enter the Lighthouse",
-                    "Walk to the lighthouse and go inside."
-                    );
-            }
+       
             SetPlayerControlLocked(false);
             playing = false;
     }

@@ -12,5 +12,6 @@ public class GameBootstrap : ControllerAbstract
     {
         Debug.Log("GameBootstrap Start: StartGame");
         this.GetSystem<GameFlowSystem>().StartGame();
+       
     }
 }

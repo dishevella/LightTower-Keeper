@@ -1,51 +1,125 @@
-using UnityEngine;
+using System;
 using System.Collections;
+using UnityEngine;
 
 public class LighthouseEntranceInteractable : InteractableAbstract
 {
-    [SerializeField] private string interactionText = "Enter the lighthouse";
+    public enum DoorCompletionCommand
+    {
+        None = 0,
+        FinishApproachLighthouse = 1,
+        FinishDay1InspectInside = 2
+    }
 
-    [Header("Door Animation")]
-    [SerializeField] private Animator doorAnimator;
-    [SerializeField] private string openTriggerName = "Open";
-    [SerializeField] private float openDuration = 1.2f;
+    [Serializable]
+    public class DoorPhaseConfig
+    {
+        public StoryPhase phase;
+        public string interactionText = "Use the door";
+        public bool requireSmallAxe;
+        public InteractableMessageSubtitle missingAxeSubtitle;
+        public DoorCompletionCommand completionCommand = DoorCompletionCommand.None;
+        public Animator doorAnimator;
+        public string openTriggerName = "Open";
+        public float openDuration = 1.2f;
+    }
+
+    [Header("Phase Config")]
+    [SerializeField] private DoorPhaseConfig[] phaseConfigs;
 
     [Header("After Open")]
     [SerializeField] private float waitAfterOpen = 0.2f;
 
-    private bool entered;
     private bool opening;
+
     public override string GetInteractionText()
     {
-        return interactionText;
+        DoorPhaseConfig config = GetCurrentConfig();
+        return config != null && !string.IsNullOrEmpty(config.interactionText)
+            ? config.interactionText
+            : "Use the door";
     }
+
     public override bool CanInteract()
     {
-        return !entered && !opening && base.CanInteract();
+        return !opening && GetCurrentConfig() != null;
     }
+
     public override void Interact()
     {
-        if (entered || opening) return;
-        StartCoroutine(OpenDoorAndEnterRoutine());
-    }
-    private IEnumerator OpenDoorAndEnterRoutine()
-    {
-        opening = true;
-        
-        if(doorAnimator !=null)
+        if (opening) return;
+
+        DoorPhaseConfig config = GetCurrentConfig();
+        if (config == null) return;
+
+        if (config.requireSmallAxe)
         {
-            doorAnimator.ResetTrigger(openTriggerName);
-            doorAnimator.SetTrigger(openTriggerName);
+            if (!HasSmallAxe())
+            {
+                PlaySubtitle(config.missingAxeSubtitle);
+
+                return;
+            }
         }
-        
-        yield return new WaitForSeconds(openDuration);
+
+        StartCoroutine(OpenDoorAndEnterRoutine(config));
+    }
+
+    private IEnumerator OpenDoorAndEnterRoutine(DoorPhaseConfig config)
+    {
+        if (config == null) yield break;
+
+        opening = true;
+
+        if (config.doorAnimator != null && !string.IsNullOrEmpty(config.openTriggerName))
+        {
+            config.doorAnimator.ResetTrigger(config.openTriggerName);
+            config.doorAnimator.SetTrigger(config.openTriggerName);
+        }
+
+        if (config.openDuration > 0f)
+        {
+            yield return new WaitForSeconds(config.openDuration);
+        }
 
         if (waitAfterOpen > 0f)
         {
             yield return new WaitForSeconds(waitAfterOpen);
         }
-        entered = true;
+
         opening = false;
-        this.SendCommand(new FinishApproachLighthouseCommand());
+        ExecuteCompletionCommand(config.completionCommand);
+    }
+
+    private void ExecuteCompletionCommand(DoorCompletionCommand completionCommand)
+    {
+        switch (completionCommand)
+        {
+            case DoorCompletionCommand.FinishApproachLighthouse:
+                this.SendCommand(new FinishApproachLighthouseCommand());
+                break;
+
+            case DoorCompletionCommand.FinishDay1InspectInside:
+                this.SendCommand(new FinishDay1InspectInsideCommand());
+                break;
+        }
+    }
+
+    private DoorPhaseConfig GetCurrentConfig()
+    {
+        if (phaseConfigs == null || phaseConfigs.Length == 0) return null;
+
+        var gameState = this.GetModel<GameStateModel>();
+        if (gameState == null) return null;
+
+        StoryPhase currentPhase = gameState.CurrentPhase.Value;
+        for (int i = 0; i < phaseConfigs.Length; i++)
+        {
+            DoorPhaseConfig config = phaseConfigs[i];
+            if (config == null) continue;
+            if (config.phase == currentPhase) return config;
+        }
+
+        return null;
     }
 }

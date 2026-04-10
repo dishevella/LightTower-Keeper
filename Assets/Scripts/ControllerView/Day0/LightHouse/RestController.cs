@@ -10,13 +10,6 @@ public class RestController : ControllerAbstract
     }
     private void OnRestStarted(RestStartedEvent evt)
     {
-        var taskSystem = this.GetSystem<TaskSystem>();
-        if(taskSystem != null)
-        {
-            taskSystem.SetTask(
-                TASK_GoToSleep,
-                "Go to Bed",
-                "Rest fot the night");
-        }
+        
     }
 }

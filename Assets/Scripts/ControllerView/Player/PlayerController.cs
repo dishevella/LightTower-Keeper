@@ -1,8 +1,17 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+    [Serializable]
+    public class AnimationCameraPose
+    {
+        public string key;
+        public Vector3 localPosition;
+        public float blendSpeed = 8f;
+    }
+
     [Header("Reference")]
     [SerializeField] private Transform cameraRoot;
     [SerializeField] private Camera playerCamera;
@@ -35,6 +44,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float normalFOV = 60f;
     [SerializeField] private float runFOV = 68f;
     [SerializeField] private float fovSmoothSpeed = 8f;
+
+    [Header("Animation Camera")]
+    [SerializeField] private AnimationCameraPose[] animationCameraPoses;
+    [SerializeField] private float defaultCameraPoseBlendSpeed = 8f;
 
     [Header("Input Keys")]
     [SerializeField] private KeyCode runKey = KeyCode.LeftShift;
@@ -111,6 +124,10 @@ public class PlayerController : MonoBehaviour
     private float landStateTimer;
 
     private string currentAnimationState;
+    private string cameraPoseOverrideKey;
+    private Vector3 defaultCameraRootLocalPosition;
+    private Vector3 targetCameraRootLocalPosition;
+    private float currentCameraPoseBlendSpeed;
 
     private void Awake()
     {
@@ -123,6 +140,9 @@ public class PlayerController : MonoBehaviour
             Vector3 camLocalPos = cameraRoot.localPosition;
             camLocalPos.y = standingCameraY;
             cameraRoot.localPosition = camLocalPos;
+            defaultCameraRootLocalPosition = cameraRoot.localPosition;
+            targetCameraRootLocalPosition = defaultCameraRootLocalPosition;
+            currentCameraPoseBlendSpeed = defaultCameraPoseBlendSpeed;
         }
 
         if (playerCamera != null)
@@ -145,6 +165,7 @@ public class PlayerController : MonoBehaviour
         ApplyGravity();
         ApplyFOV();
         UpdateAnimationState();
+        ApplyAnimationCameraPose();
 
         wasGroundedLastFrame = isGrounded;
 
@@ -210,7 +231,7 @@ public class PlayerController : MonoBehaviour
 
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-        Debug.Log($"mouseX={mouseX}, mouseY={mouseY}");
+       
         pitch -= mouseY;
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
@@ -288,7 +309,8 @@ public class PlayerController : MonoBehaviour
 
         if (cameraRoot != null)
         {
-            float targetCameraY = isCrouching ? crouchCameraY : standingCameraY;
+            float crouchYOffset = isCrouching ? crouchCameraY - standingCameraY : 0f;
+            float targetCameraY = targetCameraRootLocalPosition.y + crouchYOffset;
             Vector3 camLocalPos = cameraRoot.localPosition;
             camLocalPos.y = Mathf.Lerp(camLocalPos.y, targetCameraY, crouchTransitionSpeed * Time.deltaTime);
             cameraRoot.localPosition = camLocalPos;
@@ -332,6 +354,7 @@ public class PlayerController : MonoBehaviour
 
         playerAnimator.CrossFadeInFixedTime(targetState, animationCrossFade);
         currentAnimationState = targetState;
+        RefreshAnimationCameraPose();
     }
 
     private string GetTargetAnimationState()
@@ -436,6 +459,7 @@ public class PlayerController : MonoBehaviour
         if (!value)
         {
             currentAnimationState = string.Empty;
+            RefreshAnimationCameraPose();
         }
     }
 
@@ -445,6 +469,7 @@ public class PlayerController : MonoBehaviour
 
         playerAnimator.CrossFadeInFixedTime(stateName, crossFade);
         currentAnimationState = stateName;
+        RefreshAnimationCameraPose();
     }
     public void ClearMotionForCutscene()
     {
@@ -461,5 +486,113 @@ public class PlayerController : MonoBehaviour
         verticalVelocity = controller != null && controller.isGrounded
             ? groundStickForce
             : 0f;
+    }
+
+    public void SetCameraPoseOverride(string poseKey)
+    {
+        cameraPoseOverrideKey = poseKey;
+        RefreshAnimationCameraPose();
+    }
+
+    public void SetCameraPose(string poseKey)
+    {
+        SetCameraPoseOverride(poseKey);
+    }
+
+    public void ClearCameraPoseOverride()
+    {
+        cameraPoseOverrideKey = string.Empty;
+        RefreshAnimationCameraPose();
+    }
+
+    public void ClearCameraPose()
+    {
+        ClearCameraPoseOverride();
+    }
+
+    public void SnapToView(Vector3 cameraWorldPosition, Quaternion cameraWorldRotation)
+    {
+        if (cameraRoot == null || playerCamera == null) return;
+
+        Vector3 cameraLocalOffset = transform.InverseTransformPoint(playerCamera.transform.position);
+        float targetYaw = cameraWorldRotation.eulerAngles.y;
+        float targetPitch = NormalizeSignedAngle(cameraWorldRotation.eulerAngles.x);
+        targetPitch = Mathf.Clamp(targetPitch, minPitch, maxPitch);
+
+        transform.rotation = Quaternion.Euler(0f, targetYaw, 0f);
+        transform.position = cameraWorldPosition - (transform.rotation * cameraLocalOffset);
+
+        pitch = targetPitch;
+        cameraRoot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+    }
+
+    private void ApplyAnimationCameraPose()
+    {
+        if (cameraRoot == null) return;
+
+        float blendSpeed = currentCameraPoseBlendSpeed > 0f
+            ? currentCameraPoseBlendSpeed
+            : defaultCameraPoseBlendSpeed;
+
+        Vector3 cameraRootLocalPos = cameraRoot.localPosition;
+        cameraRootLocalPos.x = Mathf.Lerp(
+            cameraRootLocalPos.x,
+            targetCameraRootLocalPosition.x,
+            blendSpeed * Time.deltaTime);
+        cameraRootLocalPos.z = Mathf.Lerp(
+            cameraRootLocalPos.z,
+            targetCameraRootLocalPosition.z,
+            blendSpeed * Time.deltaTime);
+
+        cameraRoot.localPosition = cameraRootLocalPos;
+    }
+
+    private void RefreshAnimationCameraPose()
+    {
+        if (cameraRoot == null) return;
+
+        AnimationCameraPose pose = ResolveActiveCameraPose();
+
+        if (pose == null)
+        {
+            targetCameraRootLocalPosition = defaultCameraRootLocalPosition;
+            currentCameraPoseBlendSpeed = defaultCameraPoseBlendSpeed;
+            return;
+        }
+
+        targetCameraRootLocalPosition = pose.localPosition;
+        currentCameraPoseBlendSpeed = pose.blendSpeed > 0f
+            ? pose.blendSpeed
+            : defaultCameraPoseBlendSpeed;
+    }
+
+    private AnimationCameraPose ResolveActiveCameraPose()
+    {
+        string poseKey = !string.IsNullOrEmpty(cameraPoseOverrideKey)
+            ? cameraPoseOverrideKey
+            : currentAnimationState;
+
+        if (string.IsNullOrEmpty(poseKey) || animationCameraPoses == null)
+        {
+            return null;
+        }
+
+        for (int i = 0; i < animationCameraPoses.Length; i++)
+        {
+            AnimationCameraPose pose = animationCameraPoses[i];
+            if (pose != null && pose.key == poseKey)
+            {
+                return pose;
+            }
+        }
+
+        return null;
+    }
+
+    private float NormalizeSignedAngle(float angle)
+    {
+        while (angle > 180f) angle -= 360f;
+        while (angle < -180f) angle += 360f;
+        return angle;
     }
 }

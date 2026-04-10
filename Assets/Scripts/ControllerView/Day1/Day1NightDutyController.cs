@@ -5,19 +5,17 @@ public class Day1NightDutyController : ControllerAbstract
     private const string Task_InspectDuty = "task_night_duty_inspect";
     private const string Task_ActivateLight = "task_activate_lighthouse";
 
-    [SerializeField] private HQTransmissionInteractable nightTransmissionInteractable;
+    
     [SerializeField] private GameObject[] objectsToEnableOnStart;
     [SerializeField] private GameObject[] objectsToDisableOnStart;
     [SerializeField] private GameObject[] objectsToEnableWhenReadyToActivate;
 
     private LighthouseDutyModel dutyModel;
-    private TaskSystem taskSystem;
     private bool activePhase;
 
     private void Start()
     {
         dutyModel = this.GetModel<LighthouseDutyModel>();
-        taskSystem = this.GetSystem<TaskSystem>();
 
         if (dutyModel != null)
         {
@@ -51,9 +49,6 @@ public class Day1NightDutyController : ControllerAbstract
             dutyModel.LightActivated.Value = false;
         }
 
-        if (nightTransmissionInteractable != null)
-            nightTransmissionInteractable.gameObject.SetActive(true);
-
         SetObjectsActive(objectsToEnableOnStart, true);
         SetObjectsActive(objectsToDisableOnStart, false);
         SetObjectsActive(objectsToEnableWhenReadyToActivate, false);
@@ -74,13 +69,10 @@ public class Day1NightDutyController : ControllerAbstract
 
         if (readyToActivate)
         {
-            if (taskSystem != null)
-            {
-                taskSystem.SetTask(
-                    Task_ActivateLight,
-                    "Activate the Lighthouse Light",
-                    "Turn on the lighthouse light and confirm it is operating normally.");
-            }
+            this.SendCommand(new SetTaskCommand(
+                Task_ActivateLight,
+                "Activate the Lighthouse Light",
+                "Turn on the lighthouse light and confirm it is operating normally."));
         }
         else
         {
@@ -90,12 +82,10 @@ public class Day1NightDutyController : ControllerAbstract
 
     private void PublishInspectionTask()
     {
-        if (taskSystem == null) return;
-
-        taskSystem.SetTask(
+        this.SendCommand(new SetTaskCommand(
             Task_InspectDuty,
             "Inspect the Generator and Lamp Room",
-            "Check the generator, lamp room, and lens before turning on the lighthouse light.");
+            "Check the generator, lamp room, and lens before turning on the lighthouse light."));
     }
 
     private void SetObjectsActive(GameObject[] objects, bool active)

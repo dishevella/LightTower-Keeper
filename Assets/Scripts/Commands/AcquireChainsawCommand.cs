@@ -7,6 +7,13 @@ public class AcquireChainsawCommand : CommandAbstract
         if (toolInventory.HasChainsaw.Value) return;
 
         toolInventory.HasChainsaw.Value = true;
+
+        var inventorySystem = this.GetSystem<InventorySystem>();
+        if (inventorySystem != null)
+        {
+            inventorySystem.AddItem(InventoryItemId.Chainsaw);
+        }
+
         this.GetEvent().Send(new ChainsawAcquiredEvent());
     }
 }

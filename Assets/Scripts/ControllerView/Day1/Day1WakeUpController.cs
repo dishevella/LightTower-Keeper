@@ -2,24 +2,38 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
+public class TransmissionRequestEvent : UnityEvent<string, string>
+{
+}
+
 public class Day1WakeUpController : ControllerAbstract
 {
-    [Header("Reference")]
+    [Header("Gameplay Player")]
     [SerializeField] private Transform playerRoot;
     [SerializeField] private PlayerController playerController;
-    [SerializeField] private Transform deskWorkPoint;
+    [SerializeField] private Camera gameplayCamera;
+
+    [Header("Wake Up Cutscene")]
+    [SerializeField] private GameObject wakeUpCutsceneRoot;
+    [SerializeField] private Transform wakeUpCutsceneActorRoot;
+    [SerializeField] private Animator wakeUpCutsceneAnimator;
+    [SerializeField] private Animator wakeUpCameraAnimator;
+    [SerializeField] private Camera wakeUpCutsceneCamera;
+    [SerializeField] private Transform wakeUpStartPoint;
+    [SerializeField] private Transform wakeUpHandoffPoint;
+    [SerializeField] private string typingStateName = "Typing";
+    [SerializeField] private string cameraTrackStateName = "WakeUp_CameraTrack";
+    [SerializeField] private string reachingTriggerName = "StartReaching";
+    [SerializeField] private string reachingReverseTriggerName = "StartReachingReverse";
+    [SerializeField] private string checkingTriggerName = "StartChecking";
+    [SerializeField] private string standUpTriggerName = "StartStandUp";
+
+    [Header("UI")]
     [SerializeField] private DayTransitionPanel dayTransitionPanel;
     [SerializeField] private FadePanel fadePanel;
     [SerializeField] private int dayNumber = 1;
-
-    [Header("Base Layer Animation")]
-    [SerializeField] private string typingStateName = "Typing";
-    [SerializeField] private float introAnimationCrossFade = 0.05f;
-
-    [Header("Right Hand Layer")]
-    [SerializeField] private Animator playerAnimator;
-    [SerializeField] private string startRightHandTriggerName = "StartRightHandAction";
-    [SerializeField] private string endRightHandTriggerName = "EndRightHandAction";
+    [SerializeField] private HQTransmissionPanel transmissionPanel; 
 
     [Header("Player Lock")]
     [SerializeField] private MonoBehaviour[] playerControlComponents;
@@ -27,71 +41,75 @@ public class Day1WakeUpController : ControllerAbstract
     [Header("Timing")]
     [SerializeField] private float holdBeforeReveal = 0.2f;
     [SerializeField] private float revealDuration = 1.2f;
-    [SerializeField] private float typingHoldDuration = 1.2f;
+    [SerializeField] private float typingDuration = 10f;
     [SerializeField] private float notificationDelay = 0.1f;
-    [SerializeField] private float reachToCheckingDuration = 1.0f;
-    [SerializeField] private float taskUiHoldDuration = 2.5f;
-    [SerializeField] private float reverseHoldDuration = 0.8f;
+    [SerializeField] private float reachingDuration = 2f;
+    [SerializeField] private float reachingReverseDuration = 2f;
+    [SerializeField] private float checkingDuration = 2f;
+    [SerializeField] private float standUpDuration = 1.5f;
+    [SerializeField] private float standAfterDuration = 0.25f;
 
     [Header("Audio")]
     [SerializeField] private AudioSource notificationAudioSource;
 
-    [Header("Task UI Hook")]
-    [SerializeField] private UnityEvent onTaskUiRequested;
+    [Header("Communication Device")]
+    [SerializeField] private GameObject deskCommunicationDeviceObject;
+    [SerializeField] private GameObject handCommunicationDeviceObject;
 
     [Header("Scene State")]
     [SerializeField] private GameObject[] objectsToEnableOnStart;
     [SerializeField] private GameObject[] objectsToDisableOnStart;
 
+    [Header("Cutscene Visibility")]
+    [SerializeField] private GameObject[] objectsToEnableDuringCutscene;
+    [SerializeField] private GameObject[] objectsToDisableDuringCutscene;
+
     private bool started;
+    private bool checkingFinishedTriggered;
 
     private void Awake()
     {
         this.GetEvent().Register<Day1StartedEvent>(OnDay1Started)
             .UnRegisterWhenGameObjectDestroyed(gameObject);
-    }
 
+        if (wakeUpCutsceneRoot != null)
+        {
+            wakeUpCutsceneRoot.SetActive(false);
+        }
+
+        SetCameraEnabled(wakeUpCutsceneCamera, false);
+
+    }
+ 
     private void OnDay1Started(Day1StartedEvent evt)
     {
         if (started) return;
-        StartCoroutine(PlayDeskIntroRoutine());
+        StartCoroutine(PlayWakeUpRoutine());
     }
 
-    private IEnumerator PlayDeskIntroRoutine()
+    private IEnumerator PlayWakeUpRoutine()
     {
         started = true;
+        checkingFinishedTriggered = false;
 
-        var taskSystem = this.GetSystem<TaskSystem>();
-        if (taskSystem != null)
-        {
-            taskSystem.ClearTask();
-        }
+        this.SendCommand<ClearCurrentTaskCommand>();
 
         ResetModels();
         SetObjectsActive(objectsToEnableOnStart, true);
         SetObjectsActive(objectsToDisableOnStart, false);
-        SetPlayerLocked(true);
 
-        if (playerController != null)
-        {
-            playerController.ClearMotionForCutscene();
-            playerController.SetAnimationDriving(false);
-            playerController.SetCursorLocked(false);
-            playerController.SetCanMove(false);
-            playerController.SetCanLook(false);
-            playerController.SetCanRun(false);
-            playerController.SetCanCrouch(false);
-            playerController.SetCanJump(false);
-            playerController.ForceStandUp();
-        }
+        PrepareGameplayPlayerForCutscene();
+        SetPlayerLocked(true);
 
         if (fadePanel != null)
         {
             fadePanel.SetBlackImmediate();
         }
 
-        SnapPlayerToDeskPoint();
-        ResetRightHandLayer();
+        SetCommunicationDeviceInHand(false);
+        PositionCutsceneActorAtStart();
+        BeginCutsceneView();
+        PrepareCutscenePlayback();
 
         if (dayTransitionPanel != null)
         {
@@ -103,25 +121,68 @@ public class Day1WakeUpController : ControllerAbstract
             yield return new WaitForSeconds(holdBeforeReveal);
         }
 
+        ResumeCutscenePlayback();
         if (fadePanel != null)
         {
             yield return fadePanel.FadeFromBlack(revealDuration);
         }
 
         
-        if (playerController != null && !string.IsNullOrEmpty(typingStateName))
+        yield return PlayWakeUpCutsceneSequence();
+
+        AlignGameplayPlayerToCutsceneView();
+        EndCutsceneView();
+
+        SetPlayerLocked(false);
+        RestoreGameplayPlayerAfterCutscene();
+    }
+
+    private void PrepareGameplayPlayerForCutscene()
+    {
+        if (playerController == null) return;
+
+        playerController.ClearMotionForCutscene();
+        playerController.SetCanMove(false);
+        playerController.SetCanLook(false);
+        playerController.SetCanRun(false);
+        playerController.SetCanCrouch(false);
+        playerController.SetCanJump(false);
+        playerController.ForceStandUp();
+    }
+
+    private void BeginCutsceneView()
+    {
+        SetObjectsActive(objectsToEnableDuringCutscene, true);
+        SetObjectsActive(objectsToDisableDuringCutscene, false);
+
+        if (wakeUpCutsceneRoot != null)
         {
-            playerController.PlayExternalAnimationState(typingStateName, introAnimationCrossFade);
+            wakeUpCutsceneRoot.SetActive(true);
         }
 
-        if (typingHoldDuration > 0f)
+        SetCameraEnabled(gameplayCamera, false);
+        SetCameraEnabled(wakeUpCutsceneCamera, true);
+    }
+
+    private void EndCutsceneView()
+    {
+        SetCameraEnabled(wakeUpCutsceneCamera, false);
+
+        if (wakeUpCutsceneRoot != null)
         {
-            yield return new WaitForSeconds(typingHoldDuration);
+            wakeUpCutsceneRoot.SetActive(false);
         }
 
-        if (notificationDelay > 0f)
+        SetObjectsActive(objectsToEnableDuringCutscene, false);
+        SetObjectsActive(objectsToDisableDuringCutscene, true);
+        SetCameraEnabled(gameplayCamera, true);
+    }
+
+    private IEnumerator PlayWakeUpCutsceneSequence()
+    {
+        if (typingDuration > 0f)
         {
-            yield return new WaitForSeconds(notificationDelay);
+            yield return new WaitForSeconds(typingDuration);
         }
 
         if (notificationAudioSource != null)
@@ -129,50 +190,34 @@ public class Day1WakeUpController : ControllerAbstract
             notificationAudioSource.Play();
         }
 
-        
-        if (playerAnimator != null)
+        if (notificationDelay > 0f)
         {
-            playerAnimator.ResetTrigger(endRightHandTriggerName);
-            playerAnimator.SetTrigger(startRightHandTriggerName);
+            yield return new WaitForSeconds(notificationDelay);
         }
 
-        
-        if (reachToCheckingDuration > 0f)
+        TriggerCutsceneState(reachingTriggerName);
+
+        if (reachingDuration > 0f)
         {
-            yield return new WaitForSeconds(reachToCheckingDuration);
+            yield return new WaitForSeconds(reachingDuration);
         }
 
-        onTaskUiRequested?.Invoke();
+        TriggerCutsceneState(reachingReverseTriggerName);
 
-        if (taskUiHoldDuration > 0f)
+        if (reachingReverseDuration > 0f)
         {
-            yield return new WaitForSeconds(taskUiHoldDuration);
+            yield return new WaitForSeconds(reachingReverseDuration);
         }
 
-        
-        if (playerAnimator != null)
+        TriggerCutsceneState(checkingTriggerName);
+
+        if (checkingDuration > 0f)
         {
-            playerAnimator.ResetTrigger(startRightHandTriggerName);
-            playerAnimator.SetTrigger(endRightHandTriggerName);
+            yield return new WaitForSeconds(checkingDuration);
         }
 
-        if (reverseHoldDuration > 0f)
-        {
-            yield return new WaitForSeconds(reverseHoldDuration);
-        }
-
-        if (playerController != null)
-        {
-            playerController.SetAnimationDriving(true);
-            playerController.SetCursorLocked(true);
-            playerController.SetCanMove(true);
-            playerController.SetCanLook(true);
-            playerController.SetCanRun(true);
-            playerController.SetCanCrouch(true);
-            playerController.SetCanJump(true);
-        }
-
-        SetPlayerLocked(false);
+        HandleCheckingFinished();
+        yield return PlayPostCheckingSequence();
     }
 
     private void ResetModels()
@@ -194,20 +239,33 @@ public class Day1WakeUpController : ControllerAbstract
         }
     }
 
-    private void SnapPlayerToDeskPoint()
+    private void PositionCutsceneActorAtStart()
     {
-        if (playerRoot == null || deskWorkPoint == null) return;
+        if (wakeUpCutsceneActorRoot == null || wakeUpStartPoint == null) return;
 
-        playerRoot.position = deskWorkPoint.position;
-        playerRoot.rotation = deskWorkPoint.rotation;
+        wakeUpCutsceneActorRoot.position = wakeUpStartPoint.position;
+        wakeUpCutsceneActorRoot.rotation = wakeUpStartPoint.rotation;
     }
 
-    private void ResetRightHandLayer()
+    private void SnapPlayerToHandoffPoint()
     {
-        if (playerAnimator == null) return;
+        if (playerRoot == null || wakeUpHandoffPoint == null) return;
 
-        playerAnimator.ResetTrigger(startRightHandTriggerName);
-        playerAnimator.ResetTrigger(endRightHandTriggerName);
+        playerRoot.position = wakeUpHandoffPoint.position;
+        playerRoot.rotation = wakeUpHandoffPoint.rotation;
+    }
+
+    private void AlignGameplayPlayerToCutsceneView()
+    {
+        if (playerController != null && wakeUpCutsceneCamera != null)
+        {
+            playerController.SnapToView(
+                wakeUpCutsceneCamera.transform.position,
+                wakeUpCutsceneCamera.transform.rotation);
+            return;
+        }
+
+        SnapPlayerToHandoffPoint();
     }
 
     private void SetPlayerLocked(bool locked)
@@ -233,6 +291,118 @@ public class Day1WakeUpController : ControllerAbstract
             {
                 objects[i].SetActive(active);
             }
+        }
+    }
+
+    private void SetCameraEnabled(Camera targetCamera, bool enabled)
+    {
+        if (targetCamera != null)
+        {
+            targetCamera.enabled = enabled;
+        }
+    }
+
+    private void RestoreGameplayPlayerAfterCutscene()
+    {
+        if (playerController == null) return;
+
+        playerController.ClearMotionForCutscene();
+        playerController.SetCanMove(true);
+        playerController.SetCanLook(true);
+        playerController.SetCanRun(true);
+        playerController.SetCanCrouch(true);
+        playerController.SetCanJump(true);
+        playerController.SetCursorLocked(true);
+    }
+
+    private void PrepareCutscenePlayback()
+    {
+        PlayAnimatorStateFromStart(wakeUpCutsceneAnimator, typingStateName);
+        PlayAnimatorStateFromStart(wakeUpCameraAnimator, cameraTrackStateName);
+        SetAnimatorSpeed(wakeUpCutsceneAnimator, 0f);
+        SetAnimatorSpeed(wakeUpCameraAnimator, 0f);
+    }
+
+    private void ResumeCutscenePlayback()
+    {
+        SetAnimatorSpeed(wakeUpCutsceneAnimator, 1f);
+        SetAnimatorSpeed(wakeUpCameraAnimator, 1f);
+    }
+
+    private void TriggerCutsceneState(string triggerName)
+    {
+        if (wakeUpCutsceneAnimator == null || string.IsNullOrEmpty(triggerName)) return;
+
+        wakeUpCutsceneAnimator.ResetTrigger(triggerName);
+        wakeUpCutsceneAnimator.SetTrigger(triggerName);
+    }
+
+    public void OnReachGrabCommunicationDevice()
+    {
+        SetCommunicationDeviceInHand(true);
+    }
+
+    public void OnCheckingAnimationFinished()
+    {
+        HandleCheckingFinished();
+    }
+
+    private void PlayAnimatorStateFromStart(Animator targetAnimator, string stateName)
+    {
+        if (targetAnimator == null || string.IsNullOrEmpty(stateName)) return;
+
+        targetAnimator.Play(stateName, 0, 0f);
+        targetAnimator.Update(0f);
+    }
+
+    private void SetAnimatorSpeed(Animator targetAnimator, float speed)
+    {
+        if (targetAnimator != null)
+        {
+            targetAnimator.speed = speed;
+        }
+    }
+
+    private void SetCommunicationDeviceInHand(bool inHand)
+    {
+        if (handCommunicationDeviceObject != null)
+        {
+            handCommunicationDeviceObject.SetActive(inHand);
+        }
+
+        if (deskCommunicationDeviceObject != null)
+        {
+            deskCommunicationDeviceObject.SetActive(!inHand);
+        }
+    }
+
+    private void HandleCheckingFinished()
+    {
+        if (checkingFinishedTriggered) return;
+
+        checkingFinishedTriggered = true;
+        this.SendCommand(new AcquireCommunicationDeviceCommand());
+        this.SendCommand(new FinishDay1WakeUpCommand());
+        this.SendCommand(new SetTaskCommand(
+            "day1_clear_north_route",
+            "Clear the North Route",
+            "Take the small axe from inside the lighthouse and clear the fallen trees blocking the north route."));
+        
+        
+    }
+
+    private IEnumerator PlayPostCheckingSequence()
+    {
+        TriggerCutsceneState(standUpTriggerName);
+
+        if (standUpDuration > 0f)
+        {
+            yield return new WaitForSeconds(standUpDuration);
+        }
+
+        if (standAfterDuration > 0f)
+        {
+            yield return new WaitForSeconds(standAfterDuration);
         }
     }
 }
