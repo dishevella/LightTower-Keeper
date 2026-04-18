@@ -22,8 +22,7 @@ public class LightActivationInteractable : ModelBackedSingleUseInteractableBase
         if (dutyModel == null) return false;
 
         return dutyModel.GeneratorChecked.Value
-            && dutyModel.LampRoomChecked.Value
-            && dutyModel.LensChecked.Value;
+            && dutyModel.LampRoomChecked.Value;
     }
 
     protected override InteractableMessageSubtitle GetBlockedSubtitle()
@@ -41,6 +40,5 @@ public class LightActivationInteractable : ModelBackedSingleUseInteractableBase
 
     protected override void OnInteractionCompleted()
     {
-        this.SendCommand(new FinishDay1NightDutyCommand());
     }
 }

@@ -1,7 +1,4 @@
-public class FinishDay1WakeUpCommand : CommandAbstract
+public class FinishDay1WakeUpCommand : StoryPhaseTransitionCommand
 {
-    protected override void OnExecute()
-    {
-        this.GetSystem<GameFlowSystem>().EnterPhase(StoryPhase.Day1_InspectInside);
-    }
+    protected override StoryPhase TargetPhase => StoryPhase.Day1_InspectInside;
 }

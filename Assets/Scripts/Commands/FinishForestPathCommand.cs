@@ -1,12 +1,7 @@
 using UnityEngine;
 
-public class FinishForestPathCommand : CommandAbstract
+public class FinishForestPathCommand : StoryPhaseTransitionCommand
 {
-    protected override void OnExecute()
-    {
-        
-            this.GetSystem<GameFlowSystem>().EnterPhase(StoryPhase.Day0_ApproachLighthouse);
-        
-    }
+    protected override StoryPhase TargetPhase => StoryPhase.Day0_ApproachLighthouse;
 }
 

@@ -11,7 +11,7 @@ public class AcquireChainsawCommand : CommandAbstract
         var inventorySystem = this.GetSystem<InventorySystem>();
         if (inventorySystem != null)
         {
-            inventorySystem.AddItem(InventoryItemId.Chainsaw);
+            inventorySystem.AddItem(InventoryItemId.Chainsaw, true);
         }
 
         this.GetEvent().Send(new ChainsawAcquiredEvent());

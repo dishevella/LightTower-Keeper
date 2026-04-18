@@ -2,16 +2,18 @@ using UnityEngine;
 
 public class Day1NightDutyController : ControllerAbstract
 {
-    private const string Task_InspectDuty = "task_night_duty_inspect";
+    private const string Task_StartGenerator = "task_start_generator";
+    private const string Task_PrepareLampRoom = "task_prepare_lamp_room";
     private const string Task_ActivateLight = "task_activate_lighthouse";
+    private const string Task_SweepShoreline = "task_sweep_shoreline";
 
-    
     [SerializeField] private GameObject[] objectsToEnableOnStart;
     [SerializeField] private GameObject[] objectsToDisableOnStart;
     [SerializeField] private GameObject[] objectsToEnableWhenReadyToActivate;
 
     private LighthouseDutyModel dutyModel;
     private bool activePhase;
+    private bool completed;
 
     private void Start()
     {
@@ -19,9 +21,10 @@ public class Day1NightDutyController : ControllerAbstract
 
         if (dutyModel != null)
         {
-            dutyModel.GeneratorChecked.OnValueChanged += OnDutyCheckpointChanged;
-            dutyModel.LampRoomChecked.OnValueChanged += OnDutyCheckpointChanged;
-            dutyModel.LensChecked.OnValueChanged += OnDutyCheckpointChanged;
+            dutyModel.GeneratorChecked.OnValueChanged += OnDutyStateChanged;
+            dutyModel.LampRoomChecked.OnValueChanged += OnDutyStateChanged;
+            dutyModel.LightActivated.OnValueChanged += OnDutyStateChanged;
+            dutyModel.BeamSweepCompleted.OnValueChanged += OnDutyStateChanged;
         }
 
         this.GetEvent().Register<Day1NightDutyStartedEvent>(OnDay1NightDutyStarted)
@@ -32,14 +35,16 @@ public class Day1NightDutyController : ControllerAbstract
     {
         if (dutyModel == null) return;
 
-        dutyModel.GeneratorChecked.OnValueChanged -= OnDutyCheckpointChanged;
-        dutyModel.LampRoomChecked.OnValueChanged -= OnDutyCheckpointChanged;
-        dutyModel.LensChecked.OnValueChanged -= OnDutyCheckpointChanged;
+        dutyModel.GeneratorChecked.OnValueChanged -= OnDutyStateChanged;
+        dutyModel.LampRoomChecked.OnValueChanged -= OnDutyStateChanged;
+        dutyModel.LightActivated.OnValueChanged -= OnDutyStateChanged;
+        dutyModel.BeamSweepCompleted.OnValueChanged -= OnDutyStateChanged;
     }
 
     private void OnDay1NightDutyStarted(Day1NightDutyStartedEvent evt)
     {
-        activePhase = true;
+        activePhase = false;
+        completed = false;
 
         if (dutyModel != null)
         {
@@ -47,45 +52,77 @@ public class Day1NightDutyController : ControllerAbstract
             dutyModel.LampRoomChecked.Value = false;
             dutyModel.LensChecked.Value = false;
             dutyModel.LightActivated.Value = false;
+            dutyModel.BeamSweepCompleted.Value = false;
         }
 
         SetObjectsActive(objectsToEnableOnStart, true);
         SetObjectsActive(objectsToDisableOnStart, false);
         SetObjectsActive(objectsToEnableWhenReadyToActivate, false);
 
-        PublishInspectionTask();
+        activePhase = true;
+        RefreshDutyState();
     }
 
-    private void OnDutyCheckpointChanged(bool _)
+    private void OnDutyStateChanged(bool _)
     {
         if (!activePhase || dutyModel == null) return;
 
-        bool readyToActivate =
-            dutyModel.GeneratorChecked.Value
-            && dutyModel.LampRoomChecked.Value
-            && dutyModel.LensChecked.Value;
+        RefreshDutyState();
+    }
 
-        SetObjectsActive(objectsToEnableWhenReadyToActivate, readyToActivate);
+    private void RefreshDutyState()
+    {
+        if (dutyModel == null) return;
 
-        if (readyToActivate)
+        bool generatorStarted = dutyModel.GeneratorChecked.Value;
+        bool lampRoomReady = dutyModel.LampRoomChecked.Value;
+        bool lightActivated = dutyModel.LightActivated.Value;
+        bool beamSweepCompleted = dutyModel.BeamSweepCompleted.Value;
+
+        SetObjectsActive(objectsToEnableWhenReadyToActivate, lampRoomReady);
+
+        if (beamSweepCompleted)
+        {
+            if (!completed)
+            {
+                completed = true;
+                activePhase = false;
+                this.SendCommand(new FinishDay1NightDutyCommand());
+            }
+            return;
+        }
+
+        if (lightActivated)
+        {
+            this.SendCommand(new SetTaskCommand(
+                Task_SweepShoreline,
+                "Sweep the Shoreline",
+                "Rotate the lighthouse beam for a moment, then let it settle once the sweep feels steady."));
+            return;
+        }
+
+        if (lampRoomReady)
         {
             this.SendCommand(new SetTaskCommand(
                 Task_ActivateLight,
-                "Activate the Lighthouse Light",
-                "Turn on the lighthouse light and confirm it is operating normally."));
+                "Light the Beacon",
+                "Ignite the lighthouse beacon and bring the main beam online."));
+            return;
         }
-        else
-        {
-            PublishInspectionTask();
-        }
-    }
 
-    private void PublishInspectionTask()
-    {
+        if (generatorStarted)
+        {
+            this.SendCommand(new SetTaskCommand(
+                Task_PrepareLampRoom,
+                "Prepare the Lamp Room",
+                "Head up to the lamp room and bring the lighting system into working order."));
+            return;
+        }
+
         this.SendCommand(new SetTaskCommand(
-            Task_InspectDuty,
-            "Inspect the Generator and Lamp Room",
-            "Check the generator, lamp room, and lens before turning on the lighthouse light."));
+            Task_StartGenerator,
+            "Start the Generator",
+            "Get the generator running before the night watch can begin."));
     }
 
     private void SetObjectsActive(GameObject[] objects, bool active)

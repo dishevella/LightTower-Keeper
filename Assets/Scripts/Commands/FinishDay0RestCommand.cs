@@ -1,11 +1,6 @@
 using UnityEngine;
 
-public class FinishDay0RestCommand :CommandAbstract
+public class FinishDay0RestCommand : StoryPhaseTransitionCommand
 {
-    protected override void OnExecute()
-    {
-        
-           this.GetSystem<GameFlowSystem>().EnterPhase(StoryPhase.Day1_Start);
-        
-    }
+    protected override StoryPhase TargetPhase => StoryPhase.Day1_Start;
 }

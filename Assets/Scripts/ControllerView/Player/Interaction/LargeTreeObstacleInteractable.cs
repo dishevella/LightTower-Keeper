@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 public class LargeTreeObstacleInteractable : SingleUseInteractableBase
 {
@@ -8,6 +9,8 @@ public class LargeTreeObstacleInteractable : SingleUseInteractableBase
     [SerializeField] private InteractableMessageSubtitle clearedSubtitle;
     [SerializeField] private GameObject[] objectsToDisableOnClear;
     [SerializeField] private GameObject[] objectsToEnableOnClear;
+    [Header("Story Progression")]
+    [SerializeField] private bool advanceToNightDutyOnClear = true;
     [Header("Optional Clear Hook")]
     [SerializeField] private float clearDelay;
     [SerializeField] private UnityEvent onClearStarted;
@@ -30,7 +33,7 @@ public class LargeTreeObstacleInteractable : SingleUseInteractableBase
         StartCoroutine(ClearRoutine());
     }
 
-    private System.Collections.IEnumerator ClearRoutine()
+    private IEnumerator ClearRoutine()
     {
         MarkCompleted();
         PlaySubtitle(clearedSubtitle);
@@ -42,5 +45,10 @@ public class LargeTreeObstacleInteractable : SingleUseInteractableBase
         }
 
         ApplySuccessState(objectsToDisableOnClear, objectsToEnableOnClear);
+
+        if (advanceToNightDutyOnClear)
+        {
+            this.SendCommand(new FinishDay1ReturnRouteCommand());
+        }
     }
 }

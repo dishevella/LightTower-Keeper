@@ -197,6 +197,8 @@ public class CinematicSequenceTrigger : ControllerAbstract
         }
         if (OnlyTriggerSubtitlesTime > 0)
             yield return new WaitForSeconds(OnlyTriggerSubtitlesTime);
+
+        CommitCurrentViewToPlayerController();
         RestorePlayerState();
         SetAdditionalComponentsLocked(false);
         lookLocked = false;
@@ -306,6 +308,14 @@ public class CinematicSequenceTrigger : ControllerAbstract
         playerController.SetCanCrouch(cachedCanCrouch);
         playerController.SetCanJump(cachedCanJump);
         playerController.SetCursorLocked(cachedCursorLocked);
+    }
+
+    private void CommitCurrentViewToPlayerController()
+    {
+        if (playerController == null) return;
+        if (!lockLook) return;
+
+        playerController.SyncCurrentLookState();
     }
 
     private void SetAdditionalComponentsLocked(bool locked)

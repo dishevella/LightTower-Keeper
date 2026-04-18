@@ -7,6 +7,7 @@ public class LighthouseDutyModel : ModelAbstract
     public BindableProperty<bool> LampRoomChecked { get; private set; }
     public BindableProperty<bool> LensChecked { get; private set; }
     public BindableProperty<bool> LightActivated { get; private set; }
+    public BindableProperty<bool> BeamSweepCompleted { get; private set; }
 
     protected override void OnInit()
     {
@@ -14,5 +15,6 @@ public class LighthouseDutyModel : ModelAbstract
         LampRoomChecked = new BindableProperty<bool>(false);
         LensChecked = new BindableProperty<bool>(false);
         LightActivated = new BindableProperty<bool>(false);
+        BeamSweepCompleted = new BindableProperty<bool>(false);
     }
 }

@@ -236,6 +236,7 @@ public class Day1WakeUpController : ControllerAbstract
             dutyModel.LampRoomChecked.Value = false;
             dutyModel.LensChecked.Value = false;
             dutyModel.LightActivated.Value = false;
+            dutyModel.BeamSweepCompleted.Value = false;
         }
     }
 

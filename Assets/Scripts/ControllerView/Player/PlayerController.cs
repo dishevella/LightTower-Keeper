@@ -526,6 +526,15 @@ public class PlayerController : MonoBehaviour
         cameraRoot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
     }
 
+    public void SyncCurrentLookState()
+    {
+        if (cameraRoot == null) return;
+
+        pitch = NormalizeSignedAngle(cameraRoot.localEulerAngles.x);
+        pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+        cameraRoot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+    }
+
     private void ApplyAnimationCameraPose()
     {
         if (cameraRoot == null) return;

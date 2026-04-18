@@ -12,6 +12,7 @@ public class PhaseTest : ControllerAbstract
         this.SendCommand<FinishDay1DockEncounterCommand>();
         this.SendCommand<AcquireSmallAxeCommand>();
         this.SendCommand<AcquireCommunicationDeviceCommand>();
+        //this.SendCommand<AcquireChainsawCommand>();
         this.SendCommand(new SetTaskCommand(TaskId, TaskTitle, TaskDescription));
     }
 }

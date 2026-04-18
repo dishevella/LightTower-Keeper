@@ -1,7 +1,4 @@
-public class FinishDay1NightDutyCommand : CommandAbstract
+public class FinishDay1NightDutyCommand : StoryPhaseTransitionCommand
 {
-    protected override void OnExecute()
-    {
-        this.GetSystem<GameFlowSystem>().EnterPhase(StoryPhase.Day1_Complete);
-    }
+    protected override StoryPhase TargetPhase => StoryPhase.Day1_Complete;
 }

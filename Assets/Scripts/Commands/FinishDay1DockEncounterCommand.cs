@@ -1,7 +1,4 @@
-public class FinishDay1DockEncounterCommand : CommandAbstract
+public class FinishDay1DockEncounterCommand : StoryPhaseTransitionCommand
 {
-    protected override void OnExecute()
-    {
-        this.GetSystem<GameFlowSystem>().EnterPhase(StoryPhase.Day1_ReturnRoute);
-    }
+    protected override StoryPhase TargetPhase => StoryPhase.Day1_ReturnRoute;
 }

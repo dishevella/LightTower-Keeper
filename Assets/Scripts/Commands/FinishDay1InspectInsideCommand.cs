@@ -1,7 +1,4 @@
-public class FinishDay1InspectInsideCommand : CommandAbstract
+public class FinishDay1InspectInsideCommand : StoryPhaseTransitionCommand
 {
-    protected override void OnExecute()
-    {
-        this.GetSystem<GameFlowSystem>().EnterPhase(StoryPhase.Day1_GoDock);
-    }
+    protected override StoryPhase TargetPhase => StoryPhase.Day1_GoDock;
 }

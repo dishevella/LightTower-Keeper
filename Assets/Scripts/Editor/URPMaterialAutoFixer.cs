@@ -44,10 +44,10 @@ public class URPAutoTextureAssigner : EditorWindow
 
         GUILayout.Space(10);
         EditorGUILayout.HelpBox(
-            "1. ÏÈÑ¡ÖÐ²ÄÖÊÇò\n" +
-            "2. Ö¸¶¨ Textures ÎÄ¼þ¼Ð\n" +
-            "3. µã Process\n\n" +
-            "»á×Ô¶¯³¢ÊÔÆ¥Åä BaseMap / NormalMap£¬²¢°Ñ²ÄÖÊ×ª³É URP/Lit¡£",
+            "1. ï¿½ï¿½Ñ¡ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½\n" +
+            "2. Ö¸ï¿½ï¿½ Textures ï¿½Ä¼ï¿½ï¿½ï¿½\n" +
+            "3. ï¿½ï¿½ Process\n\n" +
+            "ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ BaseMap / NormalMapï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ï¿½ï¿½×ªï¿½ï¿½ URP/Litï¿½ï¿½",
             MessageType.Info
         );
     }
@@ -226,11 +226,11 @@ public class URPAutoTextureAssigner : EditorWindow
 
     private void SetDoubleSided(Material mat, bool enabled)
     {
-        // URP Lit Ò»°ã Cull = 0 ´ú±íË«Ãæ
+        // URP Lit Ò»ï¿½ï¿½ Cull = 0 ï¿½ï¿½ï¿½ï¿½Ë«ï¿½ï¿½
         if (mat.HasProperty("_Cull"))
             mat.SetFloat("_Cull", enabled ? 0f : 2f);
 
-        // Ä³Ð©°æ±¾»áÓÐ Render Face
+        // Ä³Ð©ï¿½æ±¾ï¿½ï¿½ï¿½ï¿½ Render Face
         if (mat.HasProperty("_RenderFace"))
             mat.SetFloat("_RenderFace", enabled ? 2f : 0f);
     }
