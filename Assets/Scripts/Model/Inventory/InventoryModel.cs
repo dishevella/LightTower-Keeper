@@ -40,6 +40,7 @@ public class InventoryModel : ModelAbstract
     }
     public bool SelectItem(InventoryItemId itemId)
     {
+        if (itemId == InventoryItemId.None) return false;
         if (itemId != InventoryItemId.None && !items.Contains(itemId)) return false;
         if (SelectedItem.Value == itemId) return false;
         SelectedItem.Value = itemId;

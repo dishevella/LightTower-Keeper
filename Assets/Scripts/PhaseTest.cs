@@ -9,9 +9,9 @@ public class PhaseTest : ControllerAbstract
    
     private void Start()
     {
-        this.SendCommand<FinishDay1DockEncounterCommand>();
-        this.SendCommand<AcquireSmallAxeCommand>();
-        this.SendCommand<AcquireCommunicationDeviceCommand>();
+        this.SendCommand<FinishApproachLighthouseCommand>();
+        //this.SendCommand<AcquireSmallAxeCommand>();
+       // this.SendCommand<AcquireCommunicationDeviceCommand>();
         //this.SendCommand<AcquireChainsawCommand>();
         this.SendCommand(new SetTaskCommand(TaskId, TaskTitle, TaskDescription));
     }
