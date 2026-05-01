@@ -31,8 +31,8 @@ public class PolyverseSkiesShaderGUI : ShaderGUI
             {
                 var prop = props[i];
 
-                if (prop.propertyFlags == UnityEngine.Rendering.ShaderPropertyFlags.HideInInspector)
-                    continue;
+                //if (prop.propertyFlags == UnityEngine.Rendering.ShaderPropertyFlags.HideInInspector)
+                //    continue;
 
                 customPropsList.Add(prop);
             }
@@ -43,10 +43,10 @@ public class PolyverseSkiesShaderGUI : ShaderGUI
             {
                 var prop = props[i];
 
-                if (prop.propertyFlags == UnityEngine.Rendering.ShaderPropertyFlags.HideInInspector)
-                {
-                    continue;
-                }
+                //if (prop.propertyFlags == UnityEngine.Rendering.ShaderPropertyFlags.HideInInspector)
+                //{
+                 //   continue;
+                //}
 
                 if (material.HasProperty("_BackgroundMode"))
                 {
