@@ -48,6 +48,7 @@ public class Day1WakeUpController : ControllerAbstract
     [SerializeField] private float checkingDuration = 2f;
     [SerializeField] private float standUpDuration = 1.5f;
     [SerializeField] private float standAfterDuration = 0.25f;
+    [SerializeField, Min(10f)] private float maximumControlLockDuration = 45f;
 
     [Header("Audio")]
     [SerializeField] private AudioSource notificationAudioSource;
@@ -66,6 +67,9 @@ public class Day1WakeUpController : ControllerAbstract
 
     private bool started;
     private bool checkingFinishedTriggered;
+    private bool playerLocked;
+    private float playerLockedAtRealtime;
+    private Coroutine wakeUpRoutine;
 
     private void Awake()
     {
@@ -84,7 +88,22 @@ public class Day1WakeUpController : ControllerAbstract
     private void OnDay1Started(Day1StartedEvent evt)
     {
         if (started) return;
-        StartCoroutine(PlayWakeUpRoutine());
+        wakeUpRoutine = StartCoroutine(PlayWakeUpRoutine());
+    }
+
+    private void Update()
+    {
+        if (!playerLocked || Time.realtimeSinceStartup - playerLockedAtRealtime < maximumControlLockDuration) return;
+
+        Debug.LogError("Wake-up sequence exceeded the control lock timeout. Restoring player control.", this);
+        if (wakeUpRoutine != null)
+        {
+            StopCoroutine(wakeUpRoutine);
+            wakeUpRoutine = null;
+        }
+
+        EndCutsceneView();
+        ReleasePlayerControl();
     }
 
     private IEnumerator PlayWakeUpRoutine()
@@ -92,49 +111,52 @@ public class Day1WakeUpController : ControllerAbstract
         started = true;
         checkingFinishedTriggered = false;
 
-        this.SendCommand<ClearCurrentTaskCommand>();
-
-        ResetModels();
-        SetObjectsActive(objectsToEnableOnStart, true);
-        SetObjectsActive(objectsToDisableOnStart, false);
-
-        PrepareGameplayPlayerForCutscene();
-        SetPlayerLocked(true);
-
-        if (fadePanel != null)
+        try
         {
-            fadePanel.SetBlackImmediate();
+            this.SendCommand<ClearCurrentTaskCommand>();
+
+            ResetModels();
+            SetObjectsActive(objectsToEnableOnStart, true);
+            SetObjectsActive(objectsToDisableOnStart, false);
+
+            PrepareGameplayPlayerForCutscene();
+            SetPlayerLocked(true);
+
+            if (fadePanel != null)
+            {
+                fadePanel.SetBlackImmediate();
+            }
+
+            SetCommunicationDeviceInHand(false);
+            PositionCutsceneActorAtStart();
+            BeginCutsceneView();
+            PrepareCutscenePlayback();
+
+            if (dayTransitionPanel != null)
+            {
+                yield return dayTransitionPanel.PlayTransition(dayNumber);
+            }
+
+            if (holdBeforeReveal > 0f)
+            {
+                yield return new WaitForSeconds(holdBeforeReveal);
+            }
+
+            ResumeCutscenePlayback();
+            if (fadePanel != null)
+            {
+                yield return fadePanel.FadeFromBlack(revealDuration);
+            }
+
+            yield return PlayWakeUpCutsceneSequence();
+            AlignGameplayPlayerToCutsceneView();
         }
-
-        SetCommunicationDeviceInHand(false);
-        PositionCutsceneActorAtStart();
-        BeginCutsceneView();
-        PrepareCutscenePlayback();
-
-        if (dayTransitionPanel != null)
+        finally
         {
-            yield return dayTransitionPanel.PlayTransition(dayNumber);
+            EndCutsceneView();
+            ReleasePlayerControl();
+            wakeUpRoutine = null;
         }
-
-        if (holdBeforeReveal > 0f)
-        {
-            yield return new WaitForSeconds(holdBeforeReveal);
-        }
-
-        ResumeCutscenePlayback();
-        if (fadePanel != null)
-        {
-            yield return fadePanel.FadeFromBlack(revealDuration);
-        }
-
-        
-        yield return PlayWakeUpCutsceneSequence();
-
-        AlignGameplayPlayerToCutsceneView();
-        EndCutsceneView();
-
-        SetPlayerLocked(false);
-        RestoreGameplayPlayerAfterCutscene();
     }
 
     private void PrepareGameplayPlayerForCutscene()
@@ -271,6 +293,8 @@ public class Day1WakeUpController : ControllerAbstract
 
     private void SetPlayerLocked(bool locked)
     {
+        playerLocked = locked;
+        if (locked) playerLockedAtRealtime = Time.realtimeSinceStartup;
         if (playerControlComponents == null) return;
 
         for (int i = 0; i < playerControlComponents.Length; i++)
@@ -280,6 +304,12 @@ public class Day1WakeUpController : ControllerAbstract
                 playerControlComponents[i].enabled = !locked;
             }
         }
+    }
+
+    private void ReleasePlayerControl()
+    {
+        SetPlayerLocked(false);
+        RestoreGameplayPlayerAfterCutscene();
     }
 
     private void SetObjectsActive(GameObject[] objects, bool active)

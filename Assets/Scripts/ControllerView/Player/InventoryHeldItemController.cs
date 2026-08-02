@@ -15,6 +15,7 @@ public class InventoryHeldItemController : ControllerAbstract
 
     [Header("Holding Animation")]
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private CharacterAnimancerController animancerController;
     [SerializeField] private string isHoldingBoolName = "IsHoldingItem";
     [SerializeField] private string holdTypeIntName = "HoldType";
     [SerializeField] private string holdingLayerName = "Holding";
@@ -30,6 +31,9 @@ public class InventoryHeldItemController : ControllerAbstract
 
     private void Awake()
     {
+        if (animancerController == null)
+            animancerController = GetComponent<CharacterAnimancerController>();
+
         isHoldingBoolHash = Animator.StringToHash(isHoldingBoolName);
         holdTypeIntHash = Animator.StringToHash(holdTypeIntName);
 
@@ -50,6 +54,7 @@ public class InventoryHeldItemController : ControllerAbstract
 
     private void Update()
     {
+        if (animancerController != null && animancerController.Config != null) return;
         if (playerAnimator == null) return;
         if (!driveHoldingLayerWeight) return;
         if (holdingLayerIndex < 0) return;
@@ -91,10 +96,16 @@ public class InventoryHeldItemController : ControllerAbstract
 
     private void ApplyHoldingAnimation(InventoryItemId selectedItem)
     {
-        if (playerAnimator == null) return;
-
         bool isHoldingItem = selectedItem != InventoryItemId.None;
         int holdType = GetHoldTypeValue(selectedItem);
+
+        if (animancerController != null && animancerController.Config != null)
+        {
+            animancerController.SetHoldingState(isHoldingItem, holdType, holdingLayerWeight);
+            return;
+        }
+
+        if (playerAnimator == null) return;
 
         if (!string.IsNullOrEmpty(isHoldingBoolName))
         {

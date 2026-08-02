@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform cameraRoot;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private CharacterAnimancerController animancerController;
 
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 3.5f;
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Animation Driving")]
     [SerializeField] private bool driveLocomotionAnimation = true;
+    [SerializeField] private bool preferAnimancerAnimation = true;
     [SerializeField] private float animationCrossFade = 0.08f;
     [SerializeField] private float landStateHoldTime = 0.12f;
     [SerializeField] private float jumpStartHoldTime = 0.12f;
@@ -99,10 +101,12 @@ public class PlayerController : MonoBehaviour
 
 
     private float lastAirborneVerticalVelocity;
+    private float landingImpactVelocity;
     private float timeSinceGrounded;
     private bool animationGrounded;
 
     private float jumpStartTimer;
+    private bool jumpStartedThisFrame;
 
     public bool isGrounded { get; private set; }
     public bool isRunning { get; private set; }
@@ -110,6 +114,11 @@ public class PlayerController : MonoBehaviour
     public bool isJumping { get; private set; }
 
     public Transform CameraRootTransform => cameraRoot;
+
+    private bool UseAnimancerAnimation =>
+        preferAnimancerAnimation &&
+        animancerController != null &&
+        animancerController.Config != null;
 
     private float currentSpeed;
     private Vector3 moveDirection;
@@ -135,6 +144,9 @@ public class PlayerController : MonoBehaviour
         controller.height = standingHeight;
         controller.center = new Vector3(0f, standingHeight / 2f, 0f);
 
+        if (animancerController == null)
+            animancerController = GetComponent<CharacterAnimancerController>();
+
         if (cameraRoot != null)
         {
             Vector3 camLocalPos = cameraRoot.localPosition;
@@ -157,6 +169,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        jumpStartedThisFrame = false;
         UpdateGroundedState();
         HandleLook();
         HandleCrouch();
@@ -201,6 +214,7 @@ public class PlayerController : MonoBehaviour
 
         if (!wasGrounded && isGrounded)
         {
+            landingImpactVelocity = lastAirborneVerticalVelocity;
             bool shouldPlayLand =
                 timeSinceGrounded >= minAirTimeForLand ||
                 lastAirborneVerticalVelocity <= minFallSpeedForLand;
@@ -330,6 +344,8 @@ public class PlayerController : MonoBehaviour
         {
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
             isJumping = true;
+            jumpStartedThisFrame = true;
+            landStateTimer = 0f;
             jumpStartTimer = jumpStartHoldTime;
         }
     }
@@ -345,7 +361,33 @@ public class PlayerController : MonoBehaviour
     private void UpdateAnimationState()
     {
 
-        if (!driveLocomotionAnimation || playerAnimator == null) return;
+        if (!driveLocomotionAnimation) return;
+
+        if (UseAnimancerAnimation)
+        {
+            animancerController.SetVerticalSpeed(verticalVelocity);
+            animancerController.SetGrounded(animationGrounded && !isJumping);
+            animancerController.SetCrouching(isCrouching);
+
+            if (jumpStartedThisFrame)
+                animancerController.PlayJump(moveDirection);
+
+            if (landStateTimer > 0f)
+            {
+                animancerController.PlayLanding(landingImpactVelocity, lastGroundHadMoveInput);
+                landStateTimer -= Time.deltaTime;
+                RefreshAnimancerCameraPoseState();
+                return;
+            }
+
+            animancerController.SetMovement(moveDirection, transform.forward);
+            if (jumpStartTimer > 0f)
+                jumpStartTimer -= Time.deltaTime;
+            RefreshAnimancerCameraPoseState();
+            return;
+        }
+
+        if (playerAnimator == null) return;
 
         string targetState = GetTargetAnimationState();
 
@@ -444,6 +486,8 @@ public class PlayerController : MonoBehaviour
     public void ForceStandUp()
     {
         isCrouching = false;
+        if (UseAnimancerAnimation)
+            animancerController.SetCrouching(false);
     }
 
     public void SetCursorLocked(bool locked)
@@ -458,6 +502,12 @@ public class PlayerController : MonoBehaviour
 
         if (!value)
         {
+            if (UseAnimancerAnimation)
+            {
+                animancerController.SetMovement(Vector3.zero, transform.forward);
+                animancerController.ReturnToLocomotion("PlayerController animation driving disabled");
+            }
+
             currentAnimationState = string.Empty;
             RefreshAnimationCameraPose();
         }
@@ -486,6 +536,50 @@ public class PlayerController : MonoBehaviour
         verticalVelocity = controller != null && controller.isGrounded
             ? groundStickForce
             : 0f;
+
+        if (UseAnimancerAnimation)
+        {
+            animancerController.SetVerticalSpeed(verticalVelocity);
+            animancerController.SetGrounded(controller != null && controller.isGrounded);
+            animancerController.SetMovement(Vector3.zero, transform.forward);
+        }
+    }
+
+    private void RefreshAnimancerCameraPoseState()
+    {
+        string poseState = GetAnimancerCameraPoseState();
+        if (currentAnimationState == poseState) return;
+
+        currentAnimationState = poseState;
+        RefreshAnimationCameraPose();
+    }
+
+    private string GetAnimancerCameraPoseState()
+    {
+        if (!animationGrounded || isJumping)
+        {
+            if (jumpStartTimer > 0f || verticalVelocity > 0.1f)
+            {
+                if (isRunning) return jumpRunningState;
+                if (hasMoveInput) return jumpWalkingState;
+                return jumpIdleState;
+            }
+
+            return inAirFallShortState;
+        }
+
+        if (landStateTimer > 0f)
+        {
+            if (lastGroundWasRunning) return landRunningState;
+            if (lastGroundHadMoveInput) return landWalkingState;
+            return landIdleSoftState;
+        }
+
+        if (isCrouching)
+            return hasMoveInput ? crouchWalkState : idleCrouchingState;
+
+        if (!hasMoveInput) return idleStandingState;
+        return isRunning ? runForwardState : walkForwardState;
     }
 
     public void SetCameraPoseOverride(string poseKey)

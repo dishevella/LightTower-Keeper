@@ -1,0 +1,5497 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a804e59d38eaf46b5f96199032af23, type: 3}
+  m_Name: MobilityProPlayerAnimationConfig
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimationConfig
+  Quality:
+    StabilizeFeet: 1
+    FeetPivotActive: 1
+    KeepAnimatorControllerAssetAssignedInEditMode: 1
+    ClearRuntimeAnimatorControllerOnInitialize: 1
+  SourceAnimationPack: Unity MOBILITY PRO Mocap Animation Pack 2.7B1 (IPC Humanoid)
+  ConfiguredScenePath: Assets/_Recovery/0 (58).unity
+  ConfigurationRevision: 6
+  Locomotion:
+    Idle: {fileID: 7400000, guid: f9d03b76f214130469bd3032dc221466, type: 3}
+    IdleVariations:
+    - {fileID: 7400000, guid: f051cc40d9314c0499940cceff8994e6, type: 3}
+    CrouchIdle: {fileID: 7400000, guid: 7a0d2b591f9012e489880bfe8cc0f885, type: 3}
+    EnableIdleVariations: 1
+    IdleVariationInterval: 9
+    IdleVariationCrossFade: 0.2
+    Walk:
+      ForwardLeft: {fileID: 7400000, guid: 82c0fcc767c30ba438155d4853188c26, type: 3}
+      Forward: {fileID: 7400000, guid: 7872d035b93859c429803a71ff2e7991, type: 3}
+      ForwardRight: {fileID: 7400000, guid: 7070f0811dd891a49a1a6e68af789bea, type: 3}
+      Left: {fileID: 7400000, guid: 3856aa11d478cec4f93b0fc28f4428d2, type: 3}
+      Right: {fileID: 7400000, guid: 039e59ccee5130d4d81cb79a6d52807f, type: 3}
+      BackwardLeft: {fileID: 7400000, guid: f1decab50a6613c4a8f1c7eba7aa06f0, type: 3}
+      Backward: {fileID: 7400000, guid: 45440c0ac7964de4a8050241e69b6783, type: 3}
+      BackwardRight: {fileID: 7400000, guid: 42f1a1b0f5c75114a8cbc5b36e0ddb99, type: 3}
+    Jog:
+      ForwardLeft: {fileID: 7400000, guid: 10bdc65d653a88943ba74e2062a571fc, type: 3}
+      Forward: {fileID: 7400000, guid: a6e306224d57a184f802696f258a9757, type: 3}
+      ForwardRight: {fileID: 7400000, guid: b282ba97ebcd63b458ac88766e185c62, type: 3}
+      Left: {fileID: 7400000, guid: caa581bef6ae0944da310873c29df492, type: 3}
+      Right: {fileID: 7400000, guid: 43a84f488fb2c8e44a0697a365a6c53c, type: 3}
+      BackwardLeft: {fileID: 7400000, guid: dfa80097e44deb74c852dc15d74b4764, type: 3}
+      Backward: {fileID: 7400000, guid: 3bdca5a9426a19a42929c1bae1419f15, type: 3}
+      BackwardRight: {fileID: 7400000, guid: d06f9145a6b8d044894c7519881cd2da, type: 3}
+    Run:
+      ForwardLeft: {fileID: 7400000, guid: 27289ab936f711a40a96ff904896a5f4, type: 3}
+      Forward: {fileID: 7400000, guid: b3c4e817c68ba5848a9f93d40a877150, type: 3}
+      ForwardRight: {fileID: 7400000, guid: f4848ea9d975f594c81c856763272db1, type: 3}
+      Left: {fileID: 7400000, guid: 3b6ded10601f200439cf16dba554d2c2, type: 3}
+      Right: {fileID: 7400000, guid: 932194bf725441f4ba35cba6b2c44b2c, type: 3}
+      BackwardLeft: {fileID: 0}
+      Backward: {fileID: 0}
+      BackwardRight: {fileID: 0}
+    Crouch:
+      ForwardLeft: {fileID: 7400000, guid: 9746debc6f998d74dad5565cdaf6f719, type: 3}
+      Forward: {fileID: 7400000, guid: 847bc01bf3f7ab4439846102ba46b848, type: 3}
+      ForwardRight: {fileID: 7400000, guid: 26994a999a53d1e4bbbe45ea8a447116, type: 3}
+      Left: {fileID: 7400000, guid: 82c052e2f7d35cb45ac73a51c5a64f50, type: 3}
+      Right: {fileID: 7400000, guid: c7a6da8881896f74f8059ffb75b3a699, type: 3}
+      BackwardLeft: {fileID: 7400000, guid: 31ae85baafc66204c899d5ef92593669, type: 3}
+      Backward: {fileID: 7400000, guid: a9eb9a8001e472843a7956b6ad9236f4, type: 3}
+      BackwardRight: {fileID: 7400000, guid: 9fa2d890e13742a46bea346f5c781698, type: 3}
+    Starts:
+      Walk:
+        ForwardLeft: {fileID: 7400000, guid: 1999478452d9f654689b514386ddca19, type: 3}
+        Forward: {fileID: 7400000, guid: 3e8c11585386c7843990226a49628008, type: 3}
+        ForwardRight: {fileID: 7400000, guid: 947eb9d4dd44c1e48b8727543c752134, type: 3}
+        Left: {fileID: 7400000, guid: 519f2cc4883577242b295b04da1b9a27, type: 3}
+        Right: {fileID: 7400000, guid: 6feada50e1ed19b4ba3cf873f4970650, type: 3}
+        BackwardLeft: {fileID: 7400000, guid: 4ed7c99e83666364ea7e6893177c78bc, type: 3}
+        Backward: {fileID: 7400000, guid: 47c9ab7668b816546908e58da71c25ea, type: 3}
+        BackwardRight: {fileID: 7400000, guid: 76a7347f0b72d7e47a490edc43694c5a, type: 3}
+      Jog:
+        ForwardLeft: {fileID: 7400000, guid: 80bccdccb30ab43448d6d157bb730bfe, type: 3}
+        Forward: {fileID: 7400000, guid: 8b5930603256524488641b27c4a9a37d, type: 3}
+        ForwardRight: {fileID: 7400000, guid: a8720bf51ae512c469e5d869ae8cb61e, type: 3}
+        Left: {fileID: 7400000, guid: d82588f9ecd30c94ca24dad8ffee069b, type: 3}
+        Right: {fileID: 7400000, guid: e29fd022d05d15a4b809b5297eaf7931, type: 3}
+        BackwardLeft: {fileID: 7400000, guid: 323678c688f2b8c4cbe8fc83e5899931, type: 3}
+        Backward: {fileID: 7400000, guid: 0e516c3ca0448dd4ebd73d9bf8aea523, type: 3}
+        BackwardRight: {fileID: 7400000, guid: 9ad703f3c9b40df47a7756116939e7b4, type: 3}
+      Run:
+        ForwardLeft: {fileID: 7400000, guid: 3b19bf80670e3934daf81eb3db8d3392, type: 3}
+        Forward: {fileID: 7400000, guid: 6a5cf9674c5f2bc438b369756aa9ed31, type: 3}
+        ForwardRight: {fileID: 7400000, guid: bf830b89317e47f4dbe109ae82f3452a, type: 3}
+        Left: {fileID: 7400000, guid: 8403c09b67298e944a4c1641435a45e9, type: 3}
+        Right: {fileID: 7400000, guid: 6fccfba1d4c1b0f49bb2f840fbd6e731, type: 3}
+        BackwardLeft: {fileID: 7400000, guid: e989ea0b48b755941ae28df57679f843, type: 3}
+        Backward: {fileID: 7400000, guid: 65e9f9e3b3f5e5645bba4667c0648713, type: 3}
+        BackwardRight: {fileID: 7400000, guid: 5e8c6ae6106fc2e408af34e289cc5832, type: 3}
+      Crouch:
+        ForwardLeft: {fileID: 7400000, guid: c6efe96df17f0c14eade568c87c734f3, type: 3}
+        Forward: {fileID: 7400000, guid: ba39dcb8bc7b1244aa1db1b7c8276cbf, type: 3}
+        ForwardRight: {fileID: 7400000, guid: a9b5a25a7c9d7ff40a35ef975e000e04, type: 3}
+        Left: {fileID: 7400000, guid: e45cdec6cc63eb74193183d5d18c8eb5, type: 3}
+        Right: {fileID: 7400000, guid: 06f36b511a4b85f4ebebe354951daf9e, type: 3}
+        BackwardLeft: {fileID: 7400000, guid: 83106dba01a4a6447bc67f0ff65f475e, type: 3}
+        Backward: {fileID: 7400000, guid: b6fecb4e60a230d498ffe7b1efb946ab, type: 3}
+        BackwardRight: {fileID: 7400000, guid: cfea306431ab3c4408e57020f3293b8d, type: 3}
+    ForwardTurningStarts:
+      Walk:
+        ForwardLeft: {fileID: 7400000, guid: 1999478452d9f654689b514386ddca19, type: 3}
+        Forward: {fileID: 7400000, guid: 3e8c11585386c7843990226a49628008, type: 3}
+        ForwardRight: {fileID: 7400000, guid: 947eb9d4dd44c1e48b8727543c752134, type: 3}
+        Left: {fileID: 7400000, guid: d11ebf4b5b737ee459f3f5bdd1742018, type: 3}
+        Right: {fileID: 7400000, guid: 794d97a0e4770d441ae59744fae1d31c, type: 3}
+        BackwardLeft: {fileID: 7400000, guid: 4ed7c99e83666364ea7e6893177c78bc, type: 3}
+        Backward: {fileID: 7400000, guid: e1cfec3d71a52724b81b4cf78dd97523, type: 3}
+        BackwardRight: {fileID: 7400000, guid: 76a7347f0b72d7e47a490edc43694c5a, type: 3}
+      Jog:
+        ForwardLeft: {fileID: 7400000, guid: 80bccdccb30ab43448d6d157bb730bfe, type: 3}
+        Forward: {fileID: 7400000, guid: 8b5930603256524488641b27c4a9a37d, type: 3}
+        ForwardRight: {fileID: 7400000, guid: a8720bf51ae512c469e5d869ae8cb61e, type: 3}
+        Left: {fileID: 7400000, guid: 01dc4cf723fe6db428ebffe02dddebaf, type: 3}
+        Right: {fileID: 7400000, guid: f2c7dbb6b5b832843aa0905f9e15d869, type: 3}
+        BackwardLeft: {fileID: 7400000, guid: 323678c688f2b8c4cbe8fc83e5899931, type: 3}
+        Backward: {fileID: 7400000, guid: 5aeab248a5e88eb4fbad373c2a8e41fe, type: 3}
+        BackwardRight: {fileID: 7400000, guid: 9ad703f3c9b40df47a7756116939e7b4, type: 3}
+      Run:
+        ForwardLeft: {fileID: 7400000, guid: 3b19bf80670e3934daf81eb3db8d3392, type: 3}
+        Forward: {fileID: 7400000, guid: 6a5cf9674c5f2bc438b369756aa9ed31, type: 3}
+        ForwardRight: {fileID: 7400000, guid: bf830b89317e47f4dbe109ae82f3452a, type: 3}
+        Left: {fileID: 7400000, guid: 4dd0c56b59cfd1741bc39a3b6121ac30, type: 3}
+        Right: {fileID: 7400000, guid: 2624e94f2ef2f604aa02ef2161bd0eec, type: 3}
+        BackwardLeft: {fileID: 7400000, guid: e989ea0b48b755941ae28df57679f843, type: 3}
+        Backward: {fileID: 7400000, guid: 65e9f9e3b3f5e5645bba4667c0648713, type: 3}
+        BackwardRight: {fileID: 7400000, guid: 5e8c6ae6106fc2e408af34e289cc5832, type: 3}
+      Crouch:
+        ForwardLeft: {fileID: 7400000, guid: c6efe96df17f0c14eade568c87c734f3, type: 3}
+        Forward: {fileID: 7400000, guid: ba39dcb8bc7b1244aa1db1b7c8276cbf, type: 3}
+        ForwardRight: {fileID: 7400000, guid: a9b5a25a7c9d7ff40a35ef975e000e04, type: 3}
+        Left: {fileID: 7400000, guid: 19ea4fbd941efb643a14f5fd7365b2a1, type: 3}
+        Right: {fileID: 7400000, guid: 7aaeafdd9f427b74a9bda34684cd28a3, type: 3}
+        BackwardLeft: {fileID: 7400000, guid: 83106dba01a4a6447bc67f0ff65f475e, type: 3}
+        Backward: {fileID: 7400000, guid: fed86e6db859b0547bb31e9ed6bd906e, type: 3}
+        BackwardRight: {fileID: 7400000, guid: cfea306431ab3c4408e57020f3293b8d, type: 3}
+    Stops:
+      Walk:
+        ForwardLeft: {fileID: 7400000, guid: d16a4711a558e4d4ca5d228cc56ce8a3, type: 3}
+        Forward: {fileID: 7400000, guid: d16a4711a558e4d4ca5d228cc56ce8a3, type: 3}
+        ForwardRight: {fileID: 7400000, guid: d16a4711a558e4d4ca5d228cc56ce8a3, type: 3}
+        Left: {fileID: 7400000, guid: 895de53586b294045a601d91ab2e244b, type: 3}
+        Right: {fileID: 7400000, guid: 749758f26efb92a4b8ef73200279da35, type: 3}
+        BackwardLeft: {fileID: 7400000, guid: ffeee2bc68da2c44d84ccfc8d0ae1355, type: 3}
+        Backward: {fileID: 7400000, guid: ffeee2bc68da2c44d84ccfc8d0ae1355, type: 3}
+        BackwardRight: {fileID: 7400000, guid: ffeee2bc68da2c44d84ccfc8d0ae1355, type: 3}
+      Jog:
+        ForwardLeft: {fileID: 7400000, guid: a9609df7199a18a479feff3f1e443669, type: 3}
+        Forward: {fileID: 7400000, guid: a9609df7199a18a479feff3f1e443669, type: 3}
+        ForwardRight: {fileID: 7400000, guid: a9609df7199a18a479feff3f1e443669, type: 3}
+        Left: {fileID: 7400000, guid: 1e94e6409dd5d974bb62b8d0ed63cf9f, type: 3}
+        Right: {fileID: 7400000, guid: 48b5cceb359c1b948ba3d13a8acaefe9, type: 3}
+        BackwardLeft: {fileID: 7400000, guid: ff3736bbe5df0054c83c5f87f128756a, type: 3}
+        Backward: {fileID: 7400000, guid: ff3736bbe5df0054c83c5f87f128756a, type: 3}
+        BackwardRight: {fileID: 7400000, guid: ff3736bbe5df0054c83c5f87f128756a, type: 3}
+      Run:
+        ForwardLeft: {fileID: 7400000, guid: 60957d1f3c1264c4fba3193fdc0e0a12, type: 3}
+        Forward: {fileID: 7400000, guid: 60957d1f3c1264c4fba3193fdc0e0a12, type: 3}
+        ForwardRight: {fileID: 7400000, guid: 60957d1f3c1264c4fba3193fdc0e0a12, type: 3}
+        Left: {fileID: 7400000, guid: ae42bb95ade7586449da2338e15728d0, type: 3}
+        Right: {fileID: 7400000, guid: 5cba240d7e851314d87d8b4bcf85afc9, type: 3}
+        BackwardLeft: {fileID: 0}
+        Backward: {fileID: 0}
+        BackwardRight: {fileID: 0}
+      Crouch:
+        ForwardLeft: {fileID: 7400000, guid: 29dd9b5fe2f59fc498dc480b81d582c6, type: 3}
+        Forward: {fileID: 7400000, guid: 29dd9b5fe2f59fc498dc480b81d582c6, type: 3}
+        ForwardRight: {fileID: 7400000, guid: 29dd9b5fe2f59fc498dc480b81d582c6, type: 3}
+        Left: {fileID: 7400000, guid: 600cdd362716abc4fbcb9925529fde6a, type: 3}
+        Right: {fileID: 7400000, guid: 9ac65be2938c6be41a179294aeb72d87, type: 3}
+        BackwardLeft: {fileID: 7400000, guid: 8e8d56f154af2604c9ca517eac5938fc, type: 3}
+        Backward: {fileID: 7400000, guid: 8e8d56f154af2604c9ca517eac5938fc, type: 3}
+        BackwardRight: {fileID: 7400000, guid: 8e8d56f154af2604c9ca517eac5938fc, type: 3}
+    FootMatchedStops:
+      Walk:
+        Neutral:
+          ForwardLeft: {fileID: 7400000, guid: d16a4711a558e4d4ca5d228cc56ce8a3, type: 3}
+          Forward: {fileID: 7400000, guid: d16a4711a558e4d4ca5d228cc56ce8a3, type: 3}
+          ForwardRight: {fileID: 7400000, guid: d16a4711a558e4d4ca5d228cc56ce8a3, type: 3}
+          Left: {fileID: 7400000, guid: 895de53586b294045a601d91ab2e244b, type: 3}
+          Right: {fileID: 7400000, guid: 749758f26efb92a4b8ef73200279da35, type: 3}
+          BackwardLeft: {fileID: 7400000, guid: ffeee2bc68da2c44d84ccfc8d0ae1355, type: 3}
+          Backward: {fileID: 7400000, guid: ffeee2bc68da2c44d84ccfc8d0ae1355, type: 3}
+          BackwardRight: {fileID: 7400000, guid: ffeee2bc68da2c44d84ccfc8d0ae1355, type: 3}
+        LeftFoot:
+          ForwardLeft: {fileID: 7400000, guid: 95949979344338f448a6aaaea404b3b3, type: 3}
+          Forward: {fileID: 7400000, guid: 95949979344338f448a6aaaea404b3b3, type: 3}
+          ForwardRight: {fileID: 7400000, guid: 95949979344338f448a6aaaea404b3b3, type: 3}
+          Left: {fileID: 7400000, guid: 290e20e83d5a1cf46ac5018e67870611, type: 3}
+          Right: {fileID: 7400000, guid: 1513ee8a475df7c4e942ec9d383b04ed, type: 3}
+          BackwardLeft: {fileID: 7400000, guid: f14e2cedab100634fa63e3623dc3b181, type: 3}
+          Backward: {fileID: 7400000, guid: f14e2cedab100634fa63e3623dc3b181, type: 3}
+          BackwardRight: {fileID: 7400000, guid: f14e2cedab100634fa63e3623dc3b181, type: 3}
+        RightFoot:
+          ForwardLeft: {fileID: 7400000, guid: 742d75302db16b44d8cd1227bf9ce0b6, type: 3}
+          Forward: {fileID: 7400000, guid: 742d75302db16b44d8cd1227bf9ce0b6, type: 3}
+          ForwardRight: {fileID: 7400000, guid: 742d75302db16b44d8cd1227bf9ce0b6, type: 3}
+          Left: {fileID: 7400000, guid: d0646ec61e7aee946ad4453b9364d854, type: 3}
+          Right: {fileID: 7400000, guid: d953738631b8eaf43813713468014544, type: 3}
+          BackwardLeft: {fileID: 7400000, guid: 526985929cafab145b1ec54bf9c2ed3c, type: 3}
+          Backward: {fileID: 7400000, guid: 526985929cafab145b1ec54bf9c2ed3c, type: 3}
+          BackwardRight: {fileID: 7400000, guid: 526985929cafab145b1ec54bf9c2ed3c, type: 3}
+      Jog:
+        Neutral:
+          ForwardLeft: {fileID: 7400000, guid: a9609df7199a18a479feff3f1e443669, type: 3}
+          Forward: {fileID: 7400000, guid: a9609df7199a18a479feff3f1e443669, type: 3}
+          ForwardRight: {fileID: 7400000, guid: a9609df7199a18a479feff3f1e443669, type: 3}
+          Left: {fileID: 7400000, guid: 1e94e6409dd5d974bb62b8d0ed63cf9f, type: 3}
+          Right: {fileID: 7400000, guid: 48b5cceb359c1b948ba3d13a8acaefe9, type: 3}
+          BackwardLeft: {fileID: 7400000, guid: ff3736bbe5df0054c83c5f87f128756a, type: 3}
+          Backward: {fileID: 7400000, guid: ff3736bbe5df0054c83c5f87f128756a, type: 3}
+          BackwardRight: {fileID: 7400000, guid: ff3736bbe5df0054c83c5f87f128756a, type: 3}
+        LeftFoot:
+          ForwardLeft: {fileID: 7400000, guid: 2567fe05ef89a62429f7e96683694def, type: 3}
+          Forward: {fileID: 7400000, guid: 2567fe05ef89a62429f7e96683694def, type: 3}
+          ForwardRight: {fileID: 7400000, guid: 2567fe05ef89a62429f7e96683694def, type: 3}
+          Left: {fileID: 7400000, guid: c36d00dbe5b2f18409a189dc47ba916b, type: 3}
+          Right: {fileID: 7400000, guid: 635c6a4a37811bd4ea0cac67697dc13d, type: 3}
+          BackwardLeft: {fileID: 7400000, guid: ca292a04dc2c4d346b1ea10ff735ba59, type: 3}
+          Backward: {fileID: 7400000, guid: ca292a04dc2c4d346b1ea10ff735ba59, type: 3}
+          BackwardRight: {fileID: 7400000, guid: ca292a04dc2c4d346b1ea10ff735ba59, type: 3}
+        RightFoot:
+          ForwardLeft: {fileID: 7400000, guid: 89451e225e97c884b829460a4a8a6f5c, type: 3}
+          Forward: {fileID: 7400000, guid: 89451e225e97c884b829460a4a8a6f5c, type: 3}
+          ForwardRight: {fileID: 7400000, guid: 89451e225e97c884b829460a4a8a6f5c, type: 3}
+          Left: {fileID: 7400000, guid: cf5c94bb3a37f904c9c3d23ac601e574, type: 3}
+          Right: {fileID: 7400000, guid: 2d55f0bd97516814d834c1c3886d36cc, type: 3}
+          BackwardLeft: {fileID: 7400000, guid: cc44af8391c97d74fa47d0efa2c8192a, type: 3}
+          Backward: {fileID: 7400000, guid: cc44af8391c97d74fa47d0efa2c8192a, type: 3}
+          BackwardRight: {fileID: 7400000, guid: cc44af8391c97d74fa47d0efa2c8192a, type: 3}
+      Run:
+        Neutral:
+          ForwardLeft: {fileID: 7400000, guid: 60957d1f3c1264c4fba3193fdc0e0a12, type: 3}
+          Forward: {fileID: 7400000, guid: 60957d1f3c1264c4fba3193fdc0e0a12, type: 3}
+          ForwardRight: {fileID: 7400000, guid: 60957d1f3c1264c4fba3193fdc0e0a12, type: 3}
+          Left: {fileID: 7400000, guid: ae42bb95ade7586449da2338e15728d0, type: 3}
+          Right: {fileID: 7400000, guid: 5cba240d7e851314d87d8b4bcf85afc9, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+        LeftFoot:
+          ForwardLeft: {fileID: 7400000, guid: 851dbecf1210d4547bc43c8995512733, type: 3}
+          Forward: {fileID: 7400000, guid: 851dbecf1210d4547bc43c8995512733, type: 3}
+          ForwardRight: {fileID: 7400000, guid: 851dbecf1210d4547bc43c8995512733, type: 3}
+          Left: {fileID: 7400000, guid: a6eb476d7dd32634b9a1ee95a0d33200, type: 3}
+          Right: {fileID: 7400000, guid: e7455eba1316c734390be0821cfe029e, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+        RightFoot:
+          ForwardLeft: {fileID: 7400000, guid: 96d39b26e32450945bc963964ba92b4d, type: 3}
+          Forward: {fileID: 7400000, guid: 96d39b26e32450945bc963964ba92b4d, type: 3}
+          ForwardRight: {fileID: 7400000, guid: 96d39b26e32450945bc963964ba92b4d, type: 3}
+          Left: {fileID: 7400000, guid: f0876820d88adaf43a3c9f71ef5b091e, type: 3}
+          Right: {fileID: 7400000, guid: bd0d4da9b513d9740bc05702a2014d41, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+      Crouch:
+        Neutral:
+          ForwardLeft: {fileID: 7400000, guid: 29dd9b5fe2f59fc498dc480b81d582c6, type: 3}
+          Forward: {fileID: 7400000, guid: 29dd9b5fe2f59fc498dc480b81d582c6, type: 3}
+          ForwardRight: {fileID: 7400000, guid: 29dd9b5fe2f59fc498dc480b81d582c6, type: 3}
+          Left: {fileID: 7400000, guid: 600cdd362716abc4fbcb9925529fde6a, type: 3}
+          Right: {fileID: 7400000, guid: 9ac65be2938c6be41a179294aeb72d87, type: 3}
+          BackwardLeft: {fileID: 7400000, guid: 8e8d56f154af2604c9ca517eac5938fc, type: 3}
+          Backward: {fileID: 7400000, guid: 8e8d56f154af2604c9ca517eac5938fc, type: 3}
+          BackwardRight: {fileID: 7400000, guid: 8e8d56f154af2604c9ca517eac5938fc, type: 3}
+        LeftFoot:
+          ForwardLeft: {fileID: 7400000, guid: 8ecb12d2b49647c40acf21e8531e1a9f, type: 3}
+          Forward: {fileID: 7400000, guid: 8ecb12d2b49647c40acf21e8531e1a9f, type: 3}
+          ForwardRight: {fileID: 7400000, guid: 8ecb12d2b49647c40acf21e8531e1a9f, type: 3}
+          Left: {fileID: 7400000, guid: 450aaa3466f342a41a24e2d25f85b88b, type: 3}
+          Right: {fileID: 7400000, guid: ad4b16df66e179844a3b7856913b3418, type: 3}
+          BackwardLeft: {fileID: 7400000, guid: 7e9dd6f98d1dbd245806a66020d5080c, type: 3}
+          Backward: {fileID: 7400000, guid: 7e9dd6f98d1dbd245806a66020d5080c, type: 3}
+          BackwardRight: {fileID: 7400000, guid: 7e9dd6f98d1dbd245806a66020d5080c, type: 3}
+        RightFoot:
+          ForwardLeft: {fileID: 7400000, guid: 64c001e44e792714797b5a86a8af0ee8, type: 3}
+          Forward: {fileID: 7400000, guid: 64c001e44e792714797b5a86a8af0ee8, type: 3}
+          ForwardRight: {fileID: 7400000, guid: 64c001e44e792714797b5a86a8af0ee8, type: 3}
+          Left: {fileID: 7400000, guid: 9e0817ccdb2125446918b782a3a60fc6, type: 3}
+          Right: {fileID: 7400000, guid: 5ae56b95ae253324ebbec4455c24e093, type: 3}
+          BackwardLeft: {fileID: 7400000, guid: 029e9f52293e63344acee9ca1da873d7, type: 3}
+          Backward: {fileID: 7400000, guid: 029e9f52293e63344acee9ca1da873d7, type: 3}
+          BackwardRight: {fileID: 7400000, guid: 029e9f52293e63344acee9ca1da873d7, type: 3}
+    StandToCrouch: {fileID: 7400000, guid: 1397056de2864a142925c48470bea751, type: 3}
+    CrouchToStand: {fileID: 7400000, guid: 044dd2d22ec08774197ec17635876c43, type: 3}
+    EnableStartTransitions: 1
+    EnableStopTransitions: 1
+    EnableFootMatchedStops: 1
+    UseForwardTurningStarts: 0
+    EnableCrouchTransitions: 1
+    LocomotionCrossFade: 0.14
+    LocomotionFadeOut: 0.14
+    StartCrossFade: 0.08
+    StartFadeOut: 0.1
+    StopCrossFade: 0.1
+    StopFadeOut: 0.12
+    CrouchCrossFade: 0.1
+    CrouchFadeOut: 0.12
+    StartBlendOutNormalizedTime: 0.7
+    StopBlendOutNormalizedTime: 0.82
+    CrouchBlendOutNormalizedTime: 0.82
+    StartInputThreshold: 0.15
+    StopInputThreshold: 0.08
+    AccelerationSmoothTime: 0.1
+    DecelerationSmoothTime: 0.16
+    DirectionSmoothTime: 0.11
+    MaximumVisualAcceleration: 30
+    IdleSpeedThreshold: 0.05
+    WalkSpeed: 2
+    JogSpeed: 3
+    RunSpeed: 4
+    CrouchSpeed: 1
+    GaitHysteresis: 0.15
+    SynchronizeLocomotionCycles: 1
+    GlobalPlaybackSpeed: 1
+    MinimumPlaybackSpeed: 0.85
+    MaximumPlaybackSpeed: 1.2
+    Turns:
+      EnableTurnInPlace: 1
+      EnableContinuousTurnLoops: 1
+      EnableMovementPivots: 1
+      EnableMovementCurves: 1
+      MinimumTurnAngle: 25
+      Turn90Threshold: 67.5
+      Turn135Threshold: 112.5
+      Turn180Threshold: 157.5
+      TurnInputSettleTime: 0.08
+      TurnCrossFade: 0.1
+      TurnBlendOutNormalizedTime: 0.82
+      TurnLoopStartYawRate: 75
+      TurnLoopExitDelay: 0.08
+      TurnLoopFadeIn: 0.08
+      TurnLoopFadeOut: 0.12
+      MinimumPivotAngle: 55
+      Pivot180Threshold: 135
+      MinimumPivotSpeed: 1.5
+      PivotFadeIn: 0.08
+      PivotFadeOut: 0.12
+      PivotBlendOutNormalizedTime: 0.8
+      CurveStartYawRate: 25
+      MinimumCurveSpeed: 0.5
+      CurveExitDelay: 0.1
+      CurveFadeIn: 0.12
+      CurveFadeOut: 0.14
+      StandLeft45: {fileID: 7400000, guid: 2270222753cc5284e93084292ea99bd3, type: 3}
+      StandLeft90: {fileID: 7400000, guid: ac45eea4d31ab5d409bde1486d927107, type: 3}
+      StandLeft135: {fileID: 7400000, guid: feea61c92dfd6cd49b5254a63c34db7f, type: 3}
+      StandRight90: {fileID: 7400000, guid: fe30edc10fdda654e830d12f9aaec2a5, type: 3}
+      StandRight45: {fileID: 7400000, guid: 995b888ca85189748ab3c75794ba4048, type: 3}
+      StandRight135: {fileID: 7400000, guid: e946adc0d8635d94184fd93375e1275f, type: 3}
+      StandLeft180: {fileID: 7400000, guid: 396af39a5a756be4793102f11c910780, type: 3}
+      StandRight180: {fileID: 7400000, guid: ca80e1f7b656adf498521360ee836368, type: 3}
+      StandTurnLeftLoop: {fileID: 7400000, guid: 2f89d85224a19224db44992168ef4628, type: 3}
+      StandTurnRightLoop: {fileID: 7400000, guid: e8a2364c467aa5d4dae0b1eb8be7f02c, type: 3}
+      CrouchLeft45: {fileID: 7400000, guid: 0d32479acf8cf8142996111aab2519dc, type: 3}
+      CrouchLeft90: {fileID: 7400000, guid: 50bb39314312e364d819ed746fd80f51, type: 3}
+      CrouchLeft135: {fileID: 7400000, guid: 455e531d82fa03543930311bf9838d1c, type: 3}
+      CrouchRight90: {fileID: 7400000, guid: 11e8dc51c23537644a6deb3e1dc87991, type: 3}
+      CrouchRight45: {fileID: 7400000, guid: c38dea81c87eb734f87c01881c38d0fd, type: 3}
+      CrouchRight135: {fileID: 7400000, guid: 8a4d979f6300e1345807a1ec8d463e9f, type: 3}
+      CrouchLeft180: {fileID: 7400000, guid: d98a7bf5f6609a048801844f24b128f0, type: 3}
+      CrouchRight180: {fileID: 7400000, guid: 91d9194d51a086844856aba4e448ac48, type: 3}
+      CrouchTurnLeftLoop: {fileID: 7400000, guid: 104edd6e4072a2e4d94cf2339e993abd, type: 3}
+      CrouchTurnRightLoop: {fileID: 7400000, guid: 2739c39a95e54c54f9ec6756621a9808, type: 3}
+      Walk:
+        Left90: {fileID: 7400000, guid: a2360ffc39c7b69429580700be69a272, type: 3}
+        Right90: {fileID: 7400000, guid: 418693148aa1fba448c293992bb01e0e, type: 3}
+        Left180: {fileID: 7400000, guid: 59ec691bbf5a2e246a970f76c919624b, type: 3}
+        Right180: {fileID: 7400000, guid: 4fdf05abe0b518c47a4aba4d05376eae, type: 3}
+      Jog:
+        Left90: {fileID: 7400000, guid: 2b7acd250b1348c4db235fceeb151577, type: 3}
+        Right90: {fileID: 7400000, guid: b01e8bf509da6874386f995e9748b11e, type: 3}
+        Left180: {fileID: 7400000, guid: 0f37b08ab23d7c64cba511fcb0b18676, type: 3}
+        Right180: {fileID: 7400000, guid: af8754dced2014a42bf96e091829db98, type: 3}
+      Run:
+        Left90: {fileID: 7400000, guid: d32d2413a459acf4ebf645807ba9f8d1, type: 3}
+        Right90: {fileID: 7400000, guid: 606c5fa5872183c4cb1ead1edb678797, type: 3}
+        Left180: {fileID: 7400000, guid: 8aebbe2c69fbfa540932c52e3c355b3f, type: 3}
+        Right180: {fileID: 7400000, guid: 677ddb842e2f6ec4788e39884896f9da, type: 3}
+      WalkCurves:
+        Left: {fileID: 7400000, guid: 54d75a9dd12ad72418eff8a606e4e087, type: 3}
+        Right: {fileID: 7400000, guid: dfc3311f7f27a8a4c8589ac7e9b14b61, type: 3}
+      JogCurves:
+        Left: {fileID: 7400000, guid: b559557019d874648ba72bba43a08a8f, type: 3}
+        Right: {fileID: 7400000, guid: 43c1c5c9211eae4439b2586875043e2f, type: 3}
+      RunCurves:
+        Left: {fileID: 7400000, guid: 2204400d057519647a06b6a62fc7c055, type: 3}
+        Right: {fileID: 7400000, guid: 7bd55d43064f7234388eb59ce7b3f706, type: 3}
+      CrouchCurves:
+        Left: {fileID: 7400000, guid: 6a55dd7743728504c884924f99457855, type: 3}
+        Right: {fileID: 7400000, guid: 1457f6b2d2629a24aabd1af93b8c42b8, type: 3}
+      WalkBackpedalCurves:
+        Left: {fileID: 7400000, guid: 5e1e8b0c37260fa40a31d01677b514ac, type: 3}
+        Right: {fileID: 7400000, guid: 9b2ce66220e93204096e6364df591b89, type: 3}
+      JogBackpedalCurves:
+        Left: {fileID: 7400000, guid: 14f4d0950c08108409ac3cf13270a885, type: 3}
+        Right: {fileID: 7400000, guid: 4e480a4a45b4fd945b34ba745cb4a87a, type: 3}
+      CrouchBackpedalCurves:
+        Left: {fileID: 7400000, guid: 27157617974a73643a5b82d5be1cb1ff, type: 3}
+        Right: {fileID: 7400000, guid: 6dd7d496cfce77444875ddfa4e696990, type: 3}
+  Airborne:
+    JumpStarts:
+      Standing: {fileID: 7400000, guid: 1c112b66044a09e458a5bd2211f9b6ed, type: 3}
+      Walk:
+        LeftFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: 455c74afd0aa11a4894067db8e556921, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: 81f082248b8b4f248b3834753998c091, type: 3}
+          Right: {fileID: 7400000, guid: dcd639fe220d62447aca845c9300584d, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 7400000, guid: 42e35e8559caa8e409d2d89886d5dfd4, type: 3}
+          BackwardRight: {fileID: 0}
+        RightFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: 76347dcb71d033b4684b91483c9caf0d, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: 143c4d43d266abf4e9e670efb44da0bf, type: 3}
+          Right: {fileID: 7400000, guid: dd7ec6e20baa1c54aa77cb276b76310b, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 7400000, guid: 3e74e57d4eee14b44b2f1ca505037ec7, type: 3}
+          BackwardRight: {fileID: 0}
+      Jog:
+        LeftFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: bca536d2da549c64a85f221fc02c385e, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: fc80ef82d6e107642ac462445c869fec, type: 3}
+          Right: {fileID: 7400000, guid: 7fad7e16c91bf8946bb7be9310ca0e80, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+        RightFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: 40a8409de616fb7439e9840e5fbbde91, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: f0abd3687bfcc3b489cce5cbdc938a94, type: 3}
+          Right: {fileID: 7400000, guid: 1e6783a3827df5949a80fe114a747fa2, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+      Run:
+        LeftFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: e889b8e5f9b527b45bd74073350d9072, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: aae037abcc35ccd47be3d13155619b2a, type: 3}
+          Right: {fileID: 7400000, guid: dc4fbc6f114967c429c89eed1974c6ac, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+        RightFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: e3a18c23aa080f44ca02e112d57de705, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: 59c0e8d6d6be4064ca86b22fafb58cdd, type: 3}
+          Right: {fileID: 7400000, guid: 68edf47c0766d634bbee22c796c18c55, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+    JumpAir:
+      Standing: {fileID: 7400000, guid: 718a09ec8d94cab49a9870c5dd8819c8, type: 3}
+      Walk:
+        LeftFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: 74feefb416c701342a9f78f9f847aff9, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: 53ea7081696a4c241a113d01a749bdc1, type: 3}
+          Right: {fileID: 7400000, guid: 6583a27cbcc6ba8488c2ad50e70ecda1, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 7400000, guid: 4a1171a696fecca43b1d770059d35b94, type: 3}
+          BackwardRight: {fileID: 0}
+        RightFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: 53056633051e8f1409b8972e70a81b3b, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: 5f40e972c8747ae4f991dd7871542f57, type: 3}
+          Right: {fileID: 7400000, guid: 9f3e85dca44eb1e4bb66f28d10e5dc49, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 7400000, guid: 66fff20bc14b8624f9ce28fe2dd09223, type: 3}
+          BackwardRight: {fileID: 0}
+      Jog:
+        LeftFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: 4858a63b92d542a46ad193f82c73bfd0, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: 290f3d5205db1514e8f269dc866e1578, type: 3}
+          Right: {fileID: 7400000, guid: 33cd01c25ac30864ba3f33c77a53298a, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+        RightFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: 88655b8865be6fa40a5bb4ffee710fc1, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: c2b9d8a7cce83af4a94ee2062bcd09db, type: 3}
+          Right: {fileID: 7400000, guid: 22a522dfc33ddfc44ba5ed963f999d80, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+      Run:
+        LeftFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: df8379c9e09801545a838579b29989a5, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: 075876f23b6a4db46970ab5f04b35197, type: 3}
+          Right: {fileID: 7400000, guid: 1f831e2b79c650347a7d846d68724693, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+        RightFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: 2e88d5d3f98b1c94b91add30176600e0, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: 5ad6120be6c3be44b9746a85ccc951cd, type: 3}
+          Right: {fileID: 7400000, guid: ceb961cabf196004881354337d8948e7, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+    JumpLandings:
+      Standing: {fileID: 7400000, guid: 7a1dee9ef396c0d409676a3a06c8a540, type: 3}
+      Walk:
+        LeftFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: 00ab827174fbdee49baa7cac0bb78412, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: 0ca5db25008c520469c8b766d49980db, type: 3}
+          Right: {fileID: 7400000, guid: 37935ee49452db2408a2a6e7787126e0, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 7400000, guid: 1af6430f087a9b34a832483b82baf8ce, type: 3}
+          BackwardRight: {fileID: 0}
+        RightFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: bf4ff3dbc73076f4883170acf34efa03, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: 538f2842652842e4b9a6f83250da2fbc, type: 3}
+          Right: {fileID: 7400000, guid: c0557d4bbdf393a4b8e58eedd594e999, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 7400000, guid: c6f7fe6af4af7bd46a113c6e103c1120, type: 3}
+          BackwardRight: {fileID: 0}
+      Jog:
+        LeftFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: 1a1078d08e2ad3343b993c9a6e4682af, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: 5df0ab2a3cfeedb4a973063c2d6fb093, type: 3}
+          Right: {fileID: 7400000, guid: dca3a793967162047b0f4878cefc41b4, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+        RightFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: 43808cf97c81a6e42bba8e388b8ddb6e, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: 51e62b9716836294b9ec631ee45721d5, type: 3}
+          Right: {fileID: 7400000, guid: 64d95810ae1955b4b9db8a8e13174ee8, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+      Run:
+        LeftFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: 744c59b1b64c9974d9c397cb80f08523, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: d641cee6f6eed724bb35bf363acf152e, type: 3}
+          Right: {fileID: 7400000, guid: 3c31467a59d860d4fab0553eb4c42779, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+        RightFoot:
+          ForwardLeft: {fileID: 0}
+          Forward: {fileID: 7400000, guid: c5e1e1ff249a28845b66ef48c962b74f, type: 3}
+          ForwardRight: {fileID: 0}
+          Left: {fileID: 7400000, guid: 0d1d43be6bcdee04e841d22f46be9e7a, type: 3}
+          Right: {fileID: 7400000, guid: 94b165c32fef63d47ae38343d64cc63c, type: 3}
+          BackwardLeft: {fileID: 0}
+          Backward: {fileID: 0}
+          BackwardRight: {fileID: 0}
+    Fall: {fileID: 7400000, guid: 718a09ec8d94cab49a9870c5dd8819c8, type: 3}
+    ShortFall: {fileID: 7400000, guid: 718a09ec8d94cab49a9870c5dd8819c8, type: 3}
+    LongFall: {fileID: 7400000, guid: 718a09ec8d94cab49a9870c5dd8819c8, type: 3}
+    SoftLanding: {fileID: 7400000, guid: 7a1dee9ef396c0d409676a3a06c8a540, type: 3}
+    HardLanding: {fileID: 7400000, guid: 7a1dee9ef396c0d409676a3a06c8a540, type: 3}
+    MovingLanding: {fileID: 7400000, guid: 00ab827174fbdee49baa7cac0bb78412, type: 3}
+    JumpFadeDuration: 0.08
+    JumpFadeOut: 0.1
+    AirFadeDuration: 0.1
+    AirFadeOut: 0.12
+    FallFadeDuration: 0.12
+    FallFadeOut: 0.14
+    LandingFadeDuration: 0.1
+    LandingFadeOut: 0.12
+    JumpStartBlendOutNormalizedTime: 0.78
+    LandingBlendOutNormalizedTime: 0.88
+    ShortFallTime: 0.35
+    LongFallTime: 1.1
+    LandingLockTime: 0.15
+    InterruptibleAfter: 0.1
+    HardLandingMinFallSpeed: -8
+    HardLandingMinFallHeight: 2.5
+    AlternateTakeoffFoot: 1
+  Holding:
+    Clip: {fileID: 7400000, guid: 462fcc865a102944c88a4ed6ee4ecfb0, type: 2}
+    AvatarMask: {fileID: 31900000, guid: 1ddf7e90d99874e00becedeef603b490, type: 2}
+    DefaultWeight: 1
+    FadeIn: 0.12
+    FadeOut: 0.15
+    Loop: 1
+  Actions: []
+  Parkour: []
+  Layers:
+    BaseLayerName: Base
+    BaseDefaultWeight: 1
+    UpperBodyFadeDuration: 0.12
+    UpperBodyDefaultWeight: 0
+    AdditiveMask: {fileID: 0}
+    AdditiveFadeDuration: 0.12
+    AdditiveDefaultWeight: 0
+    ReactionMask: {fileID: 0}
+    ReactionFadeDuration: 0.08
+    ReactionDefaultWeight: 0
+  ClipTunings:
+  - Category: 0
+    Role: Idle / Crouch_Idle
+    Transition:
+      _FadeDuration: 0.2
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 7a0d2b591f9012e489880bfe8cc0f885, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.2
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 0
+    Role: Idle / Crouch_Idle_V2
+    Transition:
+      _FadeDuration: 0.2
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 26d23025871f4734c8c3ed3e12acdd2e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.2
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 0
+    Role: Idle / Stand_Relaxed_Idle
+    Transition:
+      _FadeDuration: 0.2
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: f9d03b76f214130469bd3032dc221466, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.2
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 0
+    Role: Idle / Stand_Relaxed_Idle_v2
+    Transition:
+      _FadeDuration: 0.2
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: f051cc40d9314c0499940cceff8994e6, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.2
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / CrouchWalk_BL_BkPd_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 31ae85baafc66204c899d5ef92593669, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / CrouchWalk_BR_BkPd_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 9fa2d890e13742a46bea346f5c781698, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / CrouchWalk_B_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: a9eb9a8001e472843a7956b6ad9236f4, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / CrouchWalk_FL_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 9746debc6f998d74dad5565cdaf6f719, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / CrouchWalk_FR_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 26994a999a53d1e4bbbe45ea8a447116, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / CrouchWalk_F_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 847bc01bf3f7ab4439846102ba46b848, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / CrouchWalk_L_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 82c052e2f7d35cb45ac73a51c5a64f50, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / CrouchWalk_R_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: c7a6da8881896f74f8059ffb75b3a699, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Jog_BL_BkPd_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: dfa80097e44deb74c852dc15d74b4764, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Jog_BR_BkPd_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: d06f9145a6b8d044894c7519881cd2da, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Jog_B_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 3bdca5a9426a19a42929c1bae1419f15, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Jog_FL_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 10bdc65d653a88943ba74e2062a571fc, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Jog_FR_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: b282ba97ebcd63b458ac88766e185c62, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Jog_F_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: a6e306224d57a184f802696f258a9757, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Jog_L_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: caa581bef6ae0944da310873c29df492, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Jog_R_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 43a84f488fb2c8e44a0697a365a6c53c, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Run_FL_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 27289ab936f711a40a96ff904896a5f4, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Run_FR_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: f4848ea9d975f594c81c856763272db1, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Run_F_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: b3c4e817c68ba5848a9f93d40a877150, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Run_L_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 3b6ded10601f200439cf16dba554d2c2, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Run_R_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 932194bf725441f4ba35cba6b2c44b2c, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Walk_BL_BkPd_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: f1decab50a6613c4a8f1c7eba7aa06f0, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Walk_BR_BkPd_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 42f1a1b0f5c75114a8cbc5b36e0ddb99, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Walk_B_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 45440c0ac7964de4a8050241e69b6783, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Walk_FL_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 82c0fcc767c30ba438155d4853188c26, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Walk_FR_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 7070f0811dd891a49a1a6e68af789bea, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Walk_F_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 7872d035b93859c429803a71ff2e7991, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Walk_L_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 3856aa11d478cec4f93b0fc28f4428d2, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 1
+    Role: LocomotionLoop / Walk_R_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 039e59ccee5130d4d81cb79a6d52807f, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Crouch_To_CrouchWalk_B
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: b6fecb4e60a230d498ffe7b1efb946ab, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Crouch_To_CrouchWalk_F
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: ba39dcb8bc7b1244aa1db1b7c8276cbf, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Crouch_To_CrouchWalk_L135_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 83106dba01a4a6447bc67f0ff65f475e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Crouch_To_CrouchWalk_L180_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: fed86e6db859b0547bb31e9ed6bd906e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Crouch_To_CrouchWalk_L45_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: c6efe96df17f0c14eade568c87c734f3, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Crouch_To_CrouchWalk_L90_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 19ea4fbd941efb643a14f5fd7365b2a1, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Crouch_To_CrouchWalk_L
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: e45cdec6cc63eb74193183d5d18c8eb5, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Crouch_To_CrouchWalk_R135_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: cfea306431ab3c4408e57020f3293b8d, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Crouch_To_CrouchWalk_R180_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 9581ef705ace6c04ba57aa6bc24e1128, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Crouch_To_CrouchWalk_R45_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: a9b5a25a7c9d7ff40a35ef975e000e04, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Crouch_To_CrouchWalk_R90_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 7aaeafdd9f427b74a9bda34684cd28a3, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Crouch_To_CrouchWalk_R
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 06f36b511a4b85f4ebebe354951daf9e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Jog_B
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 0e516c3ca0448dd4ebd73d9bf8aea523, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Jog_F
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 8b5930603256524488641b27c4a9a37d, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Jog_L135_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 323678c688f2b8c4cbe8fc83e5899931, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Jog_L180_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 5aeab248a5e88eb4fbad373c2a8e41fe, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Jog_L45_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 80bccdccb30ab43448d6d157bb730bfe, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Jog_L90_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 01dc4cf723fe6db428ebffe02dddebaf, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Jog_L
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: d82588f9ecd30c94ca24dad8ffee069b, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Jog_R135_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 9ad703f3c9b40df47a7756116939e7b4, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Jog_R180_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 9de6b05dfaff7b145aee539688ec9e9d, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Jog_R45_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: a8720bf51ae512c469e5d869ae8cb61e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Jog_R90_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: f2c7dbb6b5b832843aa0905f9e15d869, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Jog_R
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: e29fd022d05d15a4b809b5297eaf7931, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Run_F
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 6a5cf9674c5f2bc438b369756aa9ed31, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Run_L135_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: e989ea0b48b755941ae28df57679f843, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Run_L180_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 65e9f9e3b3f5e5645bba4667c0648713, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Run_L45_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 3b19bf80670e3934daf81eb3db8d3392, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Run_L90_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 4dd0c56b59cfd1741bc39a3b6121ac30, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Run_L
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 8403c09b67298e944a4c1641435a45e9, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Run_R135_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 5e8c6ae6106fc2e408af34e289cc5832, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Run_R180_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1b8f0e6b122420440866ac5a8f2f1ead, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Run_R45_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: bf830b89317e47f4dbe109ae82f3452a, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Run_R90_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 2624e94f2ef2f604aa02ef2161bd0eec, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Run_R
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 6fccfba1d4c1b0f49bb2f840fbd6e731, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Walk_B
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 47c9ab7668b816546908e58da71c25ea, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Walk_F
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 3e8c11585386c7843990226a49628008, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Walk_L135_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 4ed7c99e83666364ea7e6893177c78bc, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Walk_L180_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: e1cfec3d71a52724b81b4cf78dd97523, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Walk_L45_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1999478452d9f654689b514386ddca19, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Walk_L90_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: d11ebf4b5b737ee459f3f5bdd1742018, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Walk_L
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 519f2cc4883577242b295b04da1b9a27, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Walk_R135_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 76a7347f0b72d7e47a490edc43694c5a, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Walk_R180_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 79ac419558393af42b4090a4ccdbb68d, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Walk_R45_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 947eb9d4dd44c1e48b8727543c752134, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Walk_R90_Fwd
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 794d97a0e4770d441ae59744fae1d31c, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 2
+    Role: Start / Stand_Relaxed_To_Walk_R
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 6feada50e1ed19b4ba3cf873f4970650, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.1
+    BlendOutNormalizedTime: 0.72
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / CrouchWalk_B_To_Crouch
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 8e8d56f154af2604c9ca517eac5938fc, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / CrouchWalk_B_To_Crouch_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 7e9dd6f98d1dbd245806a66020d5080c, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / CrouchWalk_B_To_Crouch_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 029e9f52293e63344acee9ca1da873d7, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / CrouchWalk_F_To_Crouch
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 29dd9b5fe2f59fc498dc480b81d582c6, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / CrouchWalk_F_To_Crouch_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 8ecb12d2b49647c40acf21e8531e1a9f, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / CrouchWalk_F_To_Crouch_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 64c001e44e792714797b5a86a8af0ee8, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / CrouchWalk_L_To_Crouch
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 600cdd362716abc4fbcb9925529fde6a, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / CrouchWalk_L_To_Crouch_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 450aaa3466f342a41a24e2d25f85b88b, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / CrouchWalk_L_To_Crouch_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 9e0817ccdb2125446918b782a3a60fc6, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / CrouchWalk_R_To_Crouch
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 9ac65be2938c6be41a179294aeb72d87, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / CrouchWalk_R_To_Crouch_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: ad4b16df66e179844a3b7856913b3418, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / CrouchWalk_R_To_Crouch_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 5ae56b95ae253324ebbec4455c24e093, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Jog_B_To_Stand_Relaxed
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: ff3736bbe5df0054c83c5f87f128756a, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Jog_B_To_Stand_Relaxed_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: ca292a04dc2c4d346b1ea10ff735ba59, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Jog_B_To_Stand_Relaxed_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: cc44af8391c97d74fa47d0efa2c8192a, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Jog_F_To_Stand_Relaxed
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: a9609df7199a18a479feff3f1e443669, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Jog_F_To_Stand_Relaxed_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 2567fe05ef89a62429f7e96683694def, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Jog_F_To_Stand_Relaxed_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 89451e225e97c884b829460a4a8a6f5c, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Jog_L_To_Stand_Relaxed
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1e94e6409dd5d974bb62b8d0ed63cf9f, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Jog_L_To_Stand_Relaxed_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: c36d00dbe5b2f18409a189dc47ba916b, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Jog_L_To_Stand_Relaxed_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: cf5c94bb3a37f904c9c3d23ac601e574, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Jog_R_To_Stand_Relaxed
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 48b5cceb359c1b948ba3d13a8acaefe9, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Jog_R_To_Stand_Relaxed_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 635c6a4a37811bd4ea0cac67697dc13d, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Jog_R_To_Stand_Relaxed_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 2d55f0bd97516814d834c1c3886d36cc, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Run_F_To_Stand_Relaxed
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 60957d1f3c1264c4fba3193fdc0e0a12, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Run_F_To_Stand_Relaxed_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 851dbecf1210d4547bc43c8995512733, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Run_F_To_Stand_Relaxed_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 96d39b26e32450945bc963964ba92b4d, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Run_L_To_Stand_Relaxed
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: ae42bb95ade7586449da2338e15728d0, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Run_L_To_Stand_Relaxed_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: a6eb476d7dd32634b9a1ee95a0d33200, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Run_L_To_Stand_Relaxed_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: f0876820d88adaf43a3c9f71ef5b091e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Run_R_To_Stand_Relaxed
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 5cba240d7e851314d87d8b4bcf85afc9, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Run_R_To_Stand_Relaxed_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: e7455eba1316c734390be0821cfe029e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Run_R_To_Stand_Relaxed_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: bd0d4da9b513d9740bc05702a2014d41, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Walk_B_To_Stand_Relaxed
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: ffeee2bc68da2c44d84ccfc8d0ae1355, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Walk_B_To_Stand_Relaxed_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: f14e2cedab100634fa63e3623dc3b181, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Walk_B_To_Stand_Relaxed_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 526985929cafab145b1ec54bf9c2ed3c, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Walk_F_To_Stand_Relaxed
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: d16a4711a558e4d4ca5d228cc56ce8a3, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Walk_F_To_Stand_Relaxed_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 95949979344338f448a6aaaea404b3b3, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Walk_F_To_Stand_Relaxed_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 742d75302db16b44d8cd1227bf9ce0b6, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Walk_L_To_Stand_Relaxed
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 895de53586b294045a601d91ab2e244b, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Walk_L_To_Stand_Relaxed_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 290e20e83d5a1cf46ac5018e67870611, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Walk_L_To_Stand_Relaxed_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: d0646ec61e7aee946ad4453b9364d854, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Walk_R_To_Stand_Relaxed
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 749758f26efb92a4b8ef73200279da35, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Walk_R_To_Stand_Relaxed_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1513ee8a475df7c4e942ec9d383b04ed, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 3
+    Role: Stop / Walk_R_To_Stand_Relaxed_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: d953738631b8eaf43813713468014544, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.84
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 4
+    Role: CrouchTransition / Crouch_To_Stand_Relaxed
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 044dd2d22ec08774197ec17635876c43, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 4
+    Role: CrouchTransition / Stand_Relaxed_To_Crouch
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1397056de2864a142925c48470bea751, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Crouch_L_135
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 455e531d82fa03543930311bf9838d1c, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Crouch_L_180
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: d98a7bf5f6609a048801844f24b128f0, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Crouch_L_45
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 0d32479acf8cf8142996111aab2519dc, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Crouch_L_90
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 50bb39314312e364d819ed746fd80f51, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Crouch_Rlx_Turn_In_Place_L_Loop
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 104edd6e4072a2e4d94cf2339e993abd, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Crouch_Rlx_Turn_In_Place_R_Loop
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 2739c39a95e54c54f9ec6756621a9808, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Crouch_R_135
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 8a4d979f6300e1345807a1ec8d463e9f, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Crouch_R_180
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 91d9194d51a086844856aba4e448ac48, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Crouch_R_45
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: c38dea81c87eb734f87c01881c38d0fd, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Crouch_R_90
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 11e8dc51c23537644a6deb3e1dc87991, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Stand_Relaxed_L_135
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: feea61c92dfd6cd49b5254a63c34db7f, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Stand_Relaxed_L_180
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 396af39a5a756be4793102f11c910780, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Stand_Relaxed_L_45
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 2270222753cc5284e93084292ea99bd3, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Stand_Relaxed_L_90
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: ac45eea4d31ab5d409bde1486d927107, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Stand_Relaxed_R_135
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: e946adc0d8635d94184fd93375e1275f, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Stand_Relaxed_R_180
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: ca80e1f7b656adf498521360ee836368, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Stand_Relaxed_R_45
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 995b888ca85189748ab3c75794ba4048, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Stand_Relaxed_R_90
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: fe30edc10fdda654e830d12f9aaec2a5, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Stand_Rlx_Turn_In_Place_L_Loop
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 2f89d85224a19224db44992168ef4628, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 5
+    Role: TurnInPlace / Stand_Rlx_Turn_In_Place_R_Loop
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: e8a2364c467aa5d4dae0b1eb8be7f02c, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 6
+    Role: MovementPivot / Jog_L_180
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 0f37b08ab23d7c64cba511fcb0b18676, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 6
+    Role: MovementPivot / Jog_L_90
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 2b7acd250b1348c4db235fceeb151577, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 6
+    Role: MovementPivot / Jog_R_180
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: af8754dced2014a42bf96e091829db98, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 6
+    Role: MovementPivot / Jog_R_90
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: b01e8bf509da6874386f995e9748b11e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 6
+    Role: MovementPivot / Run_L_180
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 8aebbe2c69fbfa540932c52e3c355b3f, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 6
+    Role: MovementPivot / Run_L_90
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: d32d2413a459acf4ebf645807ba9f8d1, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 6
+    Role: MovementPivot / Run_R_180
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 677ddb842e2f6ec4788e39884896f9da, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 6
+    Role: MovementPivot / Run_R_90
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 606c5fa5872183c4cb1ead1edb678797, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 6
+    Role: MovementPivot / Walk_L_180
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 59ec691bbf5a2e246a970f76c919624b, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 6
+    Role: MovementPivot / Walk_L_90
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: a2360ffc39c7b69429580700be69a272, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 6
+    Role: MovementPivot / Walk_R_180
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 4fdf05abe0b518c47a4aba4d05376eae, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 6
+    Role: MovementPivot / Walk_R_90
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 418693148aa1fba448c293992bb01e0e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.82
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / CrouchWalk_L_BkPd_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 27157617974a73643a5b82d5be1cb1ff, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / CrouchWalk_L_CIR_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 6a55dd7743728504c884924f99457855, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / CrouchWalk_R_BkPd_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 6dd7d496cfce77444875ddfa4e696990, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / CrouchWalk_R_CIR_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1457f6b2d2629a24aabd1af93b8c42b8, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / Jog_L_BkPd_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 14f4d0950c08108409ac3cf13270a885, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / Jog_L_CIR_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: b559557019d874648ba72bba43a08a8f, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / Jog_R_BkPd_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 4e480a4a45b4fd945b34ba745cb4a87a, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / Jog_R_CIR_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 43c1c5c9211eae4439b2586875043e2f, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / Run_L_CIR_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 2204400d057519647a06b6a62fc7c055, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / Run_R_CIR_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 7bd55d43064f7234388eb59ce7b3f706, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / Walk_L_BkPd_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 5e1e8b0c37260fa40a31d01677b514ac, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / Walk_L_CIR_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 54d75a9dd12ad72418eff8a606e4e087, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / Walk_R_BkPd_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 9b2ce66220e93204096e6364df591b89, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 7
+    Role: MovementCurve / Walk_R_CIR_Loop
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: dfc3311f7f27a8a4c8589ac7e9b14b61, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.14
+    BlendOutNormalizedTime: 0.95
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_F_Jump
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 0861a1afc29b5514893ac6e5da403203, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_F_Jump_LU_ Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 4858a63b92d542a46ad193f82c73bfd0, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_F_Jump_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 9326917ebd230c344b0bf9886cd02e13, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_F_Jump_LU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1a1078d08e2ad3343b993c9a6e4682af, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_F_Jump_LU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: bca536d2da549c64a85f221fc02c385e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_F_Jump_RU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 88655b8865be6fa40a5bb4ffee710fc1, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_F_Jump_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: ec6a014fb9553d24fa53948f50bb23c5, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_F_Jump_RU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 43808cf97c81a6e42bba8e388b8ddb6e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_F_Jump_RU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 40a8409de616fb7439e9840e5fbbde91, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_L_Jump
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 0249c7f37db58634994cf8d6680a81ad, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_L_Jump_LU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 290f3d5205db1514e8f269dc866e1578, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_L_Jump_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: e6f41abc380a1d64b9ad62baea6be272, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_L_Jump_LU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 5df0ab2a3cfeedb4a973063c2d6fb093, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_L_Jump_LU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: fc80ef82d6e107642ac462445c869fec, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_L_Jump_RU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: c2b9d8a7cce83af4a94ee2062bcd09db, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_L_Jump_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: d75411f42eb93094d81c10294c1b10ca, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_L_Jump_RU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 51e62b9716836294b9ec631ee45721d5, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_L_Jump_RU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: f0abd3687bfcc3b489cce5cbdc938a94, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_R_Jump
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 36cf6433cd573a34fa378a4f481160a4, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_R_Jump_LU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 33cd01c25ac30864ba3f33c77a53298a, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_R_Jump_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: a7a47082dddd1184a87bfc500761ed2e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_R_Jump_LU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: dca3a793967162047b0f4878cefc41b4, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_R_Jump_LU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 7fad7e16c91bf8946bb7be9310ca0e80, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_R_Jump_RU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 22a522dfc33ddfc44ba5ed963f999d80, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_R_Jump_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: f6630be68397d7544a4f2947cd42b3d3, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_R_Jump_RU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 64d95810ae1955b4b9db8a8e13174ee8, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Jog_R_Jump_RU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1e6783a3827df5949a80fe114a747fa2, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_F_Jump
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1ee7f42d538c4ca469cf3cda39ae3e9e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_F_Jump_LU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: df8379c9e09801545a838579b29989a5, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_F_Jump_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: ebedee411d237bf43b0ef58fbe399659, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_F_Jump_LU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 744c59b1b64c9974d9c397cb80f08523, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_F_Jump_LU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: e889b8e5f9b527b45bd74073350d9072, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_F_Jump_RU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 2e88d5d3f98b1c94b91add30176600e0, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_F_Jump_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 3dc9342a00297524cb6801da03202f3a, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_F_Jump_RU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: c5e1e1ff249a28845b66ef48c962b74f, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_F_Jump_RU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: e3a18c23aa080f44ca02e112d57de705, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_L_Jump_LU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 075876f23b6a4db46970ab5f04b35197, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_L_Jump_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 4e1e7c99c1e2b524080eb3af8865acb3, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_L_Jump_LU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: d641cee6f6eed724bb35bf363acf152e, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_L_Jump_LU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: aae037abcc35ccd47be3d13155619b2a, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_L_Jump_RU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 5ad6120be6c3be44b9746a85ccc951cd, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_L_Jump_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 9d5645dca319de94f965efd65f3388e8, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_L_Jump_RU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 0d1d43be6bcdee04e841d22f46be9e7a, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_L_Jump_RU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 59c0e8d6d6be4064ca86b22fafb58cdd, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_R_Jump_LU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1f831e2b79c650347a7d846d68724693, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_R_Jump_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: b93727c8bacb2714c86f25eddea51443, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_R_Jump_LU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 3c31467a59d860d4fab0553eb4c42779, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_R_Jump_LU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: dc4fbc6f114967c429c89eed1974c6ac, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_R_Jump_RU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: ceb961cabf196004881354337d8948e7, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_R_Jump_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 3962a4155720d0d40b561ed176ae928d, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_R_Jump_RU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 94b165c32fef63d47ae38343d64cc63c, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Run_R_Jump_RU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 68edf47c0766d634bbee22c796c18c55, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Stand_Relaxed_Jump_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 718a09ec8d94cab49a9870c5dd8819c8, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Stand_Relaxed_Jump_B
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: d2277db3bc411e84999e07bc57123cf8, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Stand_Relaxed_Jump_F
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 622cc59bf3c6b24439f440ffa699a564, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Stand_Relaxed_Jump
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 893d29b3343b61b4bb25942ea5feb976, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Stand_Relaxed_Jump_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 7a1dee9ef396c0d409676a3a06c8a540, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Stand_Relaxed_Jump_L
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: f5accf588943a9042b56ce5e42942f50, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Stand_Relaxed_Jump_R
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 67b1ed966ec5e174daceb5809033b841, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Stand_Relaxed_Jump_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1c112b66044a09e458a5bd2211f9b6ed, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_B_Jump
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 7c5b37e8ca6c1714fa3080662becb87a, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_B_Jump_LU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 4a1171a696fecca43b1d770059d35b94, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_B_Jump_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: f7769144ffff830428567ccc09ccebcf, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_B_Jump_LU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1af6430f087a9b34a832483b82baf8ce, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_B_Jump_LU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 42e35e8559caa8e409d2d89886d5dfd4, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_B_Jump_RU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 66fff20bc14b8624f9ce28fe2dd09223, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_B_Jump_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 545b06dca186dc246a3cc349db23724c, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_B_Jump_RU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: c6f7fe6af4af7bd46a113c6e103c1120, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_B_Jump_RU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 3e74e57d4eee14b44b2f1ca505037ec7, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_F_Jump
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: b8448ec86475ac94aae35e57cc763ac0, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_F_Jump_LU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 74feefb416c701342a9f78f9f847aff9, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_F_Jump_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: c71a98d487191c841a521a0dea6d7621, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_F_Jump_LU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 00ab827174fbdee49baa7cac0bb78412, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_F_Jump_LU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 455c74afd0aa11a4894067db8e556921, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_F_Jump_RU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 53056633051e8f1409b8972e70a81b3b, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_F_Jump_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 082e5e4a6d628f849a05615ae341c6e6, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_F_Jump_RU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: bf4ff3dbc73076f4883170acf34efa03, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_F_Jump_RU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 76347dcb71d033b4684b91483c9caf0d, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_L_Jump
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 387d30a193c87c248adc04c82b6c3fce, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_L_Jump_LU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 53ea7081696a4c241a113d01a749bdc1, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_L_Jump_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: b90f4d55e271a654f8693d1ee6f25e65, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_L_Jump_LU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 0ca5db25008c520469c8b766d49980db, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_L_Jump_LU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 81f082248b8b4f248b3834753998c091, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_L_Jump_RU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 5f40e972c8747ae4f991dd7871542f57, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_L_Jump_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1a4681bf05efb7a4198ef117d1c8549f, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_L_Jump_RU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 538f2842652842e4b9a6f83250da2fbc, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_L_Jump_RU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 143c4d43d266abf4e9e670efb44da0bf, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_R_Jump
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 7fa292a04339a90469576efaee828a09, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_R_Jump_LU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 6583a27cbcc6ba8488c2ad50e70ecda1, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_R_Jump_LU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 0d04e66665628304e91460392679471f, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_R_Jump_LU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 37935ee49452db2408a2a6e7787126e0, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_R_Jump_LU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: dcd639fe220d62447aca845c9300584d, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_R_Jump_RU_Air
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 9f3e85dca44eb1e4bb66f28d10e5dc49, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_R_Jump_RU
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 937a195ab9c27ac48add1d50c87f0442, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_R_Jump_RU_Land
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: c0557d4bbdf393a4b8e58eedd594e999, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 8
+    Role: Jump / Walk_R_Jump_RU_Start
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: dd7ec6e20baa1c54aa77cb276b76310b, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 9
+    Role: Conversation / Stand_Relaxed_Conv_v1
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 293cc408bf3510843baedb709948e548, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 9
+    Role: Conversation / Stand_Relaxed_Conv_v2
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: f8a2b3dcc26a87541b9317656b7bfc53, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 9
+    Role: Conversation / Stand_Relaxed_Conv_v3
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 3ab25a209045a84418d29ad72bd07828, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 9
+    Role: Conversation / Stand_Relaxed_Conv_v4
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 1992d6dfc41afc14f896cfb73a1a6f45, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 10
+    Role: Fight / Stand_Relaxed_Fgt_v1
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 167b1c62806dd5f42959358007a642d7, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 10
+    Role: Fight / Stand_Relaxed_Fgt_v2
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: cdeefdf38308e60468064956a9c4210c, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 10
+    Role: Fight / Stand_Relaxed_Fgt_v3
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 69d8f9eda05fa6a4fab246ac938d12c2, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 10
+    Role: Fight / Stand_Relaxed_Fgt_v4
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: ff8570f3355f35d4d94dcc5b571a3b5f, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 11
+    Role: Death / Stand_Relaxed_Death_B
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 75d80013da033274389fedea100c7585, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 11
+    Role: Death / Stand_Relaxed_Death_F
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 0527e829126bb794eaa74824e5050039, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 11
+    Role: Death / Stand_Relaxed_Death_L
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: e16faa5f2a48d3944b481678ff788e91, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 11
+    Role: Death / Stand_Relaxed_Death_R
+    Transition:
+      _FadeDuration: 0.12
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: aef384cfae8969b4196ff6219008bbb0, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.88
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 12
+    Role: Hop / Stand_Relaxed_Hop_B
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: a137c147c923e8a4f90b35ba91780b26, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 12
+    Role: Hop / Stand_Relaxed_Hop_F
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: fec9805022f0dad459bc38d3ecfc4c34, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 12
+    Role: Hop / Stand_Relaxed_Hop
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: 97feb02369c71ef45a6029d7a3ebbdff, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 12
+    Role: Hop / Stand_Relaxed_Hop_L
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: faacb9470a90f3b44909b915d6f3d9fd, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  - Category: 12
+    Role: Hop / Stand_Relaxed_Hop_R
+    Transition:
+      _FadeDuration: 0.08
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 1
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 7400000, guid: fac2f71f384480c42ac8996cfb48f965, type: 3}
+      _NormalizedStartTime: 0
+    FadeOut: 0.12
+    BlendOutNormalizedTime: 0.86
+    EndNormalizedTime: 1
+    OverrideRuntime: 1
+    ApplyFootIK: 1
+  DefaultLocomotionRootMotion: 0
+  DefaultParkourRootMotion: 2
+  UseCodeDrivenEvents: 1
+  references:
+    version: 2
+    RefIds: []

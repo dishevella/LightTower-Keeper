@@ -1,5 +1,21 @@
 {
   "dependencies": {
+    "com.kybernetik.animancer": {
+      "version": "file:com.kybernetik.animancer",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.modules.animation": "1.0.0"
+      }
+    },
+    "com.occasoftware.buto": {
+      "version": "file:com.occasoftware.buto",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.render-pipelines.universal": "14.0.7"
+      }
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.9",
       "depth": 0,
