@@ -245,11 +245,15 @@ SAMPLER_CMP(sampler_ButoLinearClampCompare);
 // Anyway, WebGL is no longer supported since we switched to Compute Shaders and Froxel fog.
 float GetRealtimeShadows(float4 shadowCoord)
 {
+	#if !defined(MAIN_LIGHT_CALCULATE_SHADOWS)
+		return 1.0;
+	#else
 	// We just manually sample the shadowmap using unfiltered data.
 	float4 shadowParams = GetMainLightShadowParams();
 	float shadowStrength = shadowParams.x;
 	float attenuation = _MainLightShadowmapTexture.SampleCmpLevelZero(sampler_ButoLinearClampCompare, shadowCoord.xy, shadowCoord.z);
     return BEYOND_SHADOW_FAR(shadowCoord) ? 1.0 : attenuation;
+	#endif
 }
 
 float4 GetShadowCoord(float3 positionWS)

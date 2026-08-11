@@ -8,8 +8,8 @@
 - Target scene: `Assets/_Recovery/0 (58).unity`.
 - Target object: scene instance `Player` from prefab `Chr_Fantasy_MalePeasant_01`.
 - Runtime config: `Assets/Animation/Animancer/MobilityProPlayerAnimationConfig.asset`.
-- Animation source: Unity MOBILITY PRO Mocap Animation Pack 2.7B1, IPC Humanoid clips.
-- Generated configuration contains 616 serialized animation references, including runtime mappings, intentional directional fallbacks, and a 286-clip tuning/preview catalog.
+- Animation source: the project's original locomotion clips for every role that previously existed, with Unity MOBILITY PRO Mocap Animation Pack 2.7B1 IPC Humanoid clips filling missing roles.
+- Generated configuration contains 628 serialized animation references, including runtime mappings, intentional directional fallbacks, and a 298-clip tuning/preview catalog (12 project-original clips plus 286 MOBILITY PRO clips).
 - The scene's original `Player.controller` remains assigned in edit mode for rollback. Animancer clears it only after a valid config initializes at runtime.
 - No Animancer, Odin, MOBILITY PRO, or other third-party source file was modified.
 
@@ -57,6 +57,7 @@ Ordinary locomotion uses in-place clips. `CharacterController` remains the owner
 - Sustained yaw uses turn-in-place or movement-curve loops and fades back to the velocity mixer after input settles.
 - Locomotion cycles can be synchronized across walk, jog, and run clips.
 - Fade In, Fade Out, Fade Out Start, normalized End Time, playback speed, normalized start time, Foot IK, and runtime override can be configured per clip.
+- Every clip can also override the final CameraRoot local position and camera blend speed. Crouch-down and stand-up fallback speeds are independently adjustable.
 - Mixers and transitions are created once and reused; no per-frame LINQ, reflection, string search, or state construction is used.
 
 ## Inspector Tuning
@@ -64,8 +65,10 @@ Ordinary locomotion uses in-place clips. `CharacterController` remains the owner
 Select `MobilityProPlayerAnimationConfig` to tune all shared animation values through Odin tabs:
 
 - `Setup`: source pack, target scene, quality, and runtime Animator Controller policy.
+- `Camera`: per-animation camera positions, fallback crouch/stand speeds, wall-collision radius/mask/padding, absolute and near-pose minimum distance, pull-in/return speeds, anchor, and near clip.
 - `Locomotion`: every clip reference, directional set, speed threshold, cross-fade, start/stop rule, smoothing value, playback range, turn, and pivot option.
-- `Clip Tuning`: searchable, paged catalog of all 286 MOBILITY PRO clips. Each entry uses an Animancer `ClipTransition`; use its eye button to open the model preview, and tune Fade Duration (Fade In), Speed, Start Time, Fade Out, Fade Out Start, End Time, and Foot IK.
+- `Clip Tuning`: searchable, paged catalog of all 298 project/MOBILITY clips. Each entry exposes Fade Duration (Fade In), Speed, Start Time, Fade Out, Fade Out Start, End Time, Foot IK, source, and per-animation camera position/speed.
+- `Open Animation Preview`: opens a searchable browser with a visible eye button for every clip. It is also available at `Tools > Light Tower > Animation > Open Animation Preview`.
 - `Airborne`: jump start/air/landing clips, foot selection, fade timing, fall timing, and landing thresholds.
 - `Holding`: current holding clip, right-arm AvatarMask, layer target, and fade values.
 - `Actions`, `Parkour`, `Layers`, `Root Motion`, and `Events`: extension settings retained for later migration phases.
@@ -73,10 +76,19 @@ Select `MobilityProPlayerAnimationConfig` to tune all shared animation values th
 
 Select the scene Player's `CharacterAnimancerController` during Play Mode for read-only runtime data: logical state, gait, transient, clip, normalized time, target and smoothed speed, acceleration, local X/Z velocity, mixer parameter, vertical speed, airborne time, grounded/crouched state, layer weights, holding state, root motion, last event, and last state-change reason.
 
+## Firewatch-Style Visual Layer
+
+- The embedded Buto package is version `7.11.6` and is active through a `ButoRenderFeature` on `PC_Renderer`; the existing SSAO feature is preserved.
+- Recover scene 58 has one global `Firewatch Visual Style` Volume. It carries Buto fog, Color Adjustments, White Balance, warm/cool Split Toning, Neutral Tonemapping, Bloom, and Vignette.
+- The player camera has post-processing and depth enabled, plus a `0.05` near clip to reduce close-surface clipping.
+- The active player body uses a generated `MK/Toon/URP/Standard/Simple` material. Other scene materials and shaders are left untouched.
+- Select `Assets/Settings/FirewatchVisualStyleConfig.asset` to tune fog density/height/color/direction/noise, color grade, Bloom/Vignette, and MK Toon light bands. Apply changes with its `Apply Visual Style` button or `Tools > Light Tower > Visual > Apply Firewatch Visual Style`.
+
 ## Compatibility
 
 - If Animancer or its config is unavailable, `PlayerController` still uses the original Animator state-name path.
 - Existing animation-camera pose keys remain driven by equivalent logical movement states even though the active clips now have MOBILITY PRO names.
+- Camera wall collision uses a sphere cast from a player-local anchor and filters the player's own colliders. Its absolute minimum distance and close-pose ratio are both adjustable; the camera pulls in quickly before geometry and returns smoothly afterward.
 - Existing `InventoryHeldItemController` item selection remains unchanged. Its holding state now fades the Animancer upper-body layer through the existing right-arm mask; the old Animator parameter/layer implementation remains the fallback.
 - The original Animator Controller asset is not deleted or rewritten by this migration.
 - Runtime initialization temporarily clears the Animator Controller for Animancer, then restores the original reference on disable or Play Mode reload so the scene cannot save a disconnected controller.
@@ -91,20 +103,27 @@ Select the scene Player's `CharacterAnimancerController` during Play Mode for re
 | `Assets/Scripts/Animation/CharacterAnimationConfig.cs` | Unity-serialized and Odin-organized animation configuration |
 | `Assets/Scripts/Animation/CharacterAnimancerController.cs` | Runtime mixers, transitions, layers, action APIs, and debug data |
 | `Assets/Scripts/Animation/Editor/MobilityProLocomotionConfigurator.cs` | Repeatable clip assignment and scene-instance wiring |
+| `Assets/Scripts/Animation/Editor/CharacterAnimationPreviewWindow.cs` | Searchable eye-button preview browser for every configured clip |
+| `Assets/Scripts/Animation/Editor/LightTowerRuntimeSmokeTest.cs` | Repeatable recover-58 Play Mode control, camera, animation, and visual validation |
 | `Assets/Scripts/ControllerView/Player/PlayerController.cs` | Feeds motor velocity, grounded/crouch/jump/landing state to Animancer |
 | `Assets/Scripts/ControllerView/Player/InventoryHeldItemController.cs` | Bridges existing held-item state to the masked Animancer layer |
 | `Assets/Animation/Animancer/MobilityProPlayerAnimationConfig.asset` | Generated MOBILITY PRO clip and tuning data |
+| `Assets/Scripts/Visual/FirewatchVisualStyleConfig.cs` | Adjustable Buto fog, URP color grade, and MK Toon settings |
+| `Assets/Scripts/Visual/Editor/FirewatchVisualStyleConfigurator.cs` | Repeatable recover-scene visual-style wiring |
+| `Assets/Settings/FirewatchVisualStyleConfig.asset` | Firewatch-style visual tuning asset |
+| `Assets/Settings/FirewatchVisualStyleProfile.asset` | Global Buto and URP post-processing profile |
 
 ## Verification
 
 - Unity's script pipeline completed successfully after configuration.
 - `dotnet build Assembly-CSharp.csproj -nologo`: 0 warnings, 0 errors.
 - `dotnet build Assembly-CSharp-Editor.csproj -nologo`: 0 warnings, 0 errors.
-- Configuration result: success, 616 references, 286 unique preview/tuning entries, original Animator Controller preserved, config validation usable.
-- Automated Play Mode locomotion smoke test: Animancer controller and graph initialized, Avatar valid, 31 locomotion mixer children created, MOBILITY PRO landing state played, legacy runtime controller cleared, and Play Mode exited cleanly.
+- Configuration result: success, 628 references, 298 unique preview/tuning entries, original Animator Controller preserved, config validation usable.
+- Final recover-58 Play Mode smoke test passed every check: controls released, CharacterController moved, Animancer reached target speed 2, original clips remained assigned, MOBILITY PRO filled missing roles, all 298 clip tunings loaded, and runtime Animator Controller clearing/restoration completed cleanly.
+- Camera validation passed: crouch CameraRoot moved from `1.30` to `1.05`, an obstruction pulled the camera from `0.684` to `0.360`, and it returned to `0.684` after the obstruction was removed.
+- Visual validation passed: the seven-component global profile, Buto renderer feature, SSAO preservation, post-processing/depth, warm/cool Split Toning, and the player's MK Toon shader were all active in Play Mode. A 1280x720 runtime render was captured successfully.
 - Automated turn smoke test: sustained right yaw triggered `MOB1_Stand_Rlx_Turn_In_Place_R_Loop_IPC`, a 90-degree request triggered `MOB1_Stand_Relaxed_R_90_IPC`, a moving forward-to-right change triggered `MOB1_Walk_R_90_IPC`, and Play Mode exited cleanly.
 - Runtime control probe: PlayerController, CharacterController, all five control flags, and both Animancer components stayed enabled; the player position changed under input; runtime Animator Controller was temporarily clear and the original `Player.controller` reference remained serialized after Play Mode exited.
-- Target scene diff: 45 added lines and 0 removed lines; only Animancer references/components, Animator foot stabilization, and the wake-up control timeout were added.
 
 ## Remaining Review
 

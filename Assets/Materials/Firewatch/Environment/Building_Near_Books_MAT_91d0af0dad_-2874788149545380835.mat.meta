@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cbba2c415594b1347ab8a6ae25f9062d
+labels:
+- FirewatchBand_Near
+- FirewatchCategory_Building
+- FirewatchSourceGuid_91d0af0dad2ee374e92a4220d8b6e6c0
+- FirewatchSourceLocalId_-2874788149545380835
+- FirewatchVariant
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

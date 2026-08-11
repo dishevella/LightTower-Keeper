@@ -30,9 +30,12 @@ public class CharacterAnimancerController : MonoBehaviour
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public CharacterAnimationAction QueuedAction { get; private set; }
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public string CurrentAnimationState { get; private set; }
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public AnimationClip CurrentClip { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public AnimationClip CurrentCameraClip { get; private set; }
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float CurrentNormalizedTime { get; private set; }
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float CurrentLocomotionSpeed { get; private set; }
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float TargetLocomotionSpeed { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float LocomotionMotorScale => GetLocomotionMotorScale();
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float LastResolvedFadeDuration { get; private set; }
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float CurrentVisualAcceleration { get; private set; }
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float LocalVelocityX { get; private set; }
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float LocalVelocityZ { get; private set; }
@@ -87,6 +90,7 @@ public class CharacterAnimancerController : MonoBehaviour
     private int idleVariationIndex;
     private float idleVariationTimer;
     private float yawIdleTimer;
+    private float movementCurveExitTimer;
     private int transientSerial;
 
     public CharacterAnimationConfig Config => config;
@@ -389,7 +393,7 @@ public class CharacterAnimancerController : MonoBehaviour
         animator.applyRootMotion = RootMotionActive;
 
         ClipTransition transition = CreateClipTransition(settings.Clip, settings.Loop ? null : OnActionEnd);
-        currentState = baseLayer.Play(transition, Mathf.Max(settings.FadeIn, activeFallbackFadeOut));
+        currentState = baseLayer.Play(transition, ResolveTransitionFade(settings.FadeIn, activeFallbackFadeOut));
         activeClipTuning = null;
         activeFallbackFadeOut = settings.FadeOut;
         CurrentClip = settings.Clip;
@@ -416,7 +420,9 @@ public class CharacterAnimancerController : MonoBehaviour
         RootMotionActive = request.AllowRootMotion && settings.RootMotion != CharacterAnimationRootMotionStrategy.Disabled;
         animator.applyRootMotion = RootMotionActive;
 
-        currentState = baseLayer.Play(CreateClipTransition(settings.Clip, OnActionEnd), Mathf.Max(settings.EnterFade, activeFallbackFadeOut));
+        currentState = baseLayer.Play(
+            CreateClipTransition(settings.Clip, OnActionEnd),
+            ResolveTransitionFade(settings.EnterFade, activeFallbackFadeOut));
         activeClipTuning = null;
         activeFallbackFadeOut = settings.ExitFade;
         CurrentClip = settings.Clip;
@@ -473,7 +479,9 @@ public class CharacterAnimancerController : MonoBehaviour
         HoldingType = holdType;
         if (!initialized || config == null || config.Holding == null) return;
 
-        float fade = isHolding ? config.Holding.FadeIn : config.Holding.FadeOut;
+        float fade = isHolding
+            ? ResolveGlobalFadeIn(config.Holding.FadeIn)
+            : ResolveGlobalFadeOut(config.Holding.FadeOut);
         if (!isHolding)
         {
             upperBodyLayer.StartFade(0f, fade);
@@ -498,18 +506,29 @@ public class CharacterAnimancerController : MonoBehaviour
         CharacterAnimationConfig.ActionSettings settings = config != null ? config.FindAction(action) : null;
         if (settings == null || settings.Clip == null)
         {
-            upperBodyLayer.StartFade(Mathf.Clamp01(targetWeight), config != null ? config.Layers.UpperBodyFadeDuration : 0.12f);
+            float fallback = config != null ? config.Layers.UpperBodyFadeDuration : 0.12f;
+            float fade = targetWeight >= upperBodyLayer.Weight
+                ? ResolveGlobalFadeIn(fallback)
+                : ResolveGlobalFadeOut(fallback);
+            upperBodyLayer.StartFade(Mathf.Clamp01(targetWeight), fade);
             return;
         }
 
-        upperBodyLayer.Play(CreateClipTransition(settings.Clip, null), settings.FadeIn);
-        upperBodyLayer.StartFade(Mathf.Clamp01(targetWeight), settings.FadeIn);
+        float actionFade = targetWeight >= upperBodyLayer.Weight
+            ? ResolveGlobalFadeIn(settings.FadeIn)
+            : ResolveGlobalFadeOut(settings.FadeOut);
+        upperBodyLayer.Play(CreateClipTransition(settings.Clip, null), actionFade);
+        upperBodyLayer.StartFade(Mathf.Clamp01(targetWeight), actionFade);
     }
 
     public void SetAimWeight(float weight)
     {
         Initialize();
-        additiveLayer.StartFade(Mathf.Clamp01(weight), config != null ? config.Layers.AdditiveFadeDuration : 0.12f);
+        float fallback = config != null ? config.Layers.AdditiveFadeDuration : 0.12f;
+        float fade = weight >= additiveLayer.Weight
+            ? ResolveGlobalFadeIn(fallback)
+            : ResolveGlobalFadeOut(fallback);
+        additiveLayer.StartFade(Mathf.Clamp01(weight), fade);
     }
 
     public void SetLookDirection(Vector3 direction)
@@ -534,7 +553,9 @@ public class CharacterAnimancerController : MonoBehaviour
     {
         if (!Application.isPlaying || config == null || config.Locomotion.Idle == null) return;
         EndTransient("Debug idle", false);
-        currentState = baseLayer.Play(CreateClipTransition(config.Locomotion.Idle, null), config.Locomotion.IdleVariationCrossFade);
+        currentState = baseLayer.Play(
+            CreateClipTransition(config.Locomotion.Idle, null),
+            ResolveGlobalFadeIn(config.Locomotion.IdleVariationCrossFade));
         CurrentClip = config.Locomotion.Idle;
         CurrentAnimationState = "Debug Idle";
     }
@@ -570,6 +591,51 @@ public class CharacterAnimancerController : MonoBehaviour
         if (animancer == null) return CharacterAnimationValidationResult.Warning("AnimancerComponent is missing.");
         if (config == null) return CharacterAnimationValidationResult.Warning("CharacterAnimationConfig is missing.");
         return config.ValidateConfiguration();
+    }
+
+    public bool TryGetCurrentCameraPosition(out Vector3 localPosition, out float blendSpeed)
+    {
+        localPosition = default;
+        blendSpeed = 0f;
+        if (config == null || config.Camera == null || !config.Camera.EnablePerAnimationPositions)
+            return false;
+
+        AnimationClip clip = ResolveCurrentCameraClip();
+        CurrentCameraClip = clip;
+        CharacterAnimationConfig.MobilityClipTuning tuning = GetClipTuning(clip);
+        if (tuning == null && clip != null)
+            tuning = config.FindClipTuning(clip);
+        if (tuning == null || !tuning.OverrideCameraPosition)
+            return false;
+
+        localPosition = tuning.CameraLocalPosition;
+        blendSpeed = Mathf.Max(0.01f, tuning.CameraBlendSpeed);
+        return true;
+    }
+
+    private AnimationClip ResolveCurrentCameraClip()
+    {
+        if (CurrentClip != null)
+            return CurrentClip;
+
+        return usingLocomotionMixer || usingCrouchMixer
+            ? ResolveLocomotionClip(CurrentMixerParameter, CurrentLocomotionSpeed, usingCrouchMixer)
+            : null;
+    }
+
+    public float GetLocomotionMotorScale()
+    {
+        if (config == null || config.Locomotion == null ||
+            CurrentTransient != LocomotionTransient.Starting || currentState == null)
+            return 1f;
+
+        float delay = Mathf.Clamp(config.Locomotion.StartMovementDelayNormalizedTime, 0f, 0.99f);
+        float fullSpeed = Mathf.Clamp(
+            config.Locomotion.StartMovementFullSpeedNormalizedTime,
+            delay + 0.01f,
+            1f);
+        float progress = Mathf.InverseLerp(delay, fullSpeed, currentState.NormalizedTime);
+        return Mathf.SmoothStep(0f, 1f, progress);
     }
 
     private void ConfigureLayers()
@@ -699,7 +765,15 @@ public class CharacterAnimancerController : MonoBehaviour
         bool needsPlay = Crouching ? !usingCrouchMixer : !usingLocomotionMixer;
         if (needsPlay)
         {
-            currentState = baseLayer.Play(targetMixer, ResolveFadeDuration(null, config.Locomotion.LocomotionCrossFade));
+            Vector2 targetVelocity = new Vector2(TargetVelocityX, TargetVelocityZ);
+            AnimationClip incomingClip = ResolveLocomotionClip(
+                targetVelocity,
+                TargetLocomotionSpeed,
+                Crouching);
+            CharacterAnimationConfig.MobilityClipTuning incomingTuning = GetClipTuning(incomingClip);
+            currentState = baseLayer.Play(
+                targetMixer,
+                ResolveFadeDuration(incomingTuning, config.Locomotion.LocomotionCrossFade));
             activeClipTuning = null;
             activeFallbackFadeOut = config.Locomotion.LocomotionFadeOut;
             usingCrouchMixer = Crouching;
@@ -834,19 +908,26 @@ public class CharacterAnimancerController : MonoBehaviour
             if (CurrentTransient == LocomotionTransient.TurnLoop)
                 EndTransient("Movement interrupted turn loop", false);
 
+            float absoluteYawRate = Mathf.Abs(CurrentYawRate);
+            movementCurveExitTimer = CurrentTransient == LocomotionTransient.MovementCurve &&
+                                     absoluteYawRate <= turns.CurveExitYawRate
+                ? movementCurveExitTimer + Time.deltaTime
+                : 0f;
+
             if (turns.EnableMovementCurves &&
-                Mathf.Abs(CurrentYawRate) >= turns.CurveStartYawRate)
+                absoluteYawRate >= turns.CurveStartYawRate)
             {
                 TryPlayMovementCurve(CurrentYawRate);
             }
             else if (CurrentTransient == LocomotionTransient.MovementCurve &&
-                     yawIdleTimer >= turns.CurveExitDelay)
+                     movementCurveExitTimer >= turns.CurveExitDelay)
             {
                 EndTransient("Movement curve complete", true);
             }
         }
         else if (turns.EnableTurnInPlace)
         {
+            movementCurveExitTimer = 0f;
             if (CurrentTransient == LocomotionTransient.MovementCurve)
                 EndTransient("Stopped during movement curve", false);
 
@@ -877,6 +958,7 @@ public class CharacterAnimancerController : MonoBehaviour
         }
         else
         {
+            movementCurveExitTimer = 0f;
             ResetPendingTurn();
         }
 
@@ -1160,6 +1242,32 @@ public class CharacterAnimancerController : MonoBehaviour
         return tuning;
     }
 
+    private AnimationClip ResolveLocomotionClip(Vector2 velocity, float speed, bool crouching)
+    {
+        if (config == null || config.Locomotion == null) return null;
+        if (speed <= config.Locomotion.IdleSpeedThreshold)
+            return crouching ? config.Locomotion.CrouchIdle : config.Locomotion.Idle;
+
+        CharacterAnimationConfig.DirectionalClipSet clips;
+        switch (config.ResolveGait(speed, crouching))
+        {
+            case LocomotionGait.Run:
+                clips = config.Locomotion.Run;
+                break;
+            case LocomotionGait.Jog:
+                clips = config.Locomotion.Jog;
+                break;
+            case LocomotionGait.Crouch:
+                clips = config.Locomotion.Crouch;
+                break;
+            default:
+                clips = config.Locomotion.Walk;
+                break;
+        }
+
+        return clips.GetBest(velocity);
+    }
+
     private AnimancerState PlayConfiguredClip(AnimationClip clip, float defaultFadeIn, Action onEnd)
     {
         CharacterAnimationConfig.MobilityClipTuning tuning = GetClipTuning(clip);
@@ -1186,10 +1294,42 @@ public class CharacterAnimancerController : MonoBehaviour
         float fadeIn = incoming != null && incoming.OverrideRuntime && incoming.Transition != null
             ? incoming.Transition.FadeDuration
             : fallback;
-        float fadeOut = activeClipTuning != null && activeClipTuning.OverrideRuntime
-            ? activeClipTuning.FadeOut
+        CharacterAnimationConfig.MobilityClipTuning outgoing = activeClipTuning;
+        if (outgoing == null && (usingLocomotionMixer || usingCrouchMixer))
+        {
+            AnimationClip outgoingClip = ResolveLocomotionClip(
+                CurrentMixerParameter,
+                CurrentLocomotionSpeed,
+                usingCrouchMixer);
+            outgoing = GetClipTuning(outgoingClip);
+        }
+
+        float fadeOut = outgoing != null && outgoing.OverrideRuntime
+            ? outgoing.FadeOut
             : activeFallbackFadeOut;
-        return Mathf.Max(0f, fadeIn, fadeOut);
+        return ResolveTransitionFade(fadeIn, fadeOut);
+    }
+
+    private float ResolveTransitionFade(float fadeIn, float fadeOut)
+    {
+        LastResolvedFadeDuration = Mathf.Max(
+            ResolveGlobalFadeIn(fadeIn),
+            ResolveGlobalFadeOut(fadeOut));
+        return LastResolvedFadeDuration;
+    }
+
+    private float ResolveGlobalFadeIn(float duration)
+    {
+        return config != null && config.GlobalFades != null
+            ? config.GlobalFades.ResolveFadeIn(duration)
+            : Mathf.Max(0f, duration);
+    }
+
+    private float ResolveGlobalFadeOut(float duration)
+    {
+        return config != null && config.GlobalFades != null
+            ? config.GlobalFades.ResolveFadeOut(duration)
+            : Mathf.Max(0f, duration);
     }
 
     private float GetDefaultFadeOut(LocomotionTransient transient)

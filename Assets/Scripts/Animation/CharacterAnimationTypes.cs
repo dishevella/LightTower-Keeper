@@ -62,6 +62,12 @@ public enum MobilityAnimationCategory
     Other
 }
 
+public enum CharacterAnimationSource
+{
+    ProjectOriginal,
+    MobilityPro
+}
+
 public enum CharacterAnimationAction
 {
     None,

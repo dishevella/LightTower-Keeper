@@ -14,11 +14,27 @@ public static class MobilityProLocomotionConfigurator
     public const string TargetScenePath = "Assets/_Recovery/0 (58).unity";
     public const string ConfigAssetPath = "Assets/Animation/Animancer/MobilityProPlayerAnimationConfig.asset";
     private const string OriginalPlayerControllerPath = "Assets/Animation/Controller/Player.controller";
+    private const string OriginalLocomotionRoot = "Assets/Animation/Locomotion/";
     private const string PackRoot = "Assets/Mobility_Pro/Animation/IPC/";
     private const string SplitJumpRoot = PackRoot + "Split_Jumps/";
-    private const string AutoSessionKey = "LightTower.MobilityProLocomotionConfigurator.AutoConfigured.v6";
+    private const string AutoSessionKey = "LightTower.MobilityProLocomotionConfigurator.AutoConfigured.v8";
     // Increment when the generated scene or ScriptableObject layout changes.
-    private const int ConfigurationRevision = 6;
+    private const int ConfigurationRevision = 8;
+    private static readonly string[] OriginalLocomotionClipNames =
+    {
+        "A_Idle_Standing_Masc",
+        "A_Idle_Crouching_Masc",
+        "A_Crouch_FwdStrafeF_Masc",
+        "A_Walk_F_Masc",
+        "A_Sprint_F_Masc",
+        "A_Jump_Idle_Masc",
+        "A_Jump_Walking_Masc",
+        "A_Jump_Running_Masc",
+        "A_InAir_FallShort_Masc",
+        "A_Land_IdleSoft_Masc",
+        "A_Land_Walking_Masc",
+        "A_Land_Running_Masc"
+    };
     private static bool waitingForEditorIdle;
 
     static MobilityProLocomotionConfigurator()
@@ -43,7 +59,8 @@ public static class MobilityProLocomotionConfigurator
     {
         if (AssetDatabase.IsAssetImportWorkerProcess()) return;
         if (SessionState.GetBool(AutoSessionKey, false)) return;
-        if (EditorApplication.isCompiling || EditorApplication.isUpdating || EditorApplication.isPlayingOrWillChangePlaymode)
+        if (EditorApplication.isCompiling || EditorApplication.isUpdating || EditorApplication.isPlaying ||
+            EditorApplication.isPlayingOrWillChangePlaymode)
         {
             WaitForEditorIdle();
             return;
@@ -61,7 +78,8 @@ public static class MobilityProLocomotionConfigurator
 
     private static void ConfigureWhenIdle()
     {
-        if (EditorApplication.isCompiling || EditorApplication.isUpdating || EditorApplication.isPlayingOrWillChangePlaymode)
+        if (EditorApplication.isCompiling || EditorApplication.isUpdating || EditorApplication.isPlaying ||
+            EditorApplication.isPlayingOrWillChangePlaymode)
             return;
 
         EditorApplication.update -= ConfigureWhenIdle;
@@ -71,6 +89,12 @@ public static class MobilityProLocomotionConfigurator
 
     private static void Configure(bool forceRepopulate)
     {
+        if (EditorApplication.isPlaying || EditorApplication.isPlayingOrWillChangePlaymode)
+        {
+            WaitForEditorIdle();
+            return;
+        }
+
         try
         {
             CharacterAnimationConfig config = LoadOrCreateConfig(out bool created);
@@ -113,7 +137,7 @@ public static class MobilityProLocomotionConfigurator
     private static void PopulateConfig(CharacterAnimationConfig config)
     {
         Undo.RecordObject(config, "Populate MOBILITY PRO locomotion configuration");
-        config.SourceAnimationPack = "Unity MOBILITY PRO Mocap Animation Pack 2.7B1 (IPC Humanoid)";
+        config.SourceAnimationPack = "Project original locomotion first; Unity MOBILITY PRO 2.7B1 fills missing roles";
         config.ConfiguredScenePath = TargetScenePath;
         config.ConfigurationRevision = ConfigurationRevision;
 
@@ -165,6 +189,8 @@ public static class MobilityProLocomotionConfigurator
         locomotion.StartBlendOutNormalizedTime = 0.7f;
         locomotion.StopBlendOutNormalizedTime = 0.82f;
         locomotion.CrouchBlendOutNormalizedTime = 0.82f;
+        locomotion.StartMovementDelayNormalizedTime = 0.04f;
+        locomotion.StartMovementFullSpeedNormalizedTime = 0.45f;
         locomotion.StartInputThreshold = 0.15f;
         locomotion.StopInputThreshold = 0.08f;
         locomotion.AccelerationSmoothTime = 0.1f;
@@ -178,6 +204,7 @@ public static class MobilityProLocomotionConfigurator
         locomotion.MaximumPlaybackSpeed = 1.2f;
 
         PopulateAirborne(config.Airborne);
+        RestoreOriginalAnimatorAnimations(config);
 
         config.Holding.Clip = AssetDatabase.LoadAssetAtPath<AnimationClip>("Assets/Animation/Locomotion/Holding.anim");
         config.Holding.AvatarMask = AssetDatabase.LoadAssetAtPath<AvatarMask>("Assets/AvatarMask/Mask_Arm_R.mask");
@@ -190,6 +217,40 @@ public static class MobilityProLocomotionConfigurator
         config.Quality.KeepAnimatorControllerAssetAssignedInEditMode = true;
         config.Quality.ClearRuntimeAnimatorControllerOnInitialize = true;
         config.DefaultLocomotionRootMotion = CharacterAnimationRootMotionStrategy.Disabled;
+
+        if (config.GlobalFades == null) config.GlobalFades = new CharacterAnimationConfig.GlobalFadeSettings();
+        config.GlobalFades.GlobalFadeSpeed = 1f;
+        config.GlobalFades.UseSharedDurations = false;
+        config.GlobalFades.SharedFadeIn = 0.1f;
+        config.GlobalFades.SharedFadeOut = 0.12f;
+
+        if (config.Camera == null) config.Camera = new CharacterAnimationConfig.CameraSettings();
+        config.Camera.LookSensitivity = 65f;
+        config.Camera.EnablePerAnimationPositions = true;
+        config.Camera.CrouchDownBlendSpeed = 10f;
+        config.Camera.StandUpBlendSpeed = 10f;
+        config.Camera.EnableWallCollision = true;
+        config.Camera.CollisionMask = ~0;
+        config.Camera.CollisionRadius = 0.16f;
+        config.Camera.CollisionPadding = 0.04f;
+        config.Camera.MinimumDistance = 0.36f;
+        config.Camera.MinimumDistanceRatio = 0.65f;
+        config.Camera.PullInSpeed = 30f;
+        config.Camera.ReturnSpeed = 10f;
+        config.Camera.CollisionAnchorLocalPosition = new Vector3(0f, 1.25f, 0.05f);
+        config.Camera.CameraNearClip = 0.18f;
+        config.Camera.EnableCharacterInteriorProtection = true;
+        config.Camera.MinimumCameraLocalForward = 0.55f;
+        config.Camera.CrouchMinimumCameraLocalForward = 0.85f;
+        config.Camera.TrackAnimatedHead = true;
+        config.Camera.HeadForwardClearance = 0.35f;
+        config.Camera.CrouchHeadForwardClearance = 0.45f;
+        config.Camera.HeadSafetyRadius = 0.3f;
+        config.Camera.CrouchHeadSafetyRadius = 0.42f;
+        config.Camera.HideHeadForPlayerCamera = true;
+        config.Camera.CharacterHideDistance = 0.9f;
+        config.Camera.HiddenHeadScale = 0.001f;
+        config.Camera.InteriorProtectionBlendSpeed = 30f;
 
         PopulateClipTuningLibrary(config);
 
@@ -345,9 +406,10 @@ public static class MobilityProLocomotionConfigurator
         turns.PivotFadeIn = 0.08f;
         turns.PivotFadeOut = 0.12f;
         turns.PivotBlendOutNormalizedTime = 0.8f;
-        turns.CurveStartYawRate = 25f;
+        turns.CurveStartYawRate = 45f;
+        turns.CurveExitYawRate = 15f;
         turns.MinimumCurveSpeed = 0.5f;
-        turns.CurveExitDelay = 0.1f;
+        turns.CurveExitDelay = 0.2f;
         turns.CurveFadeIn = 0.12f;
         turns.CurveFadeOut = 0.14f;
         turns.StandLeft45 = LoadIpc("MOB1_Stand_Relaxed_L_45_IPC");
@@ -419,13 +481,33 @@ public static class MobilityProLocomotionConfigurator
             AnimationClip clip = LoadAnimationClip(modelPaths[i]);
             MobilityAnimationCategory category = CategorizeClip(clip.name, modelPaths[i]);
             if (!existing.TryGetValue(clip, out CharacterAnimationConfig.MobilityClipTuning tuning))
-                tuning = CreateDefaultTuning(clip, category);
+                tuning = CreateDefaultTuning(clip, category, CharacterAnimationSource.MobilityPro);
 
+            tuning.Source = CharacterAnimationSource.MobilityPro;
             tuning.Category = category;
             tuning.Role = GetClipRole(clip.name, category);
             if (tuning.Transition == null) tuning.Transition = new ClipTransition { Clip = clip };
             else tuning.Transition.Clip = clip;
             if (tuning.EndNormalizedTime <= 0f) tuning.EndNormalizedTime = 1f;
+            tuning.ApplyEndTimeToTransition();
+            tunings.Add(tuning);
+        }
+
+        for (int i = 0; i < OriginalLocomotionClipNames.Length; i++)
+        {
+            AnimationClip clip = LoadOriginal(OriginalLocomotionClipNames[i]);
+            MobilityAnimationCategory category = CategorizeOriginalClip(clip.name);
+            bool isNew = !existing.TryGetValue(clip, out CharacterAnimationConfig.MobilityClipTuning tuning);
+            if (isNew)
+                tuning = CreateDefaultTuning(clip, category, CharacterAnimationSource.ProjectOriginal);
+
+            tuning.Source = CharacterAnimationSource.ProjectOriginal;
+            tuning.Category = category;
+            tuning.Role = "Original Animator / " + clip.name;
+            if (tuning.Transition == null) tuning.Transition = new ClipTransition { Clip = clip };
+            else tuning.Transition.Clip = clip;
+            if (tuning.EndNormalizedTime <= 0f) tuning.EndNormalizedTime = 1f;
+            if (isNew) ApplyLegacyCameraPoseDefaults(tuning, clip.name);
             tuning.ApplyEndTimeToTransition();
             tunings.Add(tuning);
         }
@@ -438,7 +520,8 @@ public static class MobilityProLocomotionConfigurator
 
     private static CharacterAnimationConfig.MobilityClipTuning CreateDefaultTuning(
         AnimationClip clip,
-        MobilityAnimationCategory category)
+        MobilityAnimationCategory category,
+        CharacterAnimationSource source)
     {
         float fadeIn;
         float fadeOut;
@@ -491,6 +574,7 @@ public static class MobilityProLocomotionConfigurator
         transition.NormalizedStartTime = 0f;
         return new CharacterAnimationConfig.MobilityClipTuning
         {
+            Source = source,
             Category = category,
             Role = GetClipRole(clip.name, category),
             Transition = transition,
@@ -498,8 +582,49 @@ public static class MobilityProLocomotionConfigurator
             BlendOutNormalizedTime = blendOut,
             EndNormalizedTime = 1f,
             OverrideRuntime = true,
-            ApplyFootIK = true
+            ApplyFootIK = true,
+            CameraLocalPosition = new Vector3(0.028f, 1.3f, 0.368f),
+            CameraBlendSpeed = 8f
         };
+    }
+
+    private static MobilityAnimationCategory CategorizeOriginalClip(string name)
+    {
+        if (name.Contains("Jump") || name.Contains("InAir") || name.Contains("Land"))
+            return MobilityAnimationCategory.Jump;
+        if (name.Contains("Idle")) return MobilityAnimationCategory.Idle;
+        if (name.Contains("Walk") || name.Contains("Sprint") || name.Contains("Crouch_Fwd"))
+            return MobilityAnimationCategory.LocomotionLoop;
+        return MobilityAnimationCategory.Other;
+    }
+
+    private static void ApplyLegacyCameraPoseDefaults(
+        CharacterAnimationConfig.MobilityClipTuning tuning,
+        string clipName)
+    {
+        switch (clipName)
+        {
+            case "A_Sprint_F_Masc":
+                tuning.OverrideCameraPosition = true;
+                tuning.CameraLocalPosition = new Vector3(-0.05f, 1.4f, 0.7f);
+                tuning.CameraBlendSpeed = 18f;
+                break;
+            case "A_Idle_Crouching_Masc":
+                tuning.OverrideCameraPosition = true;
+                tuning.CameraLocalPosition = new Vector3(0.05f, 1.05f, 0.76f);
+                tuning.CameraBlendSpeed = 10f;
+                break;
+            case "A_Crouch_FwdStrafeF_Masc":
+                tuning.OverrideCameraPosition = true;
+                tuning.CameraLocalPosition = new Vector3(0.15f, 1.05f, 0.75f);
+                tuning.CameraBlendSpeed = 10f;
+                break;
+            case "A_Jump_Idle_Masc":
+                tuning.OverrideCameraPosition = true;
+                tuning.CameraLocalPosition = new Vector3(0f, 1.5f, 0.75f);
+                tuning.CameraBlendSpeed = 8f;
+                break;
+        }
     }
 
     private static MobilityAnimationCategory CategorizeClip(string name, string path)
@@ -555,7 +680,55 @@ public static class MobilityProLocomotionConfigurator
         airborne.LandingFadeOut = 0.12f;
         airborne.JumpStartBlendOutNormalizedTime = 0.78f;
         airborne.LandingBlendOutNormalizedTime = 0.88f;
+        airborne.EnableGroundSnap = true;
+        airborne.GroundCollisionMask = ~0;
+        airborne.GroundSnapDistance = 0.35f;
+        airborne.GroundProbeRadiusScale = 0.85f;
+        airborne.GroundSnapSpeed = 12f;
+        airborne.JumpGroundSnapDelay = 0.12f;
+        airborne.GroundedGraceTime = 0.28f;
+        airborne.FallAnimationMinSpeed = -4.5f;
+        airborne.LandingMinimumAirTime = 0.32f;
+        airborne.LandingMinimumFallSpeed = -6.5f;
         airborne.AlternateTakeoffFoot = true;
+    }
+
+    private static void RestoreOriginalAnimatorAnimations(CharacterAnimationConfig config)
+    {
+        CharacterAnimationConfig.LocomotionSettings locomotion = config.Locomotion;
+        locomotion.Idle = LoadOriginal("A_Idle_Standing_Masc");
+        locomotion.CrouchIdle = LoadOriginal("A_Idle_Crouching_Masc");
+        locomotion.Walk.Forward = LoadOriginal("A_Walk_F_Masc");
+        locomotion.Run.Forward = LoadOriginal("A_Sprint_F_Masc");
+        locomotion.Crouch.Forward = LoadOriginal("A_Crouch_FwdStrafeF_Masc");
+
+        CharacterAnimationConfig.AirborneSettings airborne = config.Airborne;
+        airborne.JumpStarts.Standing = LoadOriginal("A_Jump_Idle_Masc");
+        SetForwardForBothFeet(airborne.JumpStarts.Walk, LoadOriginal("A_Jump_Walking_Masc"));
+        SetForwardForBothFeet(airborne.JumpStarts.Run, LoadOriginal("A_Jump_Running_Masc"));
+
+        AnimationClip fall = LoadOriginal("A_InAir_FallShort_Masc");
+        airborne.JumpAir.Standing = fall;
+        airborne.Fall = fall;
+        airborne.ShortFall = fall;
+        airborne.LongFall = fall;
+
+        AnimationClip idleLanding = LoadOriginal("A_Land_IdleSoft_Masc");
+        AnimationClip walkLanding = LoadOriginal("A_Land_Walking_Masc");
+        AnimationClip runLanding = LoadOriginal("A_Land_Running_Masc");
+        airborne.JumpLandings.Standing = idleLanding;
+        SetForwardForBothFeet(airborne.JumpLandings.Walk, walkLanding);
+        SetForwardForBothFeet(airborne.JumpLandings.Run, runLanding);
+        airborne.SoftLanding = idleLanding;
+        airborne.MovingLanding = walkLanding;
+    }
+
+    private static void SetForwardForBothFeet(
+        CharacterAnimationConfig.FootedDirectionalClipSet set,
+        AnimationClip clip)
+    {
+        set.LeftFoot.Forward = clip;
+        set.RightFoot.Forward = clip;
     }
 
     private static void PopulateAirbornePhase(CharacterAnimationConfig.AirbornePhaseSet phaseSet, string phase)
@@ -666,9 +839,12 @@ public static class MobilityProLocomotionConfigurator
             EditorUtility.SetDirty(player);
             EditorUtility.SetDirty(animator);
             EditorUtility.SetDirty(config);
-            EditorSceneManager.MarkSceneDirty(targetScene);
-            if (!EditorSceneManager.SaveScene(targetScene))
-                throw new InvalidOperationException("Unity could not save the configured recover scene 58.");
+            if (!EditorApplication.isPlaying && !EditorApplication.isPlayingOrWillChangePlaymode)
+            {
+                EditorSceneManager.MarkSceneDirty(targetScene);
+                if (!EditorSceneManager.SaveScene(targetScene))
+                    throw new InvalidOperationException("Unity could not save the configured recover scene 58.");
+            }
 
             return new SceneConfigurationResult
             {
@@ -715,6 +891,15 @@ public static class MobilityProLocomotionConfigurator
     private static AnimationClip LoadIpc(string fileName)
     {
         return LoadAnimationClip(PackRoot + fileName + ".fbx");
+    }
+
+    private static AnimationClip LoadOriginal(string clipName)
+    {
+        AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(
+            OriginalLocomotionRoot + clipName + ".anim");
+        if (clip == null)
+            throw new InvalidOperationException("Original animation clip is missing: " + clipName);
+        return clip;
     }
 
     private static AnimationClip LoadSplit(string fileName)

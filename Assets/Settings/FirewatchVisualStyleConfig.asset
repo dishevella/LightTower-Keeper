@@ -1,0 +1,217 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bed7562b9ae21db4eae8e258220b2453, type: 3}
+  m_Name: FirewatchVisualStyleConfig
+  m_EditorClassIdentifier: Assembly-CSharp::FirewatchVisualStyleConfig
+  ConfigurationRevision: 6
+  TargetVolumeProfile: {fileID: 11400000, guid: 0f461b4433444314b8343c345eb2694e, type: 2}
+  PlayerToonMaterial: {fileID: 2100000, guid: d11c62420dc7c6f4689c652300ffef68, type: 2}
+  LockLookDevelopmentTime: 1
+  LookDevelopmentHour: 17.75
+  NearPaletteDistance: 85
+  MidPaletteDistance: 260
+  FarPaletteDistance: 620
+  NearPaletteTint: {r: 0.86, g: 0.83, b: 0.67, a: 1}
+  MidPaletteTint: {r: 0.64, g: 0.61, b: 0.59, a: 1}
+  FarPaletteTint: {r: 0.38, g: 0.43, b: 0.64, a: 1}
+  MainSunColor: {r: 1, g: 0.72, b: 0.52, a: 1}
+  MainSunIntensity: 1.35
+  MainSunShadowStrength: 0.82
+  FillLightColor: {r: 0.22, g: 0.34, b: 0.56, a: 1}
+  FillLightIntensity: 0.08
+  AmbientSkyColor: {r: 0.42, g: 0.44, b: 0.55, a: 1}
+  AmbientEquatorColor: {r: 0.3, g: 0.33, b: 0.42, a: 1}
+  AmbientGroundColor: {r: 0.12, g: 0.16, b: 0.22, a: 1}
+  AmbientIntensity: 0.68
+  ReflectionIntensity: 0.5
+  EnableButo: 1
+  FogQuality: 2
+  FogGridPixelSize: 8
+  FogDepthSamples: 164
+  FogTemporalLighting: 0.063
+  FogTemporalMedia: 0.077
+  FogDensityMultiplier: 2
+  FogDistanceMultiplier: 0.58
+  MaxVolumetricDistance: 520
+  FogDensity: 2.25
+  Anisotropy: 0.45
+  LightIntensity: 0.8
+  DensityInLight: 0.68
+  DensityInShadow: 0.82
+  BaseHeight: 22
+  HeightFalloff: 24
+  EnableNearFogClearZone: 1
+  NearFogDensityMultiplier: 5
+  NearFogClearRadius: 20
+  NearFogClearBlend: 28
+  EmissionFogColor: {r: 0.0015, g: 0.0005, b: 0.0002, a: 1}
+  FogColorInfluence: 0.16
+  DirectionalRatio: 1
+  UseGeneratedFogColorRamp: 1
+  FogDistanceColorRamp:
+    serializedVersion: 2
+    key0: {r: 0.3, g: 0.34, b: 0.25, a: 1}
+    key1: {r: 0.38, g: 0.33, b: 0.25, a: 1}
+    key2: {r: 0.74, g: 0.42, b: 0.27, a: 0}
+    key3: {r: 0.46, g: 0.39, b: 0.58, a: 0}
+    key4: {r: 0.44, g: 0.53, b: 0.66, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 6554
+    ctime2: 19661
+    ctime3: 39321
+    ctime4: 65535
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 2
+  FogShadowRampBrightness: 0.58
+  FogLitRampBrightness: 0.78
+  FogEmissionRampBrightness: 0.02
+  FogColorRampTexture: {fileID: 2800000, guid: b2d58a04bb7bdcd46ae125e914ea658b, type: 3}
+  FogNoiseType: 4
+  FogNoiseQuality: 2
+  FogNoiseFrequency: 4
+  FogNoiseGeneratedOctaves: 4
+  FogNoiseGeneratedLacunarity: 2
+  FogNoiseGeneratedGain: 0.35
+  FogNoiseSeed: 17
+  InvertFogNoise: 0
+  FogNoiseSamplingOctaves: 2
+  FogNoiseSamplingLacunarity: 2
+  FogNoiseSamplingGain: 0.25
+  NoiseTiling: 60
+  NoiseWindSpeed: {x: 0.08, y: 0, z: 0.025}
+  NoiseRemap: {x: 0.25, y: 0.9}
+  AtmosphereKeys:
+  - Label: Dawn
+    Hour: 6
+    FogDensity: 2.1
+    MaxDistance: 430
+    LitFogColor: {r: 0.92, g: 0.61, b: 0.42, a: 1}
+    ShadowFogColor: {r: 0.22, g: 0.32, b: 0.42, a: 1}
+    TowardSunColor: {r: 1, g: 0.56, b: 0.3, a: 1}
+    AwayFromSunColor: {r: 0.28, g: 0.4, b: 0.52, a: 1}
+    FoliageLitTint: {r: 1, g: 0.76, b: 0.46, a: 1}
+    FoliageShadowTint: {r: 0.28, g: 0.4, b: 0.43, a: 1}
+    DistanceFogColor: {r: 0.58, g: 0.52, b: 0.62, a: 1}
+  - Label: Afternoon
+    Hour: 14
+    FogDensity: 1.45
+    MaxDistance: 520
+    LitFogColor: {r: 0.82, g: 0.67, b: 0.52, a: 1}
+    ShadowFogColor: {r: 0.26, g: 0.35, b: 0.46, a: 1}
+    TowardSunColor: {r: 0.96, g: 0.72, b: 0.48, a: 1}
+    AwayFromSunColor: {r: 0.34, g: 0.43, b: 0.58, a: 1}
+    FoliageLitTint: {r: 0.95, g: 0.78, b: 0.5, a: 1}
+    FoliageShadowTint: {r: 0.27, g: 0.38, b: 0.46, a: 1}
+    DistanceFogColor: {r: 0.45, g: 0.49, b: 0.65, a: 1}
+  - Label: Dusk
+    Hour: 18
+    FogDensity: 2.25
+    MaxDistance: 520
+    LitFogColor: {r: 0.82, g: 0.56, b: 0.42, a: 1}
+    ShadowFogColor: {r: 0.2, g: 0.27, b: 0.42, a: 1}
+    TowardSunColor: {r: 0.95, g: 0.58, b: 0.32, a: 1}
+    AwayFromSunColor: {r: 0.28, g: 0.34, b: 0.55, a: 1}
+    FoliageLitTint: {r: 0.92, g: 0.72, b: 0.48, a: 1}
+    FoliageShadowTint: {r: 0.22, g: 0.31, b: 0.44, a: 1}
+    DistanceFogColor: {r: 0.38, g: 0.43, b: 0.64, a: 1}
+  - Label: Night
+    Hour: 22
+    FogDensity: 1.75
+    MaxDistance: 360
+    LitFogColor: {r: 0.25, g: 0.34, b: 0.52, a: 1}
+    ShadowFogColor: {r: 0.06, g: 0.1, b: 0.18, a: 1}
+    TowardSunColor: {r: 0.34, g: 0.38, b: 0.58, a: 1}
+    AwayFromSunColor: {r: 0.08, g: 0.12, b: 0.22, a: 1}
+    FoliageLitTint: {r: 0.45, g: 0.52, b: 0.68, a: 1}
+    FoliageShadowTint: {r: 0.1, g: 0.16, b: 0.24, a: 1}
+    DistanceFogColor: {r: 0.2, g: 0.25, b: 0.38, a: 1}
+  FoliageLightBands: 3
+  FoliageBandSoftness: 0.08
+  FoliageBacklightColor: {r: 1, g: 0.58, b: 0.3, a: 1}
+  FoliageBacklightStrength: 0.2
+  FoliageBottomTint: {r: 0.58, g: 0.52, b: 0.32, a: 1}
+  FoliageTopTint: {r: 0.92, g: 0.76, b: 0.42, a: 1}
+  FoliageGradientBaseHeight: -8
+  FoliageGradientHeight: 110
+  FoliageColorVariation: 0.14
+  FoliageWindStrength: 0.44
+  FoliageWindSpeed: 0.72
+  FoliageGustStrength: 0.34
+  FoliageGustScale: 0.018
+  FoliageWindDirection: {x: 0.86, y: 0.5}
+  FoliageAlphaCutoff: 0.4
+  EnvironmentLightBands: 3
+  EnvironmentLightBandsScale: 0.62
+  EnvironmentLightThreshold: 0.48
+  EnvironmentDiffuseSmoothness: 0.08
+  EnvironmentDiffuseThreshold: 0.4
+  TrunkTint: {r: 0.72, g: 0.48, b: 0.34, a: 1}
+  RockTint: {r: 0.82, g: 0.68, b: 0.58, a: 1}
+  BuildingTint: {r: 0.92, g: 0.72, b: 0.5, a: 1}
+  GenerateDistantVista: 0
+  BackgroundTreesA: {fileID: 4171434547549242957, guid: 3fb312df8e473b9458218f4de8ae4342, type: 3}
+  BackgroundTreesB: {fileID: 642667902572045047, guid: 36638525b154a724699788501ad9a67b, type: 3}
+  NearMountainA: {fileID: 4393315211883067336, guid: a18b414b23a963446970ba21b7ac90dc, type: 3}
+  NearMountainB: {fileID: 973752906179598168, guid: 426622f3fd75b334da7d7c94b0cd4c48, type: 3}
+  FarMountainA: {fileID: 973752906179598168, guid: 426622f3fd75b334da7d7c94b0cd4c48, type: 3}
+  FarMountainB: {fileID: 7959645173468582319, guid: 4a9c718b7028f074593e1a9b7139fa61, type: 3}
+  VistaArc: 125
+  MidTreeCount: 7
+  MidTreeRadius: 145
+  MidTreeTargetHeight: 34
+  MidTreeVerticalOffset: -4
+  NearMountainCount: 4
+  NearMountainRadius: 390
+  NearMountainTargetHeight: 170
+  NearMountainVerticalOffset: -26
+  FarMountainCount: 4
+  FarMountainRadius: 780
+  FarMountainTargetHeight: 270
+  FarMountainVerticalOffset: -52
+  ToneMapper: 2
+  Exposure: -0.15
+  Contrast: 9
+  Saturation: -6
+  ColorFilter: {r: 1, g: 0.98, b: 0.94, a: 1}
+  Temperature: 5
+  Tint: 0
+  SplitShadowColor: {r: 0.3, g: 0.35, b: 0.52, a: 1}
+  SplitHighlightColor: {r: 0.74, g: 0.56, b: 0.4, a: 1}
+  SplitBalance: -8
+  BloomIntensity: 0.06
+  BloomThreshold: 1.25
+  VignetteIntensity: 0.06
+  LightBands: 4
+  LightBandsScale: 0.58
+  LightThreshold: 0.46
+  DiffuseSmoothness: 0.12
+  DiffuseThreshold: 0.38
+  MaterialSmoothness: 0.08
+  ToonContrast: 1.08
+  ToonSaturation: 1.08
+  ToonBrightness: 1.02

@@ -15,6 +15,11 @@ public class TimeOfDayDriver : ControllerAbstract
     [Range(0f, 24f)]
     [SerializeField] private float initialHour = 6f;
 
+    [Header("Look Development")]
+    [SerializeField] private bool lockTimeForLookDevelopment;
+    [Range(0f, 24f)]
+    [SerializeField] private float lookDevelopmentHour = 17.75f;
+
     [Header("Phase Mapping")]
     [SerializeField] private PhaseTimeMapping[] phaseMappings;
 
@@ -22,7 +27,8 @@ public class TimeOfDayDriver : ControllerAbstract
     {
         if (initializeOnStart)
         {
-            this.SendCommand(new SetTimeOfDayCommand(initialHour));
+            float startHour = lockTimeForLookDevelopment ? lookDevelopmentHour : initialHour;
+            this.SendCommand(new SetTimeOfDayCommand(startHour));
         }
 
         this.GetEvent().Register<StoryPhaseChangedEvent>(OnStoryPhaseChanged)
@@ -31,6 +37,7 @@ public class TimeOfDayDriver : ControllerAbstract
 
     private void OnStoryPhaseChanged(StoryPhaseChangedEvent evt)
     {
+        if (lockTimeForLookDevelopment) return;
         if (phaseMappings == null || phaseMappings.Length == 0) return;
 
         for (int i = 0; i < phaseMappings.Length; i++)
@@ -43,5 +50,13 @@ public class TimeOfDayDriver : ControllerAbstract
 
             break;
         }
+    }
+
+    public void ConfigureLookDevelopmentTime(bool locked, float hour)
+    {
+        lockTimeForLookDevelopment = locked;
+        lookDevelopmentHour = TimeSystem.WrapHour(hour);
+        if (locked)
+            initialHour = lookDevelopmentHour;
     }
 }

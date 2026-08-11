@@ -3,20 +3,25 @@ using Animancer;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+[AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
+public sealed class InlineClipTuningAttribute : Attribute
+{
+}
+
 [CreateAssetMenu(menuName = "Light Tower/Animation/Character Animation Config", fileName = "CharacterAnimationConfig")]
 public class CharacterAnimationConfig : ScriptableObject
 {
     [Serializable]
     public class DirectionalClipSet
     {
-        [HorizontalGroup("Forward"), PreviewField(52), AssetsOnly] public AnimationClip ForwardLeft;
-        [HorizontalGroup("Forward"), PreviewField(52), AssetsOnly] public AnimationClip Forward;
-        [HorizontalGroup("Forward"), PreviewField(52), AssetsOnly] public AnimationClip ForwardRight;
-        [HorizontalGroup("Sides"), PreviewField(52), AssetsOnly] public AnimationClip Left;
-        [HorizontalGroup("Sides"), PreviewField(52), AssetsOnly] public AnimationClip Right;
-        [HorizontalGroup("Backward"), PreviewField(52), AssetsOnly] public AnimationClip BackwardLeft;
-        [HorizontalGroup("Backward"), PreviewField(52), AssetsOnly] public AnimationClip Backward;
-        [HorizontalGroup("Backward"), PreviewField(52), AssetsOnly] public AnimationClip BackwardRight;
+        [InlineClipTuning, PreviewField(52), AssetsOnly] public AnimationClip ForwardLeft;
+        [InlineClipTuning, PreviewField(52), AssetsOnly] public AnimationClip Forward;
+        [InlineClipTuning, PreviewField(52), AssetsOnly] public AnimationClip ForwardRight;
+        [InlineClipTuning, PreviewField(52), AssetsOnly] public AnimationClip Left;
+        [InlineClipTuning, PreviewField(52), AssetsOnly] public AnimationClip Right;
+        [InlineClipTuning, PreviewField(52), AssetsOnly] public AnimationClip BackwardLeft;
+        [InlineClipTuning, PreviewField(52), AssetsOnly] public AnimationClip Backward;
+        [InlineClipTuning, PreviewField(52), AssetsOnly] public AnimationClip BackwardRight;
 
         public bool HasAnyClip()
         {
@@ -161,7 +166,7 @@ public class CharacterAnimationConfig : ScriptableObject
     [Serializable]
     public class AirbornePhaseSet
     {
-        [BoxGroup("Standing"), PreviewField(55), AssetsOnly] public AnimationClip Standing;
+        [BoxGroup("Standing"), InlineClipTuning, PreviewField(55), AssetsOnly] public AnimationClip Standing;
         [FoldoutGroup("Walk")] public FootedDirectionalClipSet Walk = new FootedDirectionalClipSet();
         [FoldoutGroup("Jog")] public FootedDirectionalClipSet Jog = new FootedDirectionalClipSet();
         [FoldoutGroup("Run")] public FootedDirectionalClipSet Run = new FootedDirectionalClipSet();
@@ -214,44 +219,49 @@ public class CharacterAnimationConfig : ScriptableObject
         [BoxGroup("Pivot Rules"), MinValue(0f)] public float PivotFadeOut = 0.12f;
         [BoxGroup("Pivot Rules"), Range(0f, 1f)] public float PivotBlendOutNormalizedTime = 0.8f;
 
-        [BoxGroup("Movement Curve Rules"), MinValue(0f)] public float CurveStartYawRate = 25f;
+        [BoxGroup("Movement Curve Rules"), LabelText("Curve Enter Yaw Rate"), MinValue(0f)]
+        [Tooltip("Yaw speed required to enter a moving turn animation. A higher value prevents small camera turns from changing locomotion clips.")]
+        public float CurveStartYawRate = 45f;
+        [BoxGroup("Movement Curve Rules"), LabelText("Curve Exit Yaw Rate"), MinValue(0f)]
+        [Tooltip("Once a moving turn is active, yaw must fall below this lower threshold before its exit delay starts.")]
+        public float CurveExitYawRate = 15f;
         [BoxGroup("Movement Curve Rules"), MinValue(0f)] public float MinimumCurveSpeed = 0.5f;
-        [BoxGroup("Movement Curve Rules"), MinValue(0f)] public float CurveExitDelay = 0.1f;
+        [BoxGroup("Movement Curve Rules"), MinValue(0f)] public float CurveExitDelay = 0.2f;
         [BoxGroup("Movement Curve Rules"), MinValue(0f)] public float CurveFadeIn = 0.12f;
         [BoxGroup("Movement Curve Rules"), MinValue(0f)] public float CurveFadeOut = 0.14f;
 
-        [BoxGroup("Standing"), PreviewField(45), AssetsOnly] public AnimationClip StandLeft45;
-        [BoxGroup("Standing"), PreviewField(45), AssetsOnly] public AnimationClip StandLeft90;
-        [BoxGroup("Standing"), PreviewField(45), AssetsOnly] public AnimationClip StandLeft135;
-        [BoxGroup("Standing"), PreviewField(45), AssetsOnly] public AnimationClip StandRight90;
-        [BoxGroup("Standing"), PreviewField(45), AssetsOnly] public AnimationClip StandRight45;
-        [BoxGroup("Standing"), PreviewField(45), AssetsOnly] public AnimationClip StandRight135;
-        [BoxGroup("Standing"), PreviewField(45), AssetsOnly] public AnimationClip StandLeft180;
-        [BoxGroup("Standing"), PreviewField(45), AssetsOnly] public AnimationClip StandRight180;
-        [BoxGroup("Standing"), PreviewField(45), AssetsOnly] public AnimationClip StandTurnLeftLoop;
-        [BoxGroup("Standing"), PreviewField(45), AssetsOnly] public AnimationClip StandTurnRightLoop;
+        [BoxGroup("Standing"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip StandLeft45;
+        [BoxGroup("Standing"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip StandLeft90;
+        [BoxGroup("Standing"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip StandLeft135;
+        [BoxGroup("Standing"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip StandRight90;
+        [BoxGroup("Standing"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip StandRight45;
+        [BoxGroup("Standing"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip StandRight135;
+        [BoxGroup("Standing"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip StandLeft180;
+        [BoxGroup("Standing"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip StandRight180;
+        [BoxGroup("Standing"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip StandTurnLeftLoop;
+        [BoxGroup("Standing"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip StandTurnRightLoop;
 
-        [BoxGroup("Crouch"), PreviewField(45), AssetsOnly] public AnimationClip CrouchLeft45;
-        [BoxGroup("Crouch"), PreviewField(45), AssetsOnly] public AnimationClip CrouchLeft90;
-        [BoxGroup("Crouch"), PreviewField(45), AssetsOnly] public AnimationClip CrouchLeft135;
-        [BoxGroup("Crouch"), PreviewField(45), AssetsOnly] public AnimationClip CrouchRight90;
-        [BoxGroup("Crouch"), PreviewField(45), AssetsOnly] public AnimationClip CrouchRight45;
-        [BoxGroup("Crouch"), PreviewField(45), AssetsOnly] public AnimationClip CrouchRight135;
-        [BoxGroup("Crouch"), PreviewField(45), AssetsOnly] public AnimationClip CrouchLeft180;
-        [BoxGroup("Crouch"), PreviewField(45), AssetsOnly] public AnimationClip CrouchRight180;
-        [BoxGroup("Crouch"), PreviewField(45), AssetsOnly] public AnimationClip CrouchTurnLeftLoop;
-        [BoxGroup("Crouch"), PreviewField(45), AssetsOnly] public AnimationClip CrouchTurnRightLoop;
+        [BoxGroup("Crouch"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip CrouchLeft45;
+        [BoxGroup("Crouch"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip CrouchLeft90;
+        [BoxGroup("Crouch"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip CrouchLeft135;
+        [BoxGroup("Crouch"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip CrouchRight90;
+        [BoxGroup("Crouch"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip CrouchRight45;
+        [BoxGroup("Crouch"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip CrouchRight135;
+        [BoxGroup("Crouch"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip CrouchLeft180;
+        [BoxGroup("Crouch"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip CrouchRight180;
+        [BoxGroup("Crouch"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip CrouchTurnLeftLoop;
+        [BoxGroup("Crouch"), InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip CrouchTurnRightLoop;
 
-        [FoldoutGroup("Movement Pivot/Walk")] public DirectionalTurnSet Walk = new DirectionalTurnSet();
-        [FoldoutGroup("Movement Pivot/Jog")] public DirectionalTurnSet Jog = new DirectionalTurnSet();
-        [FoldoutGroup("Movement Pivot/Run")] public DirectionalTurnSet Run = new DirectionalTurnSet();
-        [FoldoutGroup("Movement Curves/Walk")] public DirectionalLoopSet WalkCurves = new DirectionalLoopSet();
-        [FoldoutGroup("Movement Curves/Jog")] public DirectionalLoopSet JogCurves = new DirectionalLoopSet();
-        [FoldoutGroup("Movement Curves/Run")] public DirectionalLoopSet RunCurves = new DirectionalLoopSet();
-        [FoldoutGroup("Movement Curves/Crouch")] public DirectionalLoopSet CrouchCurves = new DirectionalLoopSet();
-        [FoldoutGroup("Backpedal Curves/Walk")] public DirectionalLoopSet WalkBackpedalCurves = new DirectionalLoopSet();
-        [FoldoutGroup("Backpedal Curves/Jog")] public DirectionalLoopSet JogBackpedalCurves = new DirectionalLoopSet();
-        [FoldoutGroup("Backpedal Curves/Crouch")] public DirectionalLoopSet CrouchBackpedalCurves = new DirectionalLoopSet();
+        [FoldoutGroup("Movement Pivot - Walk")] public DirectionalTurnSet Walk = new DirectionalTurnSet();
+        [FoldoutGroup("Movement Pivot - Jog")] public DirectionalTurnSet Jog = new DirectionalTurnSet();
+        [FoldoutGroup("Movement Pivot - Run")] public DirectionalTurnSet Run = new DirectionalTurnSet();
+        [FoldoutGroup("Movement Curves - Walk")] public DirectionalLoopSet WalkCurves = new DirectionalLoopSet();
+        [FoldoutGroup("Movement Curves - Jog")] public DirectionalLoopSet JogCurves = new DirectionalLoopSet();
+        [FoldoutGroup("Movement Curves - Run")] public DirectionalLoopSet RunCurves = new DirectionalLoopSet();
+        [FoldoutGroup("Movement Curves - Crouch")] public DirectionalLoopSet CrouchCurves = new DirectionalLoopSet();
+        [FoldoutGroup("Backpedal Curves - Walk")] public DirectionalLoopSet WalkBackpedalCurves = new DirectionalLoopSet();
+        [FoldoutGroup("Backpedal Curves - Jog")] public DirectionalLoopSet JogBackpedalCurves = new DirectionalLoopSet();
+        [FoldoutGroup("Backpedal Curves - Crouch")] public DirectionalLoopSet CrouchBackpedalCurves = new DirectionalLoopSet();
 
         public AnimationClip GetDiscreteTurn(bool crouching, float signedAngle)
         {
@@ -313,8 +323,8 @@ public class CharacterAnimationConfig : ScriptableObject
     [Serializable]
     public class DirectionalLoopSet
     {
-        [PreviewField(45), AssetsOnly] public AnimationClip Left;
-        [PreviewField(45), AssetsOnly] public AnimationClip Right;
+        [InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip Left;
+        [InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip Right;
 
         public AnimationClip Get(float signedValue)
         {
@@ -325,10 +335,10 @@ public class CharacterAnimationConfig : ScriptableObject
     [Serializable]
     public class DirectionalTurnSet
     {
-        [PreviewField(45), AssetsOnly] public AnimationClip Left90;
-        [PreviewField(45), AssetsOnly] public AnimationClip Right90;
-        [PreviewField(45), AssetsOnly] public AnimationClip Left180;
-        [PreviewField(45), AssetsOnly] public AnimationClip Right180;
+        [InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip Left90;
+        [InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip Right90;
+        [InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip Left180;
+        [InlineClipTuning, PreviewField(45), AssetsOnly] public AnimationClip Right180;
 
         public AnimationClip Get(float signedAngle, float turn180Threshold)
         {
@@ -341,24 +351,24 @@ public class CharacterAnimationConfig : ScriptableObject
     [Serializable]
     public class LocomotionSettings
     {
-        [BoxGroup("Idle"), Required, PreviewField(65), AssetsOnly] public AnimationClip Idle;
-        [BoxGroup("Idle"), PreviewField(55), AssetsOnly] public AnimationClip[] IdleVariations = Array.Empty<AnimationClip>();
-        [BoxGroup("Idle"), Required, PreviewField(65), AssetsOnly] public AnimationClip CrouchIdle;
+        [BoxGroup("Idle"), InlineClipTuning, Required, PreviewField(65), AssetsOnly] public AnimationClip Idle;
+        [BoxGroup("Idle"), InlineClipTuning, PreviewField(55), AssetsOnly] public AnimationClip[] IdleVariations = Array.Empty<AnimationClip>();
+        [BoxGroup("Idle"), InlineClipTuning, Required, PreviewField(65), AssetsOnly] public AnimationClip CrouchIdle;
         [BoxGroup("Idle")] public bool EnableIdleVariations = true;
         [BoxGroup("Idle"), MinValue(0f)] public float IdleVariationInterval = 9f;
         [BoxGroup("Idle"), MinValue(0f)] public float IdleVariationCrossFade = 0.2f;
 
-        [FoldoutGroup("Loops/Walk")] public DirectionalClipSet Walk = new DirectionalClipSet();
-        [FoldoutGroup("Loops/Jog")] public DirectionalClipSet Jog = new DirectionalClipSet();
-        [FoldoutGroup("Loops/Run")] public DirectionalClipSet Run = new DirectionalClipSet();
-        [FoldoutGroup("Loops/Crouch")] public DirectionalClipSet Crouch = new DirectionalClipSet();
+        [FoldoutGroup("Loops - Walk")] public DirectionalClipSet Walk = new DirectionalClipSet();
+        [FoldoutGroup("Loops - Jog")] public DirectionalClipSet Jog = new DirectionalClipSet();
+        [FoldoutGroup("Loops - Run")] public DirectionalClipSet Run = new DirectionalClipSet();
+        [FoldoutGroup("Loops - Crouch")] public DirectionalClipSet Crouch = new DirectionalClipSet();
 
-        [FoldoutGroup("Transitions/Starts")] public GaitDirectionalClipSet Starts = new GaitDirectionalClipSet();
-        [FoldoutGroup("Transitions/Forward Turning Starts")] public GaitDirectionalClipSet ForwardTurningStarts = new GaitDirectionalClipSet();
-        [FoldoutGroup("Transitions/Stops")] public GaitDirectionalClipSet Stops = new GaitDirectionalClipSet();
-        [FoldoutGroup("Transitions/Foot Matched Stops")] public GaitFootMatchedClipSet FootMatchedStops = new GaitFootMatchedClipSet();
-        [FoldoutGroup("Transitions/Crouch"), PreviewField(55), AssetsOnly] public AnimationClip StandToCrouch;
-        [FoldoutGroup("Transitions/Crouch"), PreviewField(55), AssetsOnly] public AnimationClip CrouchToStand;
+        [FoldoutGroup("Transitions - Starts")] public GaitDirectionalClipSet Starts = new GaitDirectionalClipSet();
+        [FoldoutGroup("Transitions - Forward Turning Starts")] public GaitDirectionalClipSet ForwardTurningStarts = new GaitDirectionalClipSet();
+        [FoldoutGroup("Transitions - Stops")] public GaitDirectionalClipSet Stops = new GaitDirectionalClipSet();
+        [FoldoutGroup("Transitions - Foot Matched Stops")] public GaitFootMatchedClipSet FootMatchedStops = new GaitFootMatchedClipSet();
+        [FoldoutGroup("Transitions - Crouch"), InlineClipTuning, PreviewField(55), AssetsOnly] public AnimationClip StandToCrouch;
+        [FoldoutGroup("Transitions - Crouch"), InlineClipTuning, PreviewField(55), AssetsOnly] public AnimationClip CrouchToStand;
 
         [BoxGroup("Transition Rules")] public bool EnableStartTransitions = true;
         [BoxGroup("Transition Rules")] public bool EnableStopTransitions = true;
@@ -376,6 +386,12 @@ public class CharacterAnimationConfig : ScriptableObject
         [BoxGroup("Transition Rules"), Range(0f, 1f)] public float StartBlendOutNormalizedTime = 0.72f;
         [BoxGroup("Transition Rules"), Range(0f, 1f)] public float StopBlendOutNormalizedTime = 0.82f;
         [BoxGroup("Transition Rules"), Range(0f, 1f)] public float CrouchBlendOutNormalizedTime = 0.82f;
+        [BoxGroup("Start Movement Sync"), LabelText("Movement Delay"), Range(0f, 1f)]
+        [Tooltip("Normalized start-animation time before the CharacterController begins horizontal movement.")]
+        public float StartMovementDelayNormalizedTime = 0.04f;
+        [BoxGroup("Start Movement Sync"), LabelText("Reach Full Speed"), Range(0f, 1f)]
+        [Tooltip("Normalized start-animation time at which horizontal movement reaches its requested speed.")]
+        public float StartMovementFullSpeedNormalizedTime = 0.45f;
         [BoxGroup("Transition Rules"), MinValue(0f)] public float StartInputThreshold = 0.15f;
         [BoxGroup("Transition Rules"), MinValue(0f)] public float StopInputThreshold = 0.08f;
 
@@ -396,22 +412,22 @@ public class CharacterAnimationConfig : ScriptableObject
         [BoxGroup("Playback"), Range(0.25f, 2f)] public float MinimumPlaybackSpeed = 0.85f;
         [BoxGroup("Playback"), Range(0.25f, 2f)] public float MaximumPlaybackSpeed = 1.2f;
 
-        [FoldoutGroup("Turns And Pivots")] public TurnSettings Turns = new TurnSettings();
+        [HideInInspector] public TurnSettings Turns = new TurnSettings();
     }
 
     [Serializable]
     public class AirborneSettings
     {
-        [FoldoutGroup("Directional Jump/Start")] public AirbornePhaseSet JumpStarts = new AirbornePhaseSet();
-        [FoldoutGroup("Directional Jump/Air")] public AirbornePhaseSet JumpAir = new AirbornePhaseSet();
-        [FoldoutGroup("Directional Jump/Landing")] public AirbornePhaseSet JumpLandings = new AirbornePhaseSet();
+        [FoldoutGroup("Directional Jump - Start")] public AirbornePhaseSet JumpStarts = new AirbornePhaseSet();
+        [FoldoutGroup("Directional Jump - Air")] public AirbornePhaseSet JumpAir = new AirbornePhaseSet();
+        [FoldoutGroup("Directional Jump - Landing")] public AirbornePhaseSet JumpLandings = new AirbornePhaseSet();
 
-        [BoxGroup("Fallback Fall"), PreviewField(55), AssetsOnly] public AnimationClip Fall;
-        [BoxGroup("Fallback Fall"), PreviewField(55), AssetsOnly] public AnimationClip ShortFall;
-        [BoxGroup("Fallback Fall"), PreviewField(55), AssetsOnly] public AnimationClip LongFall;
-        [BoxGroup("Fallback Landing"), PreviewField(55), AssetsOnly] public AnimationClip SoftLanding;
-        [BoxGroup("Fallback Landing"), PreviewField(55), AssetsOnly] public AnimationClip HardLanding;
-        [BoxGroup("Fallback Landing"), PreviewField(55), AssetsOnly] public AnimationClip MovingLanding;
+        [BoxGroup("Fallback Fall"), InlineClipTuning, PreviewField(55), AssetsOnly] public AnimationClip Fall;
+        [BoxGroup("Fallback Fall"), InlineClipTuning, PreviewField(55), AssetsOnly] public AnimationClip ShortFall;
+        [BoxGroup("Fallback Fall"), InlineClipTuning, PreviewField(55), AssetsOnly] public AnimationClip LongFall;
+        [BoxGroup("Fallback Landing"), InlineClipTuning, PreviewField(55), AssetsOnly] public AnimationClip SoftLanding;
+        [BoxGroup("Fallback Landing"), InlineClipTuning, PreviewField(55), AssetsOnly] public AnimationClip HardLanding;
+        [BoxGroup("Fallback Landing"), InlineClipTuning, PreviewField(55), AssetsOnly] public AnimationClip MovingLanding;
 
         [BoxGroup("Timing"), LabelText("Jump Fade In"), MinValue(0f)] public float JumpFadeDuration = 0.08f;
         [BoxGroup("Timing"), LabelText("Jump Fade Out"), MinValue(0f)] public float JumpFadeOut = 0.1f;
@@ -427,6 +443,31 @@ public class CharacterAnimationConfig : ScriptableObject
         [BoxGroup("Timing"), MinValue(0f)] public float LongFallTime = 1.1f;
         [BoxGroup("Timing"), MinValue(0f)] public float LandingLockTime = 0.15f;
         [BoxGroup("Timing"), MinValue(0f)] public float InterruptibleAfter = 0.1f;
+
+        [BoxGroup("Ground Contact"), LabelText("Enable Ground Snap")]
+        [Tooltip("Keeps locomotion grounded across small downward steps instead of restarting fall and landing animations.")]
+        public bool EnableGroundSnap = true;
+        [BoxGroup("Ground Contact"), LabelText("Ground Collision Mask")]
+        public LayerMask GroundCollisionMask = ~0;
+        [BoxGroup("Ground Contact"), LabelText("Snap Distance"), Range(0f, 1f), SuffixLabel("m", true)]
+        public float GroundSnapDistance = 0.35f;
+        [BoxGroup("Ground Contact"), LabelText("Probe Radius Scale"), Range(0.5f, 0.98f)]
+        public float GroundProbeRadiusScale = 0.85f;
+        [BoxGroup("Ground Contact"), LabelText("Snap Speed"), MinValue(0.1f), SuffixLabel("m/s", true)]
+        public float GroundSnapSpeed = 12f;
+        [BoxGroup("Ground Contact"), LabelText("Jump Snap Delay"), MinValue(0f), SuffixLabel("seconds", true)]
+        [Tooltip("Prevents the ground probe from pulling a deliberate jump back down immediately after takeoff.")]
+        public float JumpGroundSnapDelay = 0.12f;
+        [BoxGroup("Ground Contact"), LabelText("Airborne Grace Time"), MinValue(0f), SuffixLabel("seconds", true)]
+        [Tooltip("Walking remains in locomotion during shorter unsupported intervals.")]
+        public float GroundedGraceTime = 0.28f;
+        [BoxGroup("Ground Contact"), LabelText("Fall Animation Speed"), MaxValue(0f), SuffixLabel("m/s", true)]
+        public float FallAnimationMinSpeed = -4.5f;
+        [BoxGroup("Ground Contact"), LabelText("Landing Minimum Air Time"), MinValue(0f), SuffixLabel("seconds", true)]
+        public float LandingMinimumAirTime = 0.32f;
+        [BoxGroup("Ground Contact"), LabelText("Landing Minimum Fall Speed"), MaxValue(0f), SuffixLabel("m/s", true)]
+        public float LandingMinimumFallSpeed = -6.5f;
+
         [BoxGroup("Landing Rules")] public float HardLandingMinFallSpeed = -8f;
         [BoxGroup("Landing Rules"), MinValue(0f)] public float HardLandingMinFallHeight = 2.5f;
         [BoxGroup("Foot Selection")] public bool AlternateTakeoffFoot = true;
@@ -450,6 +491,100 @@ public class CharacterAnimationConfig : ScriptableObject
         [Range(0f, 1f)] public float FeetPivotActive = 1f;
         public bool KeepAnimatorControllerAssetAssignedInEditMode = true;
         public bool ClearRuntimeAnimatorControllerOnInitialize = true;
+    }
+
+    [Serializable]
+    public class GlobalFadeSettings
+    {
+        [BoxGroup("Unified Control"), LabelText("Global Fade Speed"), Range(0.1f, 5f)]
+        [Tooltip("Controls every Fade In and Fade Out together. 2 is twice as fast; 0.5 is twice as slow.")]
+        public float GlobalFadeSpeed = 1f;
+
+        [BoxGroup("Unified Control"), LabelText("Use Shared Durations")]
+        [Tooltip("When enabled, all per-animation fade durations are replaced by the shared values below.")]
+        public bool UseSharedDurations;
+
+        [BoxGroup("Unified Control"), LabelText("Shared Fade In"), MinValue(0f), SuffixLabel("seconds", true)]
+        [ShowIf(nameof(UseSharedDurations))]
+        public float SharedFadeIn = 0.1f;
+
+        [BoxGroup("Unified Control"), LabelText("Shared Fade Out"), MinValue(0f), SuffixLabel("seconds", true)]
+        [ShowIf(nameof(UseSharedDurations))]
+        public float SharedFadeOut = 0.12f;
+
+        public float ResolveFadeIn(float localDuration)
+        {
+            float duration = UseSharedDurations ? SharedFadeIn : localDuration;
+            return Mathf.Max(0f, duration) / Mathf.Max(0.1f, GlobalFadeSpeed);
+        }
+
+        public float ResolveFadeOut(float localDuration)
+        {
+            float duration = UseSharedDurations ? SharedFadeOut : localDuration;
+            return Mathf.Max(0f, duration) / Mathf.Max(0.1f, GlobalFadeSpeed);
+        }
+    }
+
+    [Serializable]
+    public class CameraSettings
+    {
+        [BoxGroup("Look Input"), LabelText("Mouse Look Sensitivity"), Range(1f, 200f)]
+        [Tooltip("Controls horizontal and vertical mouse look speed. Lower values rotate the view more slowly.")]
+        public float LookSensitivity = 65f;
+
+        [BoxGroup("Per Animation")] public bool EnablePerAnimationPositions = true;
+        [BoxGroup("Crouch Height"), LabelText("Crouch Down Speed"), MinValue(0.01f)]
+        public float CrouchDownBlendSpeed = 10f;
+        [BoxGroup("Crouch Height"), LabelText("Stand Up Speed"), MinValue(0.01f)]
+        public float StandUpBlendSpeed = 10f;
+
+        [BoxGroup("Wall Collision")] public bool EnableWallCollision = true;
+        [BoxGroup("Wall Collision")] public LayerMask CollisionMask = ~0;
+        [BoxGroup("Wall Collision"), MinValue(0.01f)] public float CollisionRadius = 0.16f;
+        [BoxGroup("Wall Collision"), MinValue(0f)] public float CollisionPadding = 0.04f;
+        [BoxGroup("Wall Collision"), MinValue(0.01f)] public float MinimumDistance = 0.36f;
+        [BoxGroup("Wall Collision"), LabelText("Near Pose Minimum Ratio"), Range(0.05f, 0.95f)]
+        public float MinimumDistanceRatio = 0.65f;
+        [BoxGroup("Wall Collision"), MinValue(0.01f)] public float PullInSpeed = 30f;
+        [BoxGroup("Wall Collision"), MinValue(0.01f)] public float ReturnSpeed = 10f;
+        [BoxGroup("Wall Collision"), LabelText("Anchor (Player Local)")]
+        public Vector3 CollisionAnchorLocalPosition = new Vector3(0f, 1.25f, 0.05f);
+        [BoxGroup("Wall Collision"), Range(0.01f, 0.3f)] public float CameraNearClip = 0.12f;
+
+        [BoxGroup("Character Interior Protection")] public bool EnableCharacterInteriorProtection = true;
+        [BoxGroup("Character Interior Protection"), LabelText("Minimum Camera Forward"), MinValue(0f)]
+        [Tooltip("Stable player-local Z minimum used while standing. It does not follow head-bob animation.")]
+        public float MinimumCameraLocalForward = 0.55f;
+        [BoxGroup("Character Interior Protection"), LabelText("Crouch Minimum Camera Forward"), MinValue(0f)]
+        [Tooltip("Stable player-local Z minimum used while crouching. Increase it if crouch poses lean the head into the camera.")]
+        public float CrouchMinimumCameraLocalForward = 0.85f;
+        [BoxGroup("Character Interior Protection"), LabelText("Track Animated Head")]
+        public bool TrackAnimatedHead = true;
+        [BoxGroup("Character Interior Protection"), LabelText("Head Forward Clearance"), MinValue(0.01f)]
+        [Tooltip("Forward distance restored if the standing camera enters the animated Head safety volume.")]
+        public float HeadForwardClearance = 0.35f;
+        [BoxGroup("Character Interior Protection"), LabelText("Crouch Head Forward Clearance"), MinValue(0.01f)]
+        [Tooltip("Forward distance restored if the crouching camera enters the animated Head safety volume.")]
+        public float CrouchHeadForwardClearance = 0.45f;
+        [BoxGroup("Character Interior Protection"), LabelText("Head Safety Radius"), MinValue(0.01f)]
+        [Tooltip("Minimum three-dimensional distance from the standing animated Head bone to the final camera.")]
+        public float HeadSafetyRadius = 0.3f;
+        [BoxGroup("Character Interior Protection"), LabelText("Crouch Head Safety Radius"), MinValue(0.01f)]
+        [Tooltip("Minimum three-dimensional distance from the crouching animated Head bone to the final camera.")]
+        public float CrouchHeadSafetyRadius = 0.42f;
+        [BoxGroup("Character Interior Protection"), LabelText("Hide Head For Player Camera")]
+        [Tooltip("Temporarily scales only the animated Head bone while the player camera is close. The body, clothing, held items, and other cameras remain visible.")]
+        public bool HideHeadForPlayerCamera = true;
+        [BoxGroup("Character Interior Protection"), LabelText("Head Hide Distance"), MinValue(0.05f)]
+        [Tooltip("The Head bone is hidden only while the player camera is within this distance. At normal third-person distance the complete character remains visible.")]
+        [ShowIf(nameof(HideHeadForPlayerCamera))]
+        public float CharacterHideDistance = 0.9f;
+        [BoxGroup("Character Interior Protection"), LabelText("Head Fallback Scale"), Range(0.0001f, 0.1f)]
+        [Tooltip("Fallback scale used for head-attached geometry while the player camera renders.")]
+        [ShowIf(nameof(HideHeadForPlayerCamera))]
+        public float HiddenHeadScale = 0.001f;
+        [BoxGroup("Character Interior Protection"), LabelText("Protection Blend Speed"), MinValue(0.01f)]
+        public float InteriorProtectionBlendSpeed = 30f;
     }
 
     [Serializable]
@@ -504,15 +639,27 @@ public class CharacterAnimationConfig : ScriptableObject
     [Serializable]
     public class MobilityClipTuning
     {
+        [HorizontalGroup("Info", 0.2f), ReadOnly] public CharacterAnimationSource Source;
         [HorizontalGroup("Info", 0.25f), ReadOnly] public MobilityAnimationCategory Category;
         [HorizontalGroup("Info"), ReadOnly] public string Role;
-        [DrawWithUnity, LabelText("Animation / Preview")] public ClipTransition Transition = new ClipTransition();
-        [HorizontalGroup("Exit"), LabelText("Fade Out"), MinValue(0f)] public float FadeOut = 0.12f;
-        [HorizontalGroup("Exit"), LabelText("Fade Out Start"), Range(0f, 2f)] public float BlendOutNormalizedTime = 0.85f;
-        [HorizontalGroup("Exit"), LabelText("End Time"), Range(0.01f, 2f), OnValueChanged(nameof(ApplyEndTimeToTransition))]
-        public float EndNormalizedTime = 1f;
-        [HorizontalGroup("Runtime")] public bool OverrideRuntime = true;
-        [HorizontalGroup("Runtime")] public bool ApplyFootIK = true;
+        [DrawWithUnity, LabelText("Transition"), LabelWidth(155)]
+        [Tooltip("Fade Duration controls how quickly this animation fades in when it becomes active.")]
+        public ClipTransition Transition = new ClipTransition();
+        [BoxGroup("Exit"), LabelText("Fade Out"), LabelWidth(155), MinValue(0f), SuffixLabel("seconds", true)]
+        [Tooltip("Controls how quickly this animation fades out. A cross-fade uses the larger of the incoming Fade Duration and outgoing Fade Out.")]
+        public float FadeOut = 0.12f;
+        [BoxGroup("Exit"), LabelText("Fade Out Start"), LabelWidth(155), Range(0f, 2f)]
+        public float BlendOutNormalizedTime = 0.85f;
+        [SerializeField, HideInInspector] public float EndNormalizedTime = 1f;
+        [BoxGroup("Runtime"), LabelWidth(155)] public bool OverrideRuntime = true;
+        [BoxGroup("Runtime"), LabelWidth(155)] public bool ApplyFootIK = true;
+
+        [BoxGroup("Camera Position"), LabelText("Use For This Animation"), LabelWidth(155)]
+        public bool OverrideCameraPosition;
+        [BoxGroup("Camera Position"), LabelText("Local Position"), LabelWidth(155), EnableIf(nameof(OverrideCameraPosition))]
+        public Vector3 CameraLocalPosition = new Vector3(0.028f, 1.3f, 0.368f);
+        [BoxGroup("Camera Position"), LabelText("Position Blend Speed"), LabelWidth(155), MinValue(0.01f), EnableIf(nameof(OverrideCameraPosition))]
+        public float CameraBlendSpeed = 8f;
 
         public AnimationClip Clip => Transition != null ? Transition.Clip : null;
         public string DisplayName => Clip != null ? Clip.name : "Missing Animation";
@@ -531,28 +678,118 @@ public class CharacterAnimationConfig : ScriptableObject
             serializedEvents.SetNormalizedEndTime(EndNormalizedTime);
             Transition.Events.NormalizedEndTime = EndNormalizedTime;
         }
+
+        public void SyncEndTimeFromTransition()
+        {
+            if (Transition == null) return;
+
+            AnimancerEvent.Sequence.Serializable serializedEvents = Transition.SerializedEvents;
+            float normalizedEndTime = serializedEvents != null
+                ? serializedEvents.GetNormalizedEndTime(Transition.Speed)
+                : AnimancerEvent.Sequence.GetDefaultNormalizedEndTime(Transition.Speed);
+            EndNormalizedTime = Mathf.Max(0.01f, normalizedEndTime);
+            Transition.Events.NormalizedEndTime = EndNormalizedTime;
+        }
     }
 
-    [TabGroup("Setup"), InfoBox("The original Animator Controller remains serialized in the scene for rollback. At runtime Animancer temporarily clears it after the MOBILITY PRO configuration is ready.")]
+    [TabGroup("Animation Tabs", "Overview")]
+    [Title("Runtime Setup")]
+    [InfoBox("The original Animator Controller remains serialized in the scene for rollback. At runtime Animancer temporarily clears it after the MOBILITY PRO configuration is ready.")]
+    [InlineProperty, HideLabel]
     public QualitySettings Quality = new QualitySettings();
-    [TabGroup("Setup"), ReadOnly] public string SourceAnimationPack;
-    [TabGroup("Setup"), ReadOnly] public string ConfiguredScenePath;
-    [TabGroup("Setup"), ReadOnly] public int ConfigurationRevision;
-    [TabGroup("Locomotion")] public LocomotionSettings Locomotion = new LocomotionSettings();
-    [TabGroup("Airborne")] public AirborneSettings Airborne = new AirborneSettings();
-    [TabGroup("Holding")] public HoldingSettings Holding = new HoldingSettings();
-    [TabGroup("Actions"), TableList] public ActionSettings[] Actions = Array.Empty<ActionSettings>();
-    [TabGroup("Parkour"), TableList] public ParkourSettings[] Parkour = Array.Empty<ParkourSettings>();
-    [TabGroup("Layers")] public LayerSettings Layers = new LayerSettings();
-    [TabGroup("Clip Tuning"), InfoBox("Each Animancer transition has a preview eye button. Fade Duration is Fade In; Fade Out, Fade Out Start, and End Time are directly below it.")]
-    [TabGroup("Clip Tuning"), Searchable, ListDrawerSettings(DefaultExpandedState = false, ShowIndexLabels = false, NumberOfItemsPerPage = 20)]
+
+    [TabGroup("Animation Tabs", "Overview")]
+    [Title("Configuration Source")]
+    [ReadOnly, LabelWidth(190)] public string SourceAnimationPack;
+    [TabGroup("Animation Tabs", "Overview"), ReadOnly, LabelWidth(190)] public string ConfiguredScenePath;
+    [TabGroup("Animation Tabs", "Overview"), ReadOnly, LabelWidth(190)] public int ConfigurationRevision;
+
+    [TabGroup("Animation Tabs", "Overview")]
+    [Title("Runtime Defaults")]
+    [LabelWidth(190)] public CharacterAnimationRootMotionStrategy DefaultLocomotionRootMotion = CharacterAnimationRootMotionStrategy.Disabled;
+    [TabGroup("Animation Tabs", "Overview"), LabelWidth(190)] public CharacterAnimationRootMotionStrategy DefaultParkourRootMotion = CharacterAnimationRootMotionStrategy.ForwardToCharacterMotor;
+    [TabGroup("Animation Tabs", "Overview"), LabelWidth(190)] public bool UseCodeDrivenEvents = true;
+
+    [TabGroup("Animation Tabs", "Camera")]
+    [Title("Camera Follow And Collision")]
+    [InfoBox("Crouch down/up speed is global. Expand any animation card to set its final camera position and blend speed. Wall collision pulls the camera toward the player before it can enter geometry.")]
+    [InlineProperty, HideLabel]
+    public CameraSettings Camera = new CameraSettings();
+
+    [TabGroup("Animation Tabs", "Locomotion")]
+    [Title("Idle, Movement Loops And Transitions")]
+    [InfoBox("Each assigned clip is an action card. Its Animancer Transition contains the preview eye, Fade In, playback speed, Start Time, End Time, and timeline; project-specific exit, IK, and camera controls follow underneath.")]
+    [InlineProperty, HideLabel]
+    public LocomotionSettings Locomotion = new LocomotionSettings();
+
+    [TabGroup("Animation Tabs", "Turns")]
+    [Title("Turn In Place, Pivots And Movement Curves")]
+    [ShowInInspector, InlineProperty, HideLabel]
+    private TurnSettings TurnAnimations
+    {
+        get
+        {
+            if (Locomotion == null) Locomotion = new LocomotionSettings();
+            if (Locomotion.Turns == null) Locomotion.Turns = new TurnSettings();
+            return Locomotion.Turns;
+        }
+        set
+        {
+            if (Locomotion == null) Locomotion = new LocomotionSettings();
+            Locomotion.Turns = value ?? new TurnSettings();
+        }
+    }
+
+    [TabGroup("Animation Tabs", "Airborne")]
+    [Title("Jump, Airborne And Landing")]
+    [InlineProperty, HideLabel]
+    public AirborneSettings Airborne = new AirborneSettings();
+
+    [TabGroup("Animation Tabs", "Holding")]
+    [Title("Upper Body Holding Pose")]
+    [InlineProperty, HideLabel]
+    public HoldingSettings Holding = new HoldingSettings();
+
+    [TabGroup("Animation Tabs", "Actions")]
+    [Title("Code-Driven Actions")]
+    [ListDrawerSettings(DefaultExpandedState = false, ShowIndexLabels = true)]
+    public ActionSettings[] Actions = Array.Empty<ActionSettings>();
+
+    [TabGroup("Animation Tabs", "Parkour")]
+    [Title("Traversal Actions")]
+    [ListDrawerSettings(DefaultExpandedState = false, ShowIndexLabels = true)]
+    public ParkourSettings[] Parkour = Array.Empty<ParkourSettings>();
+
+    [TabGroup("Animation Tabs", "Layers")]
+    [Title("Masks And Layer Blending")]
+    [InlineProperty, HideLabel]
+    public LayerSettings Layers = new LayerSettings();
+
+    [TabGroup("Animation Tabs", "Tuning")]
+    [Title("Global Fade Control")]
+    [InfoBox("Global Fade Speed adjusts every animation and layer fade together. Enable shared durations only when all transitions should use one Fade In/Fade Out pair.")]
+    [InlineProperty, HideLabel]
+    public GlobalFadeSettings GlobalFades = new GlobalFadeSettings();
+
+    [TabGroup("Animation Tabs", "Tuning")]
+    [Title("Animation Parameter Library")]
+    [InfoBox("The same parameters are shown directly inside each locomotion, turn, and airborne action card. This searchable library remains available for batch inspection.")]
+    [Button("Open Animation Preview", ButtonSizes.Large)]
+    private void OpenAnimationPreview()
+    {
+#if UNITY_EDITOR
+        UnityEditor.Selection.activeObject = this;
+        UnityEditor.EditorApplication.ExecuteMenuItem("Tools/Light Tower/Animation/Open Animation Preview");
+#endif
+    }
+
+    [TabGroup("Animation Tabs", "Tuning")]
+    [Searchable, ListDrawerSettings(DefaultExpandedState = false, ShowIndexLabels = false, NumberOfItemsPerPage = 20)]
     public MobilityClipTuning[] ClipTunings = Array.Empty<MobilityClipTuning>();
 
-    [TabGroup("Root Motion")] public CharacterAnimationRootMotionStrategy DefaultLocomotionRootMotion = CharacterAnimationRootMotionStrategy.Disabled;
-    [TabGroup("Root Motion")] public CharacterAnimationRootMotionStrategy DefaultParkourRootMotion = CharacterAnimationRootMotionStrategy.ForwardToCharacterMotor;
-    [TabGroup("Events")] public bool UseCodeDrivenEvents = true;
-
-    [TabGroup("Validation"), ShowInInspector, ReadOnly]
+    [TabGroup("Animation Tabs", "Validation")]
+    [Title("Configuration Health")]
+    [ShowInInspector, ReadOnly]
     public CharacterAnimationValidationResult LastValidation { get; private set; }
 
     public LocomotionGait ResolveGait(float speed, bool crouching)
@@ -614,7 +851,7 @@ public class CharacterAnimationConfig : ScriptableObject
         return LastValidation = CharacterAnimationValidationResult.Valid();
     }
 
-    [TabGroup("Validation"), Button(ButtonSizes.Medium)]
+    [TabGroup("Animation Tabs", "Validation"), Button(ButtonSizes.Medium)]
     private void ValidateConfigurationButton()
     {
         ValidateConfiguration();

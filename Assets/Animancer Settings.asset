@@ -36,7 +36,7 @@ MonoBehaviour:
         _AutoClose: 1
         _AutoFocusCamera: 0
         _SceneLighting: 0
-        _ShowSkybox: 0
+        _ShowSkybox: 1
         _FrameStep: 0.02
         _SceneEnvironment: {fileID: 0}
         _Models: []
