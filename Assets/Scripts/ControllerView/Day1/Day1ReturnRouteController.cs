@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Day1ReturnRouteController : ControllerAbstract
+public class Day1ReturnRouteController : ControllerAbstract, ISceneStateApplier
 {
     private const string Task_ReturnToLighthouse = "task_return_lighthouse";
 
@@ -20,6 +20,8 @@ public class Day1ReturnRouteController : ControllerAbstract
         this.GetEvent().Register<Day1ReturnRouteStartedEvent>(OnDay1ReturnRouteStarted)
             .UnRegisterWhenGameObjectDestroyed(gameObject);
         this.GetEvent().Register<Day1BridgeCollapsedEvent>(OnDay1BridgeCollapsed)
+            .UnRegisterWhenGameObjectDestroyed(gameObject);
+        this.GetEvent().Register<WorldFactChangedEvent>(OnWorldFactChanged)
             .UnRegisterWhenGameObjectDestroyed(gameObject);
     }
 
@@ -76,6 +78,19 @@ public class Day1ReturnRouteController : ControllerAbstract
 
         if (brokenBridgeRoot != null)
             brokenBridgeRoot.SetActive(bridgeCollapsed);
+    }
+
+    public void ApplyCurrentState()
+    {
+        RefreshBridgeState();
+    }
+
+    private void OnWorldFactChanged(WorldFactChangedEvent evt)
+    {
+        if (evt.FactId == WorldFactIds.BridgeCollapsed)
+        {
+            RefreshBridgeState();
+        }
     }
 
     private void SetObjectsActive(GameObject[] objects, bool active)

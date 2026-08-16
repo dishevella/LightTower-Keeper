@@ -11,15 +11,15 @@ using UnityEngine.SceneManagement;
 [InitializeOnLoad]
 public static class MobilityProLocomotionConfigurator
 {
-    public const string TargetScenePath = "Assets/_Recovery/0 (58).unity";
+    public const string TargetScenePath = "Assets/_Recovery/0 (7).unity";
     public const string ConfigAssetPath = "Assets/Animation/Animancer/MobilityProPlayerAnimationConfig.asset";
     private const string OriginalPlayerControllerPath = "Assets/Animation/Controller/Player.controller";
     private const string OriginalLocomotionRoot = "Assets/Animation/Locomotion/";
     private const string PackRoot = "Assets/Mobility_Pro/Animation/IPC/";
     private const string SplitJumpRoot = PackRoot + "Split_Jumps/";
-    private const string AutoSessionKey = "LightTower.MobilityProLocomotionConfigurator.AutoConfigured.v8";
+    private const string AutoSessionKey = "LightTower.MobilityProLocomotionConfigurator.AutoConfigured.v12";
     // Increment when the generated scene or ScriptableObject layout changes.
-    private const int ConfigurationRevision = 8;
+    private const int ConfigurationRevision = 12;
     private static readonly string[] OriginalLocomotionClipNames =
     {
         "A_Idle_Standing_Masc",
@@ -225,32 +225,57 @@ public static class MobilityProLocomotionConfigurator
         config.GlobalFades.SharedFadeOut = 0.12f;
 
         if (config.Camera == null) config.Camera = new CharacterAnimationConfig.CameraSettings();
-        config.Camera.LookSensitivity = 65f;
+        config.Camera.LookSensitivity = 30f;
         config.Camera.EnablePerAnimationPositions = true;
         config.Camera.CrouchDownBlendSpeed = 10f;
         config.Camera.StandUpBlendSpeed = 10f;
         config.Camera.EnableWallCollision = true;
         config.Camera.CollisionMask = ~0;
         config.Camera.CollisionRadius = 0.16f;
-        config.Camera.CollisionPadding = 0.04f;
+        config.Camera.CollisionPadding = 0.03f;
         config.Camera.MinimumDistance = 0.36f;
         config.Camera.MinimumDistanceRatio = 0.65f;
         config.Camera.PullInSpeed = 30f;
         config.Camera.ReturnSpeed = 10f;
         config.Camera.CollisionAnchorLocalPosition = new Vector3(0f, 1.25f, 0.05f);
         config.Camera.CameraNearClip = 0.18f;
+        config.Camera.UseNearPlaneCollisionVolume = true;
+        config.Camera.NearPlaneSkinWidth = 0.03f;
+        config.Camera.PenetrationIterations = 4;
+        config.Camera.MaximumPenetrationCorrection = 0.5f;
         config.Camera.EnableCharacterInteriorProtection = true;
-        config.Camera.MinimumCameraLocalForward = 0.55f;
-        config.Camera.CrouchMinimumCameraLocalForward = 0.85f;
+        config.Camera.MinimumCameraLocalForward = 0.38f;
+        config.Camera.CrouchMinimumCameraLocalForward = 0.55f;
         config.Camera.TrackAnimatedHead = true;
+        config.Camera.EnableFaceSurfaceConstraint = true;
+        config.Camera.FaceSurfaceClearance = 0.025f;
+        config.Camera.CrouchFaceSurfaceClearance = 0.035f;
+        config.Camera.FaceAnchorFallbackDepth = 0.48f;
+        config.Camera.FaceDirectionFollow = 0.45f;
+        config.Camera.LookUpExtraFaceClearance = 0.14f;
+        config.Camera.LookUpFaceClearanceStartAngle = 20f;
+        config.Camera.LookUpFaceClearanceFullAngle = 70f;
         config.Camera.HeadForwardClearance = 0.35f;
         config.Camera.CrouchHeadForwardClearance = 0.45f;
         config.Camera.HeadSafetyRadius = 0.3f;
         config.Camera.CrouchHeadSafetyRadius = 0.42f;
+        config.Camera.TrackUpperBodyBones = true;
+        config.Camera.NeckSafetyRadius = 0.24f;
+        config.Camera.ChestSafetyRadius = 0.28f;
+        config.Camera.ShoulderSafetyRadius = 0.22f;
+        config.Camera.CrouchUpperBodyRadiusScale = 1.15f;
+        config.Camera.EnableProximityClip = false;
+        config.Camera.ProximityClipShader = Shader.Find(
+            "LightTower/Character/First Person Proximity Clip Lit");
+        config.Camera.ProximityClipRadius = 0.2f;
         config.Camera.HideHeadForPlayerCamera = true;
+        config.Camera.HeadScaleEmergencyOnly = true;
         config.Camera.CharacterHideDistance = 0.9f;
         config.Camera.HiddenHeadScale = 0.001f;
         config.Camera.InteriorProtectionBlendSpeed = 30f;
+        config.Camera.EnableRuntimeSafetyWarnings = true;
+        config.Camera.SafetyWarningCooldown = 2f;
+        config.Camera.DrawSolverGizmos = true;
 
         PopulateClipTuningLibrary(config);
 
@@ -782,7 +807,7 @@ public static class MobilityProLocomotionConfigurator
                 ?? targetScene.GetRootGameObjects()
                     .SelectMany(root => root.GetComponentsInChildren<PlayerController>(true))
                     .FirstOrDefault();
-            if (player == null) throw new InvalidOperationException("No PlayerController was found in recover scene 58.");
+            if (player == null) throw new InvalidOperationException("No PlayerController was found in recover scene 0 (7).");
 
             GameObject playerObject = player.gameObject;
             Animator animator = playerObject.GetComponent<Animator>();
@@ -843,7 +868,7 @@ public static class MobilityProLocomotionConfigurator
             {
                 EditorSceneManager.MarkSceneDirty(targetScene);
                 if (!EditorSceneManager.SaveScene(targetScene))
-                    throw new InvalidOperationException("Unity could not save the configured recover scene 58.");
+                    throw new InvalidOperationException("Unity could not save the configured recover scene 0 (7).");
             }
 
             return new SceneConfigurationResult

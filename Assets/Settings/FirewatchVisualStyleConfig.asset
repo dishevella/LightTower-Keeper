@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed7562b9ae21db4eae8e258220b2453, type: 3}
   m_Name: FirewatchVisualStyleConfig
   m_EditorClassIdentifier: Assembly-CSharp::FirewatchVisualStyleConfig
-  ConfigurationRevision: 6
+  ConfigurationRevision: 7
   TargetVolumeProfile: {fileID: 11400000, guid: 0f461b4433444314b8343c345eb2694e, type: 2}
   PlayerToonMaterial: {fileID: 2100000, guid: d11c62420dc7c6f4689c652300ffef68, type: 2}
   LockLookDevelopmentTime: 1
@@ -24,7 +24,7 @@ MonoBehaviour:
   MidPaletteTint: {r: 0.64, g: 0.61, b: 0.59, a: 1}
   FarPaletteTint: {r: 0.38, g: 0.43, b: 0.64, a: 1}
   MainSunColor: {r: 1, g: 0.72, b: 0.52, a: 1}
-  MainSunIntensity: 1.35
+  MainSunIntensity: 1.25
   MainSunShadowStrength: 0.82
   FillLightColor: {r: 0.22, g: 0.34, b: 0.56, a: 1}
   FillLightIntensity: 0.08
@@ -32,29 +32,38 @@ MonoBehaviour:
   AmbientEquatorColor: {r: 0.3, g: 0.33, b: 0.42, a: 1}
   AmbientGroundColor: {r: 0.12, g: 0.16, b: 0.22, a: 1}
   AmbientIntensity: 0.68
-  ReflectionIntensity: 0.5
+  ReflectionIntensity: 0.42
   EnableButo: 1
   FogQuality: 2
   FogGridPixelSize: 8
   FogDepthSamples: 164
   FogTemporalLighting: 0.063
   FogTemporalMedia: 0.077
-  FogDensityMultiplier: 2
+  FogDensityMultiplier: 0.92
   FogDistanceMultiplier: 0.58
   MaxVolumetricDistance: 520
   FogDensity: 2.25
   Anisotropy: 0.45
-  LightIntensity: 0.8
-  DensityInLight: 0.68
-  DensityInShadow: 0.82
+  LightIntensity: 0.82
+  DensityInLight: 0.52
+  DensityInShadow: 0.74
   BaseHeight: 22
-  HeightFalloff: 24
+  HeightFalloff: 10
   EnableNearFogClearZone: 1
-  NearFogDensityMultiplier: 5
-  NearFogClearRadius: 20
-  NearFogClearBlend: 28
-  EmissionFogColor: {r: 0.0015, g: 0.0005, b: 0.0002, a: 1}
-  FogColorInfluence: 0.16
+  NearFogDensityMultiplier: 1.5
+  NearFogClearRadius: 12
+  NearFogClearBlend: 18
+  EnableLocalLightShaftZones: 1
+  LocalLightShaftZones:
+  - Enabled: 1
+    Label: Lighthouse Interior
+    Center: {x: 30.45, y: 19, z: -23.9}
+    EulerAngles: {x: 0, y: 0, z: 0}
+    Size: {x: 12, y: 34.06, z: 12}
+    DensityMultiplier: 4
+    BlendDistance: 4
+  EmissionFogColor: {r: 0.006, g: 0.018, b: 0.016, a: 1}
+  FogColorInfluence: 0.38
   DirectionalRatio: 1
   UseGeneratedFogColorRamp: 1
   FogDistanceColorRamp:
@@ -87,24 +96,68 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 5
     m_NumAlphaKeys: 2
-  FogShadowRampBrightness: 0.58
+  FogShadowRampBrightness: 0.72
   FogLitRampBrightness: 0.78
-  FogEmissionRampBrightness: 0.02
+  FogEmissionRampBrightness: 0.035
   FogColorRampTexture: {fileID: 2800000, guid: b2d58a04bb7bdcd46ae125e914ea658b, type: 3}
   FogNoiseType: 4
   FogNoiseQuality: 2
   FogNoiseFrequency: 4
-  FogNoiseGeneratedOctaves: 4
+  FogNoiseGeneratedOctaves: 3
   FogNoiseGeneratedLacunarity: 2
-  FogNoiseGeneratedGain: 0.35
+  FogNoiseGeneratedGain: 0.32
   FogNoiseSeed: 17
   InvertFogNoise: 0
   FogNoiseSamplingOctaves: 2
   FogNoiseSamplingLacunarity: 2
-  FogNoiseSamplingGain: 0.25
-  NoiseTiling: 60
-  NoiseWindSpeed: {x: 0.08, y: 0, z: 0.025}
-  NoiseRemap: {x: 0.25, y: 0.9}
+  FogNoiseSamplingGain: 0.18
+  NoiseTiling: 110
+  NoiseWindSpeed: {x: 0.035, y: 0, z: 0.012}
+  NoiseRemap: {x: 0.36, y: 0.68}
+  EnableLocalMistBanks: 1
+  LocalMistBanks:
+  - Label: Coast Forest
+    Center: {x: 65, y: 0, z: -5}
+    Radius: 125
+    BlendDistance: 70
+    DensityMultiplier: 3.4
+    EnableVisibleLayer: 1
+    VisibleLayerOffset: {x: 27, y: 2.2, z: 8}
+    VisibleLayerSize: {x: 95, y: 2.5, z: 75}
+    VisibleParticleCount: 110
+    VisibleParticleSize: {x: 20, y: 38}
+    VisibleParticleHeightRatio: 0.16
+    VisibleParticleOpacity: 0.3
+    VisibleParticleLifetime: 55
+    VisibleDriftVelocity: {x: 0.06, y: 0, z: 0.02}
+    VisibleTurbulence: 0.35
+    VisibleTurbulenceFrequency: 0.035
+    VisibleTurbulenceScrollSpeed: 0.018
+  - Label: Particle Mist
+    Center: {x: 50.928825, y: -10.09904, z: 89.53489}
+    Radius: 45
+    BlendDistance: 25
+    DensityMultiplier: 1
+    EnableVisibleLayer: 1
+    VisibleLayerOffset: {x: 0, y: 1.5, z: 0}
+    VisibleLayerSize: {x: 45, y: 2.5, z: 35}
+    VisibleParticleCount: 90
+    VisibleParticleSize: {x: 14, y: 26}
+    VisibleParticleHeightRatio: 0.16
+    VisibleParticleOpacity: 0.2
+    VisibleParticleLifetime: 55
+    VisibleDriftVelocity: {x: 0.04, y: 0, z: 0.015}
+    VisibleTurbulence: 0.3
+    VisibleTurbulenceFrequency: 0.035
+    VisibleTurbulenceScrollSpeed: 0.018
+  EnableVisibleLocalMist: 1
+  LocalMistMaterial: {fileID: 2100000, guid: 6d4775023ac1e7048a16d263c9594fee, type: 2}
+  VisibleMistDensity: 1.35
+  LocalMistSoftIntersectionDistance: 4
+  LocalMistSunScatter: 0.52
+  LocalMistBrightness: 2.05
+  LocalMistNearFade: {x: 8, y: 18}
+  LocalMistFarFade: {x: 125, y: 195}
   AtmosphereKeys:
   - Label: Dawn
     Hour: 6
@@ -122,9 +175,9 @@ MonoBehaviour:
     FogDensity: 1.45
     MaxDistance: 520
     LitFogColor: {r: 0.82, g: 0.67, b: 0.52, a: 1}
-    ShadowFogColor: {r: 0.26, g: 0.35, b: 0.46, a: 1}
+    ShadowFogColor: {r: 0.24, g: 0.38, b: 0.38, a: 1}
     TowardSunColor: {r: 0.96, g: 0.72, b: 0.48, a: 1}
-    AwayFromSunColor: {r: 0.34, g: 0.43, b: 0.58, a: 1}
+    AwayFromSunColor: {r: 0.3, g: 0.44, b: 0.5, a: 1}
     FoliageLitTint: {r: 0.95, g: 0.78, b: 0.5, a: 1}
     FoliageShadowTint: {r: 0.27, g: 0.38, b: 0.46, a: 1}
     DistanceFogColor: {r: 0.45, g: 0.49, b: 0.65, a: 1}
@@ -133,9 +186,9 @@ MonoBehaviour:
     FogDensity: 2.25
     MaxDistance: 520
     LitFogColor: {r: 0.82, g: 0.56, b: 0.42, a: 1}
-    ShadowFogColor: {r: 0.2, g: 0.27, b: 0.42, a: 1}
+    ShadowFogColor: {r: 0.16, g: 0.32, b: 0.34, a: 1}
     TowardSunColor: {r: 0.95, g: 0.58, b: 0.32, a: 1}
-    AwayFromSunColor: {r: 0.28, g: 0.34, b: 0.55, a: 1}
+    AwayFromSunColor: {r: 0.2, g: 0.36, b: 0.44, a: 1}
     FoliageLitTint: {r: 0.92, g: 0.72, b: 0.48, a: 1}
     FoliageShadowTint: {r: 0.22, g: 0.31, b: 0.44, a: 1}
     DistanceFogColor: {r: 0.38, g: 0.43, b: 0.64, a: 1}
@@ -150,6 +203,23 @@ MonoBehaviour:
     FoliageLitTint: {r: 0.45, g: 0.52, b: 0.68, a: 1}
     FoliageShadowTint: {r: 0.1, g: 0.16, b: 0.24, a: 1}
     DistanceFogColor: {r: 0.2, g: 0.25, b: 0.38, a: 1}
+  EnableButoWaterIntegration: 1
+  WaterSourceMaterial: {fileID: 2100000, guid: 277d5846746087d4aa354fbaa194c592, type: 2}
+  ButoWaterShader: {fileID: -6465566751694194690, guid: 436db39b4e2ae5e46a17e21865226b19, type: 3}
+  WaterShallowTint: {r: 0.4, g: 0.5, b: 0.43, a: 1}
+  WaterDeepTint: {r: 0.14, g: 0.3, b: 0.32, a: 1}
+  WaterVeryDeepTint: {r: 0.08, g: 0.16, b: 0.24, a: 1}
+  WaterDistantTint: {r: 0.25, g: 0.3, b: 0.46, a: 1}
+  WaterFoamTint: {r: 0.86, g: 0.74, b: 0.62, a: 1}
+  WaterAtmosphereTintStrength: 0.55
+  WaterSunSpecularStrength: 0.65
+  WaterMaxSmoothness: 0.5
+  WaterDistantIntensity: 1.8
+  WaterMaxOpacity: 0.96
+  EnablePreButoLighthouseGlass: 1
+  LighthouseGlassObjectName: LH_WindowGlass.mo
+  PreButoGlassLayerName: PreButoGlass
+  PreButoGlassLayer: 27
   FoliageLightBands: 3
   FoliageBandSoftness: 0.08
   FoliageBacklightColor: {r: 1, g: 0.58, b: 0.3, a: 1}

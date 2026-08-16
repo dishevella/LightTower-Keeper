@@ -116,7 +116,7 @@ Material:
     - _Enable_Global_Foam: 0
     - _Enable_Normals: 1
     - _Enable_Ocean_Wave: 0
-    - _Enable_Shore_Animation: 0
+    - _Enable_Shore_Animation: 1
     - _Enable_Shore_Foam: 1
     - _Enable_Shore_Wave_Foam: 1
     - _Enable_Shore_Waves: 1

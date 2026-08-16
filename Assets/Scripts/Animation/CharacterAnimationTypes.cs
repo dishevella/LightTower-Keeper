@@ -82,13 +82,18 @@ public enum CharacterAnimationAction
     Knockdown,
     GetUp,
     Death,
-    Respawn
+    Respawn,
+    Pickup,
+    Inspect,
+    Radio,
+    UseItem
 }
 
 public enum CharacterAnimationPriority
 {
     Locomotion = 0,
     Interaction = 10,
+    Airborne = 15,
     Attack = 20,
     Dodge = 30,
     HitReaction = 40,
@@ -104,6 +109,14 @@ public enum CharacterAnimationRootMotionStrategy
     UseAnimationDelta,
     ForwardToCharacterMotor,
     CustomHandler
+}
+
+public enum CharacterAnimationMotionOwner
+{
+    CharacterMotor,
+    AnimatorRootMotion,
+    CharacterMotorRootMotion,
+    Scripted
 }
 
 public enum ParkourAnimationType

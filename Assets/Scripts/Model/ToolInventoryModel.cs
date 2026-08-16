@@ -11,4 +11,10 @@ public class ToolInventoryModel : ModelAbstract
         HasSmallAxe = new BindableProperty<bool>(false);
         HasChainsaw = new BindableProperty<bool>(false);
     }
+
+    public void Restore(bool hasSmallAxe, bool hasChainsaw)
+    {
+        HasSmallAxe.SetValueWithoutNotify(hasSmallAxe);
+        HasChainsaw.SetValueWithoutNotify(hasChainsaw);
+    }
 }

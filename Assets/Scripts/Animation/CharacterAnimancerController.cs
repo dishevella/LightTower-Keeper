@@ -60,17 +60,69 @@ public class CharacterAnimancerController : MonoBehaviour
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public int ConfiguredLocomotionClipCount { get; private set; }
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public string LastAnimationEvent { get; private set; }
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public string LastStateChangeReason { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public string RequestedAnimationState { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public string PreviousAnimationState { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public string LastPlayCaller { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public string DiagnosticsWarning { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public string UpdatePhase => "Input/State: Update | Pose: Animancer PlayerLoop | Camera: LateUpdate";
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public CharacterAnimationMotionOwner MotionOwner { get; private set; } = CharacterAnimationMotionOwner.CharacterMotor;
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public CharacterAnimationRootMotionStrategy RootMotionStrategy { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float StateTime { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float CurrentStateWeight { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float CurrentStateTargetWeight { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float CurrentStateFadeSpeed { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float CurrentPlaybackSpeed { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public bool CurrentStateIsPlaying { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public bool CurrentStateIsFading { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public CharacterAnimationPriority CurrentPriority { get; private set; } = CharacterAnimationPriority.Locomotion;
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public bool HasCommitted { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public bool LocomotionIntentMoving { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float RawMotorVelocityX { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float RawMotorVelocityZ { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float IdleWeight { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float WalkWeight { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float JogWeight { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float RunWeight { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public int PlayCallsThisFrame { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public int AnimationRequestsThisFrame { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public int SameStateRequestsThisFrame { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public int StateChangesLastSecond { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public int SameStateRequestsLastSecond { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public int SameStateReplaysLastSecond { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public int InterruptsLastSecond { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public string LastInterruptReason { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public bool LastPlayReusedState { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public bool LastPlayResetTime { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public bool LastPlayRestartedFade { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public bool LastPlayResetWeight { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public bool LastPlayReappliedTransition { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public string LastRequestedLayer { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float RawLocomotionSpeed =>
+        new Vector2(RawMotorVelocityX, RawMotorVelocityZ).magnitude;
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float CrouchWeight { get; private set; }
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public bool CameraHeadTrackingActive => false;
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float CameraHeadPositionInfluence => 0f;
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public float CameraHeadRotationInfluence => 0f;
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly] public bool CameraHeadBoneSamplingActive =>
+        playerController != null && playerController.HeadBoneSamplingActive;
 
     private readonly MixerTransition2D locomotionMixer = new MixerTransition2D();
     private readonly MixerTransition2D crouchMixer = new MixerTransition2D();
     private readonly Dictionary<AnimationClip, CharacterAnimationConfig.MobilityClipTuning> clipTunings =
         new Dictionary<AnimationClip, CharacterAnimationConfig.MobilityClipTuning>();
+    private readonly List<LocomotionGait> locomotionChildGaits = new List<LocomotionGait>(25);
+    private readonly List<LocomotionGait> crouchChildGaits = new List<LocomotionGait>(9);
+    private readonly LocomotionSignalFilter locomotionSignalFilter = new();
+    private readonly CharacterAnimationActionCoordinator actionCoordinator = new();
     private AnimancerLayer baseLayer;
     private AnimancerLayer upperBodyLayer;
     private AnimancerLayer additiveLayer;
     private AnimancerLayer reactionLayer;
     private AnimancerState currentState;
+    private CharacterController rootMotionCharacterController;
+    private PlayerController playerController;
     private CharacterAnimationConfig.ActionSettings activeActionSettings;
+    private CharacterAnimationConfig.ParkourSettings activeParkourSettings;
     private Vector3 smoothedLocalVelocity;
     private Vector3 localVelocitySmoothDamp;
     private Vector2 previousTargetVelocity;
@@ -91,12 +143,46 @@ public class CharacterAnimancerController : MonoBehaviour
     private float idleVariationTimer;
     private float yawIdleTimer;
     private float movementCurveExitTimer;
+    private float preservedLocomotionNormalizedTime;
+    private bool hasPreservedLocomotionPhase;
     private int transientSerial;
+    private int idleVariationSerial;
+    private int diagnosticsFrame = -1;
+    private int stateChangesInWindow;
+    private int sameStateRequestsInWindow;
+    private int sameStateReplaysInWindow;
+    private int interruptsInWindow;
+    private float diagnosticsWindowStart;
+
+    public event Action<CharacterAnimationAction> ActionCommitted;
 
     public CharacterAnimationConfig Config => config;
     public Animator Animator => animator;
     public bool IsInitialized => initialized;
     public bool HasUsableConfiguration => config != null && config.ValidateConfiguration().IsValid;
+    public bool ShouldMotorDriveTranslation => !RootMotionActive;
+
+    private readonly struct PlaySnapshot
+    {
+        public readonly AnimancerState State;
+        public readonly float NormalizedTime;
+        public readonly float Weight;
+        public readonly float TargetWeight;
+        public readonly float FadeSpeed;
+        public readonly bool WasSameStateRequest;
+        public readonly bool ChangesBaseState;
+
+        public PlaySnapshot(AnimancerState state, bool wasSameStateRequest, bool changesBaseState)
+        {
+            State = state;
+            NormalizedTime = state != null ? state.NormalizedTime : 0f;
+            Weight = state != null ? state.Weight : 0f;
+            TargetWeight = state != null ? state.TargetWeight : 0f;
+            FadeSpeed = state != null ? state.FadeSpeed : 0f;
+            WasSameStateRequest = wasSameStateRequest;
+            ChangesBaseState = changesBaseState;
+        }
+    }
 
     private void Reset()
     {
@@ -116,11 +202,13 @@ public class CharacterAnimancerController : MonoBehaviour
 
     private void Update()
     {
+        StateTime += Time.deltaTime;
         if (Airborne) AirborneTime += Time.deltaTime;
         UpdateActionCompletion();
         UpdateTransientCompletion();
         UpdateIdleVariation();
         RefreshRuntimeDebug();
+        RefreshDiagnosticsWindow();
     }
 
     private void OnDisable()
@@ -134,6 +222,28 @@ public class CharacterAnimancerController : MonoBehaviour
         }
     }
 
+    private void OnAnimatorMove()
+    {
+        if (!RootMotionActive || animator == null) return;
+
+        Vector3 deltaPosition = animator.deltaPosition;
+        Quaternion deltaRotation = animator.deltaRotation;
+        switch (RootMotionStrategy)
+        {
+            case CharacterAnimationRootMotionStrategy.ForwardToCharacterMotor:
+                if (rootMotionCharacterController != null && rootMotionCharacterController.enabled)
+                    rootMotionCharacterController.Move(deltaPosition);
+                else
+                    transform.position += deltaPosition;
+                transform.rotation *= deltaRotation;
+                break;
+            case CharacterAnimationRootMotionStrategy.UseAnimationDelta:
+                transform.position += deltaPosition;
+                transform.rotation *= deltaRotation;
+                break;
+        }
+    }
+
     public void Initialize()
     {
         if (initialized) return;
@@ -141,6 +251,8 @@ public class CharacterAnimancerController : MonoBehaviour
         if (animator == null) animator = GetComponent<Animator>();
         if (animancer == null) animancer = GetComponent<AnimancerComponent>();
         if (animancer == null) animancer = gameObject.AddComponent<AnimancerComponent>();
+        if (rootMotionCharacterController == null) rootMotionCharacterController = GetComponent<CharacterController>();
+        if (playerController == null) playerController = GetComponent<PlayerController>();
         if (animator == null) return;
 
         animancer.Animator = animator;
@@ -155,6 +267,7 @@ public class CharacterAnimancerController : MonoBehaviour
         BuildClipTuningLookup();
         RebuildMixers();
         initialized = true;
+        diagnosticsWindowStart = Time.unscaledTime;
         Grounded = true;
         ReturnToLocomotion("Initialize");
     }
@@ -173,26 +286,44 @@ public class CharacterAnimancerController : MonoBehaviour
     /// <summary>Feeds motor-owned world velocity into the visual animation smoothing layer.</summary>
     public void SetMovement(Vector3 worldVelocity, Vector3 desiredForward)
     {
+        SetMovement(worldVelocity, desiredForward, worldVelocity);
+    }
+
+    /// <summary>
+    /// Uses requested velocity for locomotion intent and measured motor velocity for the visual mixer.
+    /// Keeping those signals separate prevents collisions and ground correction from restarting states.
+    /// </summary>
+    public void SetMovement(
+        Vector3 requestedWorldVelocity,
+        Vector3 desiredForward,
+        Vector3 measuredWorldVelocity)
+    {
         Initialize();
         if (!initialized || config == null) return;
 
-        Vector3 targetLocal = transform.InverseTransformDirection(worldVelocity);
+        Vector3 targetLocal = transform.InverseTransformDirection(requestedWorldVelocity);
         targetLocal.y = 0f;
         TargetVelocityX = targetLocal.x;
         TargetVelocityZ = targetLocal.z;
         TargetLocomotionSpeed = new Vector2(targetLocal.x, targetLocal.z).magnitude;
 
+        Vector3 motorLocal = transform.InverseTransformDirection(measuredWorldVelocity);
+        motorLocal.y = 0f;
+        RawMotorVelocityX = motorLocal.x;
+        RawMotorVelocityZ = motorLocal.z;
+        Vector3 visualTarget = config.Locomotion.UseMotorVelocityForMixer
+            ? motorLocal
+            : targetLocal;
+
         float previousSpeed = CurrentLocomotionSpeed;
-        float smoothTime = SelectVelocitySmoothTime(targetLocal);
-        float maxSmoothSpeed = config.Locomotion.MaximumVisualAcceleration > 0f
-            ? config.Locomotion.MaximumVisualAcceleration
-            : Mathf.Infinity;
-        smoothedLocalVelocity = Vector3.SmoothDamp(
+        smoothedLocalVelocity = locomotionSignalFilter.SmoothVelocity(
             smoothedLocalVelocity,
-            targetLocal,
+            visualTarget,
             ref localVelocitySmoothDamp,
-            smoothTime,
-            maxSmoothSpeed,
+            config.Locomotion.AccelerationSmoothTime,
+            config.Locomotion.DecelerationSmoothTime,
+            config.Locomotion.DirectionSmoothTime,
+            config.Locomotion.MaximumVisualAcceleration,
             Time.deltaTime);
 
         LocalVelocityX = smoothedLocalVelocity.x;
@@ -203,16 +334,21 @@ public class CharacterAnimancerController : MonoBehaviour
             : 0f;
 
         Vector2 targetVelocity = new Vector2(TargetVelocityX, TargetVelocityZ);
-        bool targetMoving = TargetLocomotionSpeed >= config.Locomotion.StartInputThreshold;
-        bool wasTargetMoving = previousTargetVelocity.magnitude >= config.Locomotion.StopInputThreshold;
+        bool wasTargetMoving = LocomotionIntentMoving;
+        LocomotionIntentMoving = locomotionSignalFilter.ResolveMovementIntent(
+            LocomotionIntentMoving,
+            TargetLocomotionSpeed,
+            config.Locomotion.StartInputThreshold,
+            config.Locomotion.StopInputThreshold);
+        bool targetMoving = LocomotionIntentMoving;
 
         UpdateTurnInput(desiredForward, targetMoving);
 
         if (targetMoving)
         {
             lastMovingDirection = targetVelocity.normalized;
-            lastMovingGait = config.ResolveGait(TargetLocomotionSpeed, Crouching);
-            usingIdleVariation = false;
+            lastMovingGait = ResolveStableGait(TargetLocomotionSpeed, Crouching, lastMovingGait);
+            CancelIdleVariation();
             idleVariationTimer = 0f;
         }
 
@@ -294,6 +430,8 @@ public class CharacterAnimancerController : MonoBehaviour
         Grounded = false;
         Airborne = true;
         AirborneTime = 0f;
+        CurrentPriority = CharacterAnimationPriority.Airborne;
+        IsInterruptible = false;
 
         AnimationClip clip = config.Airborne.JumpStarts.GetBest(jumpGait, jumpDirection, jumpUsesLeftFoot);
         if (clip == null)
@@ -320,8 +458,7 @@ public class CharacterAnimancerController : MonoBehaviour
         if (!config.Locomotion.EnableCrouchTransitions || TargetLocomotionSpeed > config.Locomotion.StartInputThreshold)
         {
             EndTransient("Crouch mode changed while moving", false);
-            usingLocomotionMixer = false;
-            usingCrouchMixer = false;
+            MarkBaseLayerStandalone();
             return;
         }
 
@@ -375,25 +512,54 @@ public class CharacterAnimancerController : MonoBehaviour
             return false;
         }
 
+        if ((CurrentLogicalState == CharacterAnimationLogicalState.Action ||
+             CurrentLogicalState == CharacterAnimationLogicalState.Dead) &&
+            CurrentAction == action && currentState != null && currentState.IsPlaying)
+        {
+            RecordSuppressedSameState(settings.Clip.name, $"TryPlayAction({action})");
+            return true;
+        }
+
         if (!CanInterruptWith(settings.Priority))
         {
-            QueuedAction = action;
+            QueuedAction = settings.QueueWhenBlocked ? action : CharacterAnimationAction.None;
+            string requestResult = settings.QueueWhenBlocked
+                ? $"TryPlayAction({action}) queued"
+                : $"TryPlayAction({action}) rejected";
+            RecordRequestWithoutPlay(settings.Clip.name, requestResult, true);
+            if (config.Diagnostics != null && config.Diagnostics.EnableConsoleLogging)
+                Debug.Log($"Animation request {action} {requestResult} at frame {Time.frameCount}.", this);
             return false;
         }
 
+        if (CurrentLogicalState == CharacterAnimationLogicalState.Action ||
+            CurrentLogicalState == CharacterAnimationLogicalState.Parkour)
+        {
+            RecordInterrupt($"{CurrentAnimationState} interrupted by {action}");
+        }
         EndTransient("Action started", false);
         CleanupActionState($"Action {action} started");
+        CancelIdleVariation();
         CurrentAction = action;
         activeActionSettings = settings;
+        CurrentPriority = settings.Priority;
+        HasCommitted = false;
         CurrentLogicalState = action == CharacterAnimationAction.Death
             ? CharacterAnimationLogicalState.Dead
             : CharacterAnimationLogicalState.Action;
         IsInterruptible = settings.Interruptible && settings.InterruptibleNormalizedTime <= 0f;
-        RootMotionActive = settings.RootMotion != CharacterAnimationRootMotionStrategy.Disabled;
-        animator.applyRootMotion = RootMotionActive;
+        SetRootMotionOwnership(settings.RootMotion);
 
-        ClipTransition transition = CreateClipTransition(settings.Clip, settings.Loop ? null : OnActionEnd);
+        ClipTransition transition = CreateClipTransition(settings.Clip, null);
+        MarkBaseLayerStandalone();
+        PlaySnapshot playSnapshot = RecordPlayRequest(
+            settings.Clip.name,
+            $"TryPlayAction({action})",
+            true);
         currentState = baseLayer.Play(transition, ResolveTransitionFade(settings.FadeIn, activeFallbackFadeOut));
+        if (!settings.Loop)
+            currentState.Events(this).OnEnd = OnActionEnd;
+        RecordPlayOutcome(playSnapshot, currentState);
         activeClipTuning = null;
         activeFallbackFadeOut = settings.FadeOut;
         CurrentClip = settings.Clip;
@@ -414,15 +580,43 @@ public class CharacterAnimancerController : MonoBehaviour
             return false;
         }
 
-        EndTransient("Parkour started", false);
-        CleanupActionState($"Parkour {request.Type} started");
-        CurrentLogicalState = CharacterAnimationLogicalState.Parkour;
-        RootMotionActive = request.AllowRootMotion && settings.RootMotion != CharacterAnimationRootMotionStrategy.Disabled;
-        animator.applyRootMotion = RootMotionActive;
 
+        if (CurrentLogicalState == CharacterAnimationLogicalState.Parkour &&
+            CurrentClip == settings.Clip && currentState != null && currentState.IsPlaying)
+        {
+            RecordSuppressedSameState(settings.Clip.name, $"TryPlayParkour({request.Type})");
+            return true;
+        }
+
+        EndTransient("Parkour started", false);
+        if (CurrentLogicalState == CharacterAnimationLogicalState.Action ||
+            CurrentLogicalState == CharacterAnimationLogicalState.Parkour)
+        {
+            RecordInterrupt($"{CurrentAnimationState} interrupted by parkour {request.Type}");
+        }
+        CleanupActionState($"Parkour {request.Type} started");
+        CancelIdleVariation();
+        CurrentAction = CharacterAnimationAction.None;
+        activeParkourSettings = settings;
+        CurrentPriority = CharacterAnimationPriority.Parkour;
+        HasCommitted = false;
+        IsInterruptible = settings.InterruptibleStart <= 0f;
+        CurrentLogicalState = CharacterAnimationLogicalState.Parkour;
+        SetRootMotionOwnership(
+            request.AllowRootMotion
+                ? settings.RootMotion
+                : CharacterAnimationRootMotionStrategy.Disabled);
+
+        MarkBaseLayerStandalone();
+        PlaySnapshot playSnapshot = RecordPlayRequest(
+            settings.Clip.name,
+            $"TryPlayParkour({request.Type})",
+            true);
         currentState = baseLayer.Play(
-            CreateClipTransition(settings.Clip, OnActionEnd),
+            CreateClipTransition(settings.Clip, null),
             ResolveTransitionFade(settings.EnterFade, activeFallbackFadeOut));
+        currentState.Events(this).OnEnd = OnActionEnd;
+        RecordPlayOutcome(playSnapshot, currentState);
         activeClipTuning = null;
         activeFallbackFadeOut = settings.ExitFade;
         CurrentClip = settings.Clip;
@@ -455,10 +649,16 @@ public class CharacterAnimancerController : MonoBehaviour
             ReturnToLocomotion("Landing clip missing");
             return;
         }
-        if (CurrentLogicalState == CharacterAnimationLogicalState.Landing && CurrentClip == clip) return;
+        if (CurrentLogicalState == CharacterAnimationLogicalState.Landing && CurrentClip == clip)
+        {
+            RecordSuppressedSameState(clip.name, "PlayLanding");
+            return;
+        }
 
         jumpActive = false;
         CleanupActionState("Landing");
+        CurrentPriority = CharacterAnimationPriority.Airborne;
+        IsInterruptible = false;
         PlayTransient(
             clip,
             LocomotionTransient.Landing,
@@ -496,7 +696,11 @@ public class CharacterAnimancerController : MonoBehaviour
         }
 
         if (upperBodyLayer.CurrentState == null || upperBodyLayer.CurrentState.Clip != clip)
-            upperBodyLayer.Play(CreateClipTransition(clip, null), fade);
+        {
+            PlaySnapshot playSnapshot = RecordPlayRequest(clip.name, "SetHoldingState", false);
+            AnimancerState state = upperBodyLayer.Play(CreateClipTransition(clip, null), fade);
+            RecordPlayOutcome(playSnapshot, state);
+        }
         upperBodyLayer.StartFade(Mathf.Clamp01(targetWeight), fade);
     }
 
@@ -517,7 +721,21 @@ public class CharacterAnimancerController : MonoBehaviour
         float actionFade = targetWeight >= upperBodyLayer.Weight
             ? ResolveGlobalFadeIn(settings.FadeIn)
             : ResolveGlobalFadeOut(settings.FadeOut);
-        upperBodyLayer.Play(CreateClipTransition(settings.Clip, null), actionFade);
+        if (upperBodyLayer.CurrentState == null ||
+            upperBodyLayer.CurrentState.Clip != settings.Clip ||
+            !upperBodyLayer.CurrentState.IsPlaying)
+        {
+            PlaySnapshot playSnapshot = RecordPlayRequest(
+                settings.Clip.name,
+                $"SetUpperBodyAction({action})",
+                false);
+            AnimancerState state = upperBodyLayer.Play(CreateClipTransition(settings.Clip, null), actionFade);
+            RecordPlayOutcome(playSnapshot, state);
+        }
+        else
+        {
+            RecordSuppressedSameState(settings.Clip.name, $"SetUpperBodyAction({action})", false);
+        }
         upperBodyLayer.StartFade(Mathf.Clamp01(targetWeight), actionFade);
     }
 
@@ -540,6 +758,7 @@ public class CharacterAnimancerController : MonoBehaviour
     {
         if (!initialized) return;
         EndTransient(reason, false);
+        CancelIdleVariation();
         CleanupActionState(reason);
         CurrentLogicalState = CharacterAnimationLogicalState.Locomotion;
         CurrentAction = CharacterAnimationAction.None;
@@ -553,9 +772,15 @@ public class CharacterAnimancerController : MonoBehaviour
     {
         if (!Application.isPlaying || config == null || config.Locomotion.Idle == null) return;
         EndTransient("Debug idle", false);
+        MarkBaseLayerStandalone();
+        PlaySnapshot playSnapshot = RecordPlayRequest(
+            config.Locomotion.Idle.name,
+            "PlayIdle debug button",
+            true);
         currentState = baseLayer.Play(
             CreateClipTransition(config.Locomotion.Idle, null),
             ResolveGlobalFadeIn(config.Locomotion.IdleVariationCrossFade));
+        RecordPlayOutcome(playSnapshot, currentState);
         CurrentClip = config.Locomotion.Idle;
         CurrentAnimationState = "Debug Idle";
     }
@@ -615,12 +840,13 @@ public class CharacterAnimancerController : MonoBehaviour
 
     private AnimationClip ResolveCurrentCameraClip()
     {
-        if (CurrentClip != null)
-            return CurrentClip;
+        if (usingLocomotionMixer || usingCrouchMixer)
+            return ResolveLocomotionClip(
+                CurrentMixerParameter,
+                CurrentLocomotionSpeed,
+                usingCrouchMixer);
 
-        return usingLocomotionMixer || usingCrouchMixer
-            ? ResolveLocomotionClip(CurrentMixerParameter, CurrentLocomotionSpeed, usingCrouchMixer)
-            : null;
+        return CurrentClip;
     }
 
     public float GetLocomotionMotorScale()
@@ -674,11 +900,16 @@ public class CharacterAnimancerController : MonoBehaviour
         List<Vector2> thresholds = new List<Vector2>(25);
         List<bool> synchronize = new List<bool>(25);
         List<float> speeds = new List<float>(25);
+        locomotionChildGaits.Clear();
 
-        AddMixerClip(animations, thresholds, synchronize, speeds, config.Locomotion.Idle, Vector2.zero, false);
-        AddDirectionalSet(animations, thresholds, synchronize, speeds, config.Locomotion.Walk, config.Locomotion.WalkSpeed);
-        AddDirectionalSet(animations, thresholds, synchronize, speeds, config.Locomotion.Jog, config.Locomotion.JogSpeed);
-        AddDirectionalSet(animations, thresholds, synchronize, speeds, config.Locomotion.Run, config.Locomotion.RunSpeed);
+        AddMixerClip(animations, thresholds, synchronize, speeds, locomotionChildGaits,
+            config.Locomotion.Idle, Vector2.zero, false, LocomotionGait.Idle);
+        AddDirectionalSet(animations, thresholds, synchronize, speeds, locomotionChildGaits,
+            config.Locomotion.Walk, config.Locomotion.WalkSpeed, LocomotionGait.Walk);
+        AddDirectionalSet(animations, thresholds, synchronize, speeds, locomotionChildGaits,
+            config.Locomotion.Jog, config.Locomotion.JogSpeed, LocomotionGait.Jog);
+        AddDirectionalSet(animations, thresholds, synchronize, speeds, locomotionChildGaits,
+            config.Locomotion.Run, config.Locomotion.RunSpeed, LocomotionGait.Run);
         ApplyMixerData(mixer, animations, thresholds, synchronize, speeds);
         return animations.Count;
     }
@@ -689,9 +920,12 @@ public class CharacterAnimancerController : MonoBehaviour
         List<Vector2> thresholds = new List<Vector2>(9);
         List<bool> synchronize = new List<bool>(9);
         List<float> speeds = new List<float>(9);
+        crouchChildGaits.Clear();
 
-        AddMixerClip(animations, thresholds, synchronize, speeds, config.Locomotion.CrouchIdle, Vector2.zero, false);
-        AddDirectionalSet(animations, thresholds, synchronize, speeds, config.Locomotion.Crouch, config.Locomotion.CrouchSpeed);
+        AddMixerClip(animations, thresholds, synchronize, speeds, crouchChildGaits,
+            config.Locomotion.CrouchIdle, Vector2.zero, false, LocomotionGait.Idle);
+        AddDirectionalSet(animations, thresholds, synchronize, speeds, crouchChildGaits,
+            config.Locomotion.Crouch, config.Locomotion.CrouchSpeed, LocomotionGait.Crouch);
         ApplyMixerData(mixer, animations, thresholds, synchronize, speeds);
         return animations.Count;
     }
@@ -701,19 +935,21 @@ public class CharacterAnimancerController : MonoBehaviour
         List<Vector2> thresholds,
         List<bool> synchronize,
         List<float> speeds,
+        List<LocomotionGait> childGaits,
         CharacterAnimationConfig.DirectionalClipSet set,
-        float speed)
+        float speed,
+        LocomotionGait gait)
     {
         if (set == null) return;
         bool sync = config.Locomotion.SynchronizeLocomotionCycles;
-        AddMixerClip(animations, thresholds, synchronize, speeds, set.Forward, new Vector2(0f, speed), sync);
-        AddMixerClip(animations, thresholds, synchronize, speeds, set.Backward, new Vector2(0f, -speed), sync);
-        AddMixerClip(animations, thresholds, synchronize, speeds, set.Left, new Vector2(-speed, 0f), sync);
-        AddMixerClip(animations, thresholds, synchronize, speeds, set.Right, new Vector2(speed, 0f), sync);
-        AddMixerClip(animations, thresholds, synchronize, speeds, set.ForwardLeft, new Vector2(-Diagonal * speed, Diagonal * speed), sync);
-        AddMixerClip(animations, thresholds, synchronize, speeds, set.ForwardRight, new Vector2(Diagonal * speed, Diagonal * speed), sync);
-        AddMixerClip(animations, thresholds, synchronize, speeds, set.BackwardLeft, new Vector2(-Diagonal * speed, -Diagonal * speed), sync);
-        AddMixerClip(animations, thresholds, synchronize, speeds, set.BackwardRight, new Vector2(Diagonal * speed, -Diagonal * speed), sync);
+        AddMixerClip(animations, thresholds, synchronize, speeds, childGaits, set.Forward, new Vector2(0f, speed), sync, gait);
+        AddMixerClip(animations, thresholds, synchronize, speeds, childGaits, set.Backward, new Vector2(0f, -speed), sync, gait);
+        AddMixerClip(animations, thresholds, synchronize, speeds, childGaits, set.Left, new Vector2(-speed, 0f), sync, gait);
+        AddMixerClip(animations, thresholds, synchronize, speeds, childGaits, set.Right, new Vector2(speed, 0f), sync, gait);
+        AddMixerClip(animations, thresholds, synchronize, speeds, childGaits, set.ForwardLeft, new Vector2(-Diagonal * speed, Diagonal * speed), sync, gait);
+        AddMixerClip(animations, thresholds, synchronize, speeds, childGaits, set.ForwardRight, new Vector2(Diagonal * speed, Diagonal * speed), sync, gait);
+        AddMixerClip(animations, thresholds, synchronize, speeds, childGaits, set.BackwardLeft, new Vector2(-Diagonal * speed, -Diagonal * speed), sync, gait);
+        AddMixerClip(animations, thresholds, synchronize, speeds, childGaits, set.BackwardRight, new Vector2(Diagonal * speed, -Diagonal * speed), sync, gait);
     }
 
     private void AddMixerClip(
@@ -721,14 +957,17 @@ public class CharacterAnimancerController : MonoBehaviour
         List<Vector2> thresholds,
         List<bool> synchronize,
         List<float> speeds,
+        List<LocomotionGait> childGaits,
         AnimationClip clip,
         Vector2 threshold,
-        bool synchronizeCycle)
+        bool synchronizeCycle,
+        LocomotionGait gait)
     {
         if (clip == null) return;
         animations.Add(clip);
         thresholds.Add(threshold);
         synchronize.Add(synchronizeCycle);
+        childGaits.Add(gait);
         CharacterAnimationConfig.MobilityClipTuning tuning = GetClipTuning(clip);
         float playbackSpeed = tuning != null && tuning.OverrideRuntime && tuning.Transition != null
             ? tuning.Transition.Speed
@@ -771,16 +1010,23 @@ public class CharacterAnimancerController : MonoBehaviour
                 TargetLocomotionSpeed,
                 Crouching);
             CharacterAnimationConfig.MobilityClipTuning incomingTuning = GetClipTuning(incomingClip);
+            string requestedState = Crouching
+                ? "MOBILITY PRO Crouch Mixer"
+                : "MOBILITY PRO Locomotion Mixer";
+            PlaySnapshot playSnapshot = RecordPlayRequest(requestedState, "PlayLocomotion", true);
             currentState = baseLayer.Play(
                 targetMixer,
                 ResolveFadeDuration(incomingTuning, config.Locomotion.LocomotionCrossFade));
+            if (hasPreservedLocomotionPhase)
+                targetMixer.State.NormalizedTime = preservedLocomotionNormalizedTime;
+            RecordPlayOutcome(playSnapshot, currentState);
             activeClipTuning = null;
             activeFallbackFadeOut = config.Locomotion.LocomotionFadeOut;
             usingCrouchMixer = Crouching;
             usingLocomotionMixer = !Crouching;
             usingIdleVariation = false;
             CurrentClip = null;
-            CurrentAnimationState = Crouching ? "MOBILITY PRO Crouch Mixer" : "MOBILITY PRO Locomotion Mixer";
+            CurrentAnimationState = requestedState;
             LastStateChangeReason = Crouching ? "Crouch locomotion" : "Locomotion";
         }
 
@@ -791,8 +1037,10 @@ public class CharacterAnimancerController : MonoBehaviour
             config.Locomotion.MinimumPlaybackSpeed,
             config.Locomotion.MaximumPlaybackSpeed);
         CurrentMixerParameter = parameter;
-        CurrentGait = config.ResolveGait(CurrentLocomotionSpeed, Crouching);
+        CurrentGait = ResolveStableGait(CurrentLocomotionSpeed, Crouching, CurrentGait);
         CurrentLogicalState = CharacterAnimationLogicalState.Locomotion;
+        CurrentPriority = CharacterAnimationPriority.Locomotion;
+        IsInterruptible = true;
     }
 
     private void PlayFallbackDirectionalClip()
@@ -819,7 +1067,7 @@ public class CharacterAnimancerController : MonoBehaviour
     private bool TryPlayStart(Vector2 targetVelocity)
     {
         if (!config.Locomotion.EnableStartTransitions) return false;
-        LocomotionGait gait = config.ResolveGait(targetVelocity.magnitude, Crouching);
+        LocomotionGait gait = ResolveStableGait(targetVelocity.magnitude, Crouching, lastMovingGait);
         CharacterAnimationConfig.GaitDirectionalClipSet starts = config.Locomotion.UseForwardTurningStarts
             ? config.Locomotion.ForwardTurningStarts
             : config.Locomotion.Starts;
@@ -861,7 +1109,7 @@ public class CharacterAnimancerController : MonoBehaviour
 
         float signedAngle = -Vector2.SignedAngle(previousVelocity, targetVelocity);
         if (Mathf.Abs(signedAngle) < turns.MinimumPivotAngle) return false;
-        LocomotionGait gait = config.ResolveGait(targetVelocity.magnitude, false);
+        LocomotionGait gait = ResolveStableGait(targetVelocity.magnitude, false, lastMovingGait);
         AnimationClip clip = turns.GetPivot(gait, signedAngle);
         if (clip == null) return false;
         PlayTransient(
@@ -1016,10 +1264,8 @@ public class CharacterAnimancerController : MonoBehaviour
         if (clip == null || baseLayer == null) return;
         transientSerial++;
         CurrentTransient = transient;
-        usingLocomotionMixer = false;
-        usingCrouchMixer = false;
-        usingIdleVariation = false;
-        currentState = PlayConfiguredClip(clip, fadeDuration, null);
+        CancelIdleVariation();
+        currentState = PlayConfiguredClip(clip, fadeDuration, null, reason);
         activeFallbackFadeOut = fadeOut;
         CurrentClip = clip;
         CurrentAnimationState = clip.name;
@@ -1037,10 +1283,12 @@ public class CharacterAnimancerController : MonoBehaviour
         if (clip == null || baseLayer == null) return;
         int serial = ++transientSerial;
         CurrentTransient = transient;
-        usingLocomotionMixer = false;
-        usingCrouchMixer = false;
-        usingIdleVariation = false;
-        currentState = PlayConfiguredClip(clip, fadeDuration, () => OnTransientEnd(serial));
+        CancelIdleVariation();
+        currentState = PlayConfiguredClip(
+            clip,
+            fadeDuration,
+            () => OnTransientEnd(serial),
+            reason);
         activeFallbackFadeOut = GetDefaultFadeOut(transient);
         CurrentClip = clip;
         CurrentAnimationState = clip.name;
@@ -1120,7 +1368,12 @@ public class CharacterAnimancerController : MonoBehaviour
         transientSerial++;
         CurrentTransient = LocomotionTransient.None;
         LastStateChangeReason = reason;
-        if (resumeLocomotion && Grounded && !Airborne) PlayLocomotion();
+        if (!resumeLocomotion) return;
+
+        if (Airborne && !Grounded)
+            PlayAirborneLoop();
+        else
+            PlayLocomotion();
     }
 
     private void PlayAirborne()
@@ -1151,14 +1404,25 @@ public class CharacterAnimancerController : MonoBehaviour
         }
 
         if (clip == null) clip = config.Airborne.JumpAir.Standing;
-        if (clip == null || (CurrentLogicalState == CharacterAnimationLogicalState.Airborne && CurrentClip == clip)) return;
+        if (clip == null) return;
+        if (CurrentLogicalState == CharacterAnimationLogicalState.Airborne && CurrentClip == clip)
+        {
+            RecordSuppressedSameState(clip.name, "PlayAirborneLoop");
+            return;
+        }
 
         EndTransient("Enter airborne loop", false);
-        currentState = PlayConfiguredClip(clip, config.Airborne.AirFadeDuration, null);
+        currentState = PlayConfiguredClip(
+            clip,
+            config.Airborne.AirFadeDuration,
+            null,
+            jumpActive ? "PlayAirborneLoop jump" : "PlayAirborneLoop fall");
         activeFallbackFadeOut = jumpActive ? config.Airborne.AirFadeOut : config.Airborne.FallFadeOut;
         CurrentClip = clip;
         CurrentAnimationState = clip.name;
         CurrentLogicalState = CharacterAnimationLogicalState.Airborne;
+        CurrentPriority = CharacterAnimationPriority.Airborne;
+        IsInterruptible = true;
         LastStateChangeReason = jumpActive ? "Jump air" : "Fall";
     }
 
@@ -1191,29 +1455,39 @@ public class CharacterAnimancerController : MonoBehaviour
             AnimationClip clip = variations[idleVariationIndex % variations.Length];
             idleVariationIndex++;
             if (clip == null) continue;
-            currentState = PlayConfiguredClip(clip, config.Locomotion.IdleVariationCrossFade, null);
+            int serial = ++idleVariationSerial;
+            currentState = PlayConfiguredClip(
+                clip,
+                config.Locomotion.IdleVariationCrossFade,
+                () => OnIdleVariationEnd(serial),
+                "UpdateIdleVariation");
             activeFallbackFadeOut = config.Locomotion.IdleVariationCrossFade;
             CurrentClip = clip;
             CurrentAnimationState = clip.name;
-            usingLocomotionMixer = false;
             usingIdleVariation = true;
             LastStateChangeReason = "Idle variation";
             break;
         }
     }
 
-    private float SelectVelocitySmoothTime(Vector3 targetLocal)
+    private void OnIdleVariationEnd(int serial)
     {
-        float targetSpeed = new Vector2(targetLocal.x, targetLocal.z).magnitude;
-        float currentSpeed = new Vector2(smoothedLocalVelocity.x, smoothedLocalVelocity.z).magnitude;
-        if (targetSpeed < currentSpeed) return config.Locomotion.DecelerationSmoothTime;
+        if (serial != idleVariationSerial || !usingIdleVariation) return;
 
-        Vector2 currentDirection = new Vector2(smoothedLocalVelocity.x, smoothedLocalVelocity.z);
-        Vector2 targetDirection = new Vector2(targetLocal.x, targetLocal.z);
-        if (currentDirection.sqrMagnitude > 0.001f && targetDirection.sqrMagnitude > 0.001f &&
-            Vector2.Angle(currentDirection, targetDirection) > 25f)
-            return config.Locomotion.DirectionSmoothTime;
-        return config.Locomotion.AccelerationSmoothTime;
+        usingIdleVariation = false;
+        LastAnimationEvent = "IdleVariationComplete";
+        if (!Crouching && !Airborne &&
+            TargetLocomotionSpeed <= config.Locomotion.StopInputThreshold)
+        {
+            PlayLocomotion();
+        }
+    }
+
+    private void CancelIdleVariation()
+    {
+        if (!usingIdleVariation) return;
+        idleVariationSerial++;
+        usingIdleVariation = false;
     }
 
     private static ClipTransition CreateClipTransition(AnimationClip clip, Action onEnd)
@@ -1268,10 +1542,16 @@ public class CharacterAnimancerController : MonoBehaviour
         return clips.GetBest(velocity);
     }
 
-    private AnimancerState PlayConfiguredClip(AnimationClip clip, float defaultFadeIn, Action onEnd)
+    private AnimancerState PlayConfiguredClip(
+        AnimationClip clip,
+        float defaultFadeIn,
+        Action onEnd,
+        string caller = "PlayConfiguredClip")
     {
         CharacterAnimationConfig.MobilityClipTuning tuning = GetClipTuning(clip);
         float fadeDuration = ResolveFadeDuration(tuning, defaultFadeIn);
+        MarkBaseLayerStandalone();
+        PlaySnapshot playSnapshot = RecordPlayRequest(clip.name, caller, true);
         AnimancerState state;
         if (tuning != null && tuning.OverrideRuntime && tuning.Transition != null)
             state = baseLayer.Play(tuning.Transition, fadeDuration);
@@ -1286,7 +1566,56 @@ public class CharacterAnimancerController : MonoBehaviour
             clipState.ApplyFootIK = tuning == null || tuning.ApplyFootIK;
         activeClipTuning = tuning != null && tuning.OverrideRuntime ? tuning : null;
         activeFallbackFadeOut = defaultFadeIn;
+        RecordPlayOutcome(playSnapshot, state);
         return state;
+    }
+
+    private void MarkBaseLayerStandalone()
+    {
+        if ((usingLocomotionMixer || usingCrouchMixer) && currentState != null)
+        {
+            preservedLocomotionNormalizedTime = currentState.NormalizedTime;
+            hasPreservedLocomotionPhase = true;
+        }
+
+        usingLocomotionMixer = false;
+        usingCrouchMixer = false;
+    }
+
+    private LocomotionGait ResolveStableGait(
+        float speed,
+        bool crouching,
+        LocomotionGait previous)
+    {
+        if (crouching) return LocomotionGait.Crouch;
+
+        float hysteresis = Mathf.Max(0f, config.Locomotion.GaitHysteresis);
+        float jogBoundary = (config.Locomotion.WalkSpeed + config.Locomotion.JogSpeed) * 0.5f;
+        float runBoundary = (config.Locomotion.JogSpeed + config.Locomotion.RunSpeed) * 0.5f;
+
+        if (speed <= config.Locomotion.IdleSpeedThreshold)
+            return LocomotionGait.Idle;
+
+        switch (previous)
+        {
+            case LocomotionGait.Run:
+                return speed < runBoundary - hysteresis
+                    ? LocomotionGait.Jog
+                    : LocomotionGait.Run;
+            case LocomotionGait.Jog:
+                if (speed > runBoundary + hysteresis) return LocomotionGait.Run;
+                return speed < jogBoundary - hysteresis
+                    ? LocomotionGait.Walk
+                    : LocomotionGait.Jog;
+            case LocomotionGait.Walk:
+                return speed > jogBoundary + hysteresis
+                    ? LocomotionGait.Jog
+                    : LocomotionGait.Walk;
+            default:
+                if (speed > runBoundary + hysteresis) return LocomotionGait.Run;
+                if (speed > jogBoundary + hysteresis) return LocomotionGait.Jog;
+                return LocomotionGait.Walk;
+        }
     }
 
     private float ResolveFadeDuration(CharacterAnimationConfig.MobilityClipTuning incoming, float fallback)
@@ -1357,42 +1686,327 @@ public class CharacterAnimancerController : MonoBehaviour
 
     private bool CanInterruptWith(CharacterAnimationPriority priority)
     {
-        if (activeActionSettings == null) return true;
-        if (CurrentLogicalState == CharacterAnimationLogicalState.Dead) return false;
-        if ((int)priority > (int)activeActionSettings.Priority) return true;
-        return IsInterruptible && (int)priority >= (int)activeActionSettings.Priority;
+        return actionCoordinator.CanInterrupt(
+            CurrentLogicalState,
+            CurrentPriority,
+            priority,
+            IsInterruptible,
+            activeActionSettings != null);
     }
 
     private void UpdateActionCompletion()
     {
-        if (currentState == null || activeActionSettings == null) return;
+        if (currentState == null) return;
         CurrentNormalizedTime = currentState.NormalizedTime;
-        if (!IsInterruptible && activeActionSettings.Interruptible &&
-            CurrentNormalizedTime >= activeActionSettings.InterruptibleNormalizedTime)
+        if (activeActionSettings != null)
+        {
+            CharacterActionProgressDecision decision = actionCoordinator.EvaluateProgress(
+                CurrentNormalizedTime,
+                activeActionSettings.CommitNormalizedTime,
+                activeActionSettings.InterruptibleNormalizedTime,
+                activeActionSettings.Interruptible,
+                HasCommitted,
+                IsInterruptible);
+            if (decision.CommitReached)
+            {
+                HasCommitted = true;
+                LastAnimationEvent = $"{CurrentAction}Commit";
+                ActionCommitted?.Invoke(CurrentAction);
+            }
+
+            IsInterruptible = decision.Interruptible;
+        }
+        else if (activeParkourSettings != null && !IsInterruptible &&
+                 CurrentNormalizedTime >= activeParkourSettings.InterruptibleStart)
+        {
             IsInterruptible = true;
+        }
+        else if (CurrentLogicalState == CharacterAnimationLogicalState.Landing &&
+                 !IsInterruptible && config != null && config.Airborne != null &&
+                 StateTime >= Mathf.Max(
+                     config.Airborne.LandingLockTime,
+                     config.Airborne.InterruptibleAfter))
+        {
+            IsInterruptible = true;
+        }
+    }
+
+    private PlaySnapshot RecordPlayRequest(
+        string requestedState,
+        string caller,
+        bool changesBaseState)
+    {
+        EnsureDiagnosticsFrame();
+        AnimancerState previousState = changesBaseState
+            ? currentState
+            : upperBodyLayer != null ? upperBodyLayer.CurrentState : null;
+        bool sameStateRequest =
+            (changesBaseState &&
+             string.Equals(requestedState, CurrentAnimationState, StringComparison.Ordinal)) ||
+            (previousState != null && previousState.Clip != null &&
+             string.Equals(requestedState, previousState.Clip.name, StringComparison.Ordinal));
+
+        AnimationRequestsThisFrame++;
+        PlayCallsThisFrame++;
+        RequestedAnimationState = requestedState;
+        LastPlayCaller = caller;
+        LastRequestedLayer = changesBaseState ? "Base" : "Upper Body";
+        LastPlayReusedState = false;
+        LastPlayResetTime = false;
+        LastPlayRestartedFade = false;
+        LastPlayResetWeight = false;
+        LastPlayReappliedTransition = false;
+
+        if (sameStateRequest)
+        {
+            SameStateRequestsThisFrame++;
+            sameStateRequestsInWindow++;
+        }
+        else if (changesBaseState)
+        {
+            PreviousAnimationState = CurrentAnimationState;
+            StateTime = 0f;
+        }
+
+        return new PlaySnapshot(previousState, sameStateRequest, changesBaseState);
+    }
+
+    private void RecordSuppressedSameState(
+        string requestedState,
+        string caller,
+        bool changesBaseState = true)
+    {
+        EnsureDiagnosticsFrame();
+        AnimationRequestsThisFrame++;
+        SameStateRequestsThisFrame++;
+        sameStateRequestsInWindow++;
+        RequestedAnimationState = requestedState;
+        LastPlayCaller = caller;
+        LastRequestedLayer = changesBaseState ? "Base" : "Upper Body";
+        LastPlayReusedState = false;
+        LastPlayResetTime = false;
+        LastPlayRestartedFade = false;
+        LastPlayResetWeight = false;
+        LastPlayReappliedTransition = false;
+    }
+
+    private void RecordRequestWithoutPlay(
+        string requestedState,
+        string caller,
+        bool changesBaseState)
+    {
+        EnsureDiagnosticsFrame();
+        AnimationRequestsThisFrame++;
+        RequestedAnimationState = requestedState;
+        LastPlayCaller = caller;
+        LastRequestedLayer = changesBaseState ? "Base" : "Upper Body";
+        LastPlayReusedState = false;
+        LastPlayResetTime = false;
+        LastPlayRestartedFade = false;
+        LastPlayResetWeight = false;
+        LastPlayReappliedTransition = false;
+    }
+
+    private void RecordPlayOutcome(PlaySnapshot snapshot, AnimancerState playedState)
+    {
+        if (playedState == null) return;
+
+        LastPlayReusedState = ReferenceEquals(snapshot.State, playedState);
+        LastPlayReappliedTransition = snapshot.WasSameStateRequest;
+        if (snapshot.WasSameStateRequest && snapshot.State != null)
+        {
+            float normalizedTime = playedState.NormalizedTime;
+            LastPlayResetTime =
+                normalizedTime + 0.01f < snapshot.NormalizedTime ||
+                (snapshot.NormalizedTime > 0.05f && normalizedTime < 0.02f);
+            LastPlayRestartedFade =
+                Mathf.Abs(playedState.TargetWeight - snapshot.TargetWeight) > 0.001f ||
+                Mathf.Abs(playedState.FadeSpeed - snapshot.FadeSpeed) > 0.001f;
+            LastPlayResetWeight = playedState.Weight + 0.001f < snapshot.Weight;
+            sameStateReplaysInWindow++;
+        }
+        else if (snapshot.ChangesBaseState)
+        {
+            stateChangesInWindow++;
+        }
+
+        if (config != null && config.Diagnostics != null && config.Diagnostics.EnableConsoleLogging)
+        {
+            Debug.Log(
+                $"[Animation] Frame={Time.frameCount} Caller={LastPlayCaller} " +
+                $"Requested={RequestedAnimationState} Previous={PreviousAnimationState} " +
+                $"Current={playedState} Layer={LastRequestedLayer} Priority={CurrentPriority} " +
+                $"CanInterrupt={IsInterruptible} Time={playedState.NormalizedTime:0.000} " +
+                $"RawSpeed={RawLocomotionSpeed:0.00} SmoothedSpeed={CurrentLocomotionSpeed:0.00} " +
+                $"Mixer={CurrentMixerParameter} Same={snapshot.WasSameStateRequest} " +
+                $"Reused={LastPlayReusedState} TimeReset={LastPlayResetTime} " +
+                $"FadeRestart={LastPlayRestartedFade} WeightReset={LastPlayResetWeight}",
+                this);
+        }
+    }
+
+    private void RecordInterrupt(string reason)
+    {
+        interruptsInWindow++;
+        LastInterruptReason = reason;
+        if (config != null && config.Diagnostics != null && config.Diagnostics.EnableConsoleLogging)
+            Debug.Log($"[Animation Interrupt] Frame={Time.frameCount} {reason}", this);
+    }
+
+    private void EnsureDiagnosticsFrame()
+    {
+        if (diagnosticsFrame == Time.frameCount) return;
+        diagnosticsFrame = Time.frameCount;
+        PlayCallsThisFrame = 0;
+        AnimationRequestsThisFrame = 0;
+        SameStateRequestsThisFrame = 0;
+    }
+
+    private void RefreshDiagnosticsWindow()
+    {
+        EnsureDiagnosticsFrame();
+        if (diagnosticsWindowStart <= 0f)
+            diagnosticsWindowStart = Time.unscaledTime;
+        if (Time.unscaledTime - diagnosticsWindowStart < 1f) return;
+
+        StateChangesLastSecond = stateChangesInWindow;
+        SameStateRequestsLastSecond = sameStateRequestsInWindow;
+        SameStateReplaysLastSecond = sameStateReplaysInWindow;
+        InterruptsLastSecond = interruptsInWindow;
+
+        CharacterAnimationConfig.DiagnosticsSettings settings = config != null ? config.Diagnostics : null;
+        if (settings != null && sameStateRequestsInWindow >= settings.SameStateReplayWarningThreshold)
+            DiagnosticsWarning = "Excessive repeated animation requests";
+        else if (settings != null && stateChangesInWindow >= settings.StateChangeWarningThreshold)
+            DiagnosticsWarning = "Animation state thrashing detected";
+        else if (settings != null && interruptsInWindow >= settings.InterruptWarningThreshold)
+            DiagnosticsWarning = "Animation is being interrupted repeatedly";
+        else
+            DiagnosticsWarning = string.Empty;
+
+        stateChangesInWindow = 0;
+        sameStateRequestsInWindow = 0;
+        sameStateReplaysInWindow = 0;
+        interruptsInWindow = 0;
+        diagnosticsWindowStart = Time.unscaledTime;
     }
 
     private void OnActionEnd()
     {
+        if (!ReferenceEquals(AnimancerEvent.Current.State, currentState) ||
+            (CurrentLogicalState != CharacterAnimationLogicalState.Action &&
+             CurrentLogicalState != CharacterAnimationLogicalState.Parkour))
+            return;
+
+        CharacterAnimationAction queued = QueuedAction;
         LastAnimationEvent = "ActionComplete";
         ReturnToLocomotion("Action complete");
+        if (queued != CharacterAnimationAction.None)
+            TryPlayAction(queued);
     }
 
     private void CleanupActionState(string reason)
     {
         activeActionSettings = null;
-        RootMotionActive = false;
+        activeParkourSettings = null;
+        SetRootMotionOwnership(CharacterAnimationRootMotionStrategy.Disabled);
+        CurrentPriority = CharacterAnimationPriority.Locomotion;
+        HasCommitted = false;
         IsInterruptible = true;
-        if (animator != null) animator.applyRootMotion = false;
         LastStateChangeReason = reason;
+    }
+
+    private void SetRootMotionOwnership(CharacterAnimationRootMotionStrategy strategy)
+    {
+        if (RootMotionStrategy == strategy &&
+            RootMotionActive == (strategy != CharacterAnimationRootMotionStrategy.Disabled))
+            return;
+
+        RootMotionStrategy = strategy;
+        RootMotionActive = strategy != CharacterAnimationRootMotionStrategy.Disabled;
+        switch (strategy)
+        {
+            case CharacterAnimationRootMotionStrategy.UseAnimationDelta:
+                MotionOwner = CharacterAnimationMotionOwner.AnimatorRootMotion;
+                break;
+            case CharacterAnimationRootMotionStrategy.ForwardToCharacterMotor:
+                MotionOwner = CharacterAnimationMotionOwner.CharacterMotorRootMotion;
+                break;
+            case CharacterAnimationRootMotionStrategy.CustomHandler:
+                MotionOwner = CharacterAnimationMotionOwner.Scripted;
+                break;
+            default:
+                MotionOwner = CharacterAnimationMotionOwner.CharacterMotor;
+                break;
+        }
+
+        if (animator != null)
+        {
+            animator.applyRootMotion =
+                strategy == CharacterAnimationRootMotionStrategy.UseAnimationDelta ||
+                strategy == CharacterAnimationRootMotionStrategy.ForwardToCharacterMotor;
+        }
+
+        if (config != null && config.Diagnostics != null && config.Diagnostics.EnableConsoleLogging)
+            Debug.Log($"[Animation Motion] Owner={MotionOwner}, Strategy={RootMotionStrategy}", this);
     }
 
     private void RefreshRuntimeDebug()
     {
-        if (currentState == null) return;
-        CurrentNormalizedTime = currentState.NormalizedTime;
-        AnimationClip clip = currentState.Clip;
-        if (clip != null) CurrentClip = clip;
+        if (currentState != null)
+        {
+            CurrentNormalizedTime = currentState.NormalizedTime;
+            CurrentStateWeight = currentState.Weight;
+            CurrentStateTargetWeight = currentState.TargetWeight;
+            CurrentStateFadeSpeed = currentState.FadeSpeed;
+            CurrentPlaybackSpeed = currentState.EffectiveSpeed;
+            CurrentStateIsPlaying = currentState.IsPlaying;
+            CurrentStateIsFading = currentState.FadeGroup != null;
+            AnimationClip clip = currentState.Clip;
+            if (clip != null) CurrentClip = clip;
+        }
+
+        RefreshMixerWeights();
+    }
+
+    private void RefreshMixerWeights()
+    {
+        IdleWeight = 0f;
+        WalkWeight = 0f;
+        JogWeight = 0f;
+        RunWeight = 0f;
+        CrouchWeight = 0f;
+
+        ManualMixerState mixerState;
+        List<LocomotionGait> childGaits;
+        if (usingCrouchMixer)
+        {
+            mixerState = crouchMixer.State;
+            childGaits = crouchChildGaits;
+        }
+        else if (usingLocomotionMixer)
+        {
+            mixerState = locomotionMixer.State;
+            childGaits = locomotionChildGaits;
+        }
+        else
+        {
+            return;
+        }
+
+        int count = Mathf.Min(mixerState.ChildCount, childGaits.Count);
+        for (int i = 0; i < count; i++)
+        {
+            float weight = mixerState.GetChild(i).Weight;
+            switch (childGaits[i])
+            {
+                case LocomotionGait.Idle: IdleWeight += weight; break;
+                case LocomotionGait.Walk: WalkWeight += weight; break;
+                case LocomotionGait.Jog: JogWeight += weight; break;
+                case LocomotionGait.Run: RunWeight += weight; break;
+                case LocomotionGait.Crouch: CrouchWeight += weight; break;
+            }
+        }
     }
 
     private float GetLayerWeight(int layer)

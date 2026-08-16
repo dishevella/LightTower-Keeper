@@ -12,14 +12,42 @@ public class GameFlowSystem : SystemAbstract
     }
     public void StartGame()
     {
-        EnterPhase(StoryPhase.Day0_BoatIntro);
+        StoryDirectorSystem director = this.GetSystem<StoryDirectorSystem>();
+        if (director != null)
+        {
+            director.StartNewGame();
+            return;
+        }
+
+        ApplyLegacyPhaseFromStory(StoryPhase.Day0_BoatIntro, true);
     }
     public void EnterPhase(StoryPhase newphase)
     {
+        StoryDirectorSystem director = this.GetSystem<StoryDirectorSystem>();
+        if (director != null)
+        {
+            director.RequestLegacyTransition(newphase);
+            return;
+        }
+
+        ApplyLegacyPhaseFromStory(newphase, true);
+    }
+
+    public void ApplyLegacyPhaseFromStory(
+        StoryPhase newphase,
+        bool notifyPresentation,
+        bool forcePresentation = false)
+    {
         if (gameState == null) return;
-        if (gameState.CurrentPhase.Value == newphase) return;
+        if (gameState.CurrentPhase.Value == newphase && !forcePresentation) return;
         var oldphase = gameState.CurrentPhase.Value;
-        gameState.CurrentPhase.Value = newphase;
+        if (notifyPresentation)
+            gameState.CurrentPhase.Value = newphase;
+        else
+            gameState.CurrentPhase.SetValueWithoutNotify(newphase);
+
+        if (!notifyPresentation) return;
+
         this.GetEvent().Send(new StoryPhaseChangedEvent(oldphase, newphase));
 
         switch (newphase)

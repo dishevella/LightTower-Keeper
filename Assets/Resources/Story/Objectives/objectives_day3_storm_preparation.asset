@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a68135a6bfe6047bfc039da84c900c, type: 3}
+  m_Name: objectives_day3_storm_preparation
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectiveGroupDefinition
+  stableGroupId: objectives.day3.storm_preparation
+  displayName: Prepare for the Storm
+  completionMode: 0
+  objectives:
+  - objectiveId: day3.reinforce_windows
+    title: Reinforce the windows
+    description: 
+    optional: 0
+    hidden: 0
+  - objectiveId: day3.check_main_light
+    title: Check the main light
+    description: 
+    optional: 0
+    hidden: 0
+  - objectiveId: day3.retrieve_outdoor_tools
+    title: Bring in the outdoor tools
+    description: 
+    optional: 0
+    hidden: 0
+  - objectiveId: day3.enable_automatic_light
+    title: Switch the beacon to automatic operation
+    description: 
+    optional: 0
+    hidden: 0

@@ -14,18 +14,26 @@ using UnityEngine.SceneManagement;
 [InitializeOnLoad]
 public static class LightTowerRuntimeSmokeTest
 {
-    private const string TargetScenePath = "Assets/_Recovery/0 (58).unity";
+    private const string TargetScenePath = LighthouseProjectSetupUtility.MainScenePath;
     private const string RequestPath = "LightTowerRuntimeSmokeTest.request";
-    private const string ResultPath = "Temp/LightTowerRuntimeSmokeTest.result";
+    private const string ResultPath =
+        "Library/LightTowerValidation/LightTowerRuntimeSmokeTest.result";
     private const string ScreenshotPath = "Library/LightTowerValidation/FirewatchRuntimePreview.png";
     private const string MovementScreenshotPath = "Library/LightTowerValidation/MovementCameraPreview.png";
     private const string ThirdPersonScreenshotPath = "Library/LightTowerValidation/ThirdPersonCharacterPreview.png";
+    private const string ExtremeLookUpScreenshotPath =
+        "Library/LightTowerValidation/ExtremeLookUpCameraPreview.png";
     private const string VistaScreenshotPath = "Library/LightTowerValidation/FirewatchVistaPreview.png";
+    private const string WaterAtmosphereScreenshotPath =
+        "Library/LightTowerValidation/FirewatchWaterAtmospherePreview.png";
+    private const string GroundMistScreenshotPath =
+        "Library/LightTowerValidation/FirewatchGroundMistPreview.png";
     private const string PendingKey = "LightTower.RuntimeSmoke.Pending";
     private const string ExitPendingKey = "LightTower.RuntimeSmoke.ExitPending";
     private const string PreviousScenesKey = "LightTower.RuntimeSmoke.PreviousScenes";
     private const string PreviousActiveSceneKey = "LightTower.RuntimeSmoke.PreviousActiveScene";
     private const string PreserveLoadedSceneKey = "LightTower.RuntimeSmoke.PreserveLoadedScene";
+    private const string CommandLineRunKey = "LightTower.RuntimeSmoke.CommandLineRun";
 
     private static readonly List<string> checks = new List<string>();
     private static bool runtimeStarted;
@@ -47,6 +55,21 @@ public static class LightTowerRuntimeSmokeTest
     private static float microDropStartY;
     private static bool microDropStayedAnimationGrounded;
     private static bool microDropSnapObserved;
+    private static readonly Collider[] cameraValidationOverlaps = new Collider[32];
+    private static int previousTargetFrameRate;
+    private static int previousVSyncCount;
+    private static int previousCaptureFrameRate;
+    private static bool cameraFrameTestInitialized;
+    private static bool cameraFrameEnvironmentStayedValid;
+    private static bool cameraFrameNearPlaneStayedClear;
+    private static int cameraFrameSamples;
+    private static float cameraFrameDeltaTotal;
+    private static Quaternion cameraTestOriginalLocalRotation;
+    private static bool cameraTestOriginalCanLook;
+    private static bool cameraConflictTestInitialized;
+    private static Vector3 protectedHeadOriginalScale;
+    private static float originalCrouchHeadSafetyRadius;
+    private static float originalCrouchHeadForwardClearance;
 
     static LightTowerRuntimeSmokeTest()
     {
@@ -63,13 +86,21 @@ public static class LightTowerRuntimeSmokeTest
         File.WriteAllText(RequestPath, DateTime.Now.ToString("O"));
     }
 
+    public static void RunFromCommandLine()
+    {
+        SessionState.SetBool(CommandLineRunKey, true);
+        BeginEditorSetup();
+    }
+
     private static void Tick()
     {
         if (AssetDatabase.IsAssetImportWorkerProcess()) return;
 
         if (SessionState.GetBool(PendingKey, false) &&
             !EditorApplication.isPlayingOrWillChangePlaymode &&
-            !SessionState.GetBool(ExitPendingKey, false))
+            !SessionState.GetBool(ExitPendingKey, false) &&
+            !Application.isBatchMode &&
+            !SessionState.GetBool(CommandLineRunKey, false))
         {
             SessionState.SetBool(PendingKey, false);
             runtimeStarted = false;
@@ -110,7 +141,10 @@ public static class LightTowerRuntimeSmokeTest
             File.Delete(ScreenshotPath);
             File.Delete(MovementScreenshotPath);
             File.Delete(ThirdPersonScreenshotPath);
+            File.Delete(ExtremeLookUpScreenshotPath);
             File.Delete(VistaScreenshotPath);
+            File.Delete(WaterAtmosphereScreenshotPath);
+            File.Delete(GroundMistScreenshotPath);
 
             Scene[] openScenes = Enumerable.Range(0, SceneManager.sceneCount)
                 .Select(SceneManager.GetSceneAt)
@@ -138,8 +172,11 @@ public static class LightTowerRuntimeSmokeTest
         catch (Exception exception)
         {
             WriteImmediateFailure(exception);
+            bool exitWhenFinished =
+                Application.isBatchMode || SessionState.GetBool(CommandLineRunKey, false);
             SessionState.SetBool(PendingKey, false);
-            if (Application.isBatchMode)
+            SessionState.SetBool(CommandLineRunKey, false);
+            if (exitWhenFinished)
                 EditorApplication.delayCall += () => EditorApplication.Exit(1);
         }
     }
@@ -148,6 +185,10 @@ public static class LightTowerRuntimeSmokeTest
     {
         Application.runInBackground = true;
         Time.timeScale = 1f;
+        previousTargetFrameRate = Application.targetFrameRate;
+        previousVSyncCount = QualitySettings.vSyncCount;
+        previousCaptureFrameRate = Time.captureFramerate;
+        QualitySettings.vSyncCount = 0;
         runtimeStarted = true;
         allPassed = true;
         checks.Clear();
@@ -178,12 +219,24 @@ public static class LightTowerRuntimeSmokeTest
                     VerifyCrouchCameraAndCreateObstacle();
                     break;
                 case 5:
-                    VerifyCameraCollisionAndCapture();
+                    VerifyCameraCollisionAtFrameRate(30);
                     break;
                 case 6:
-                    VerifyCameraReturnAndCapture();
+                    VerifyCameraCollisionAtFrameRate(60);
                     break;
                 case 7:
+                    VerifyCameraCollisionAtFrameRate(120);
+                    break;
+                case 8:
+                    VerifyCharacterEnvironmentPriorityAndClearObstacle();
+                    break;
+                case 9:
+                    VerifyExtremeLookUpCamera();
+                    break;
+                case 10:
+                    VerifyCameraReturnAndCapture();
+                    break;
+                case 11:
                     VerifyCaptureAndFinish();
                     break;
             }
@@ -204,7 +257,7 @@ public static class LightTowerRuntimeSmokeTest
         {
             Scene scene = SceneManager.GetSceneByPath(TargetScenePath);
             if (!scene.IsValid() || !scene.isLoaded)
-                throw new InvalidOperationException("recover (58) is not loaded in Play Mode.");
+                throw new InvalidOperationException("The formal Lighthouse main scene is not loaded in Play Mode.");
 
             player = scene.GetRootGameObjects()
                 .SelectMany(root => root.GetComponentsInChildren<PlayerController>(true))
@@ -223,8 +276,8 @@ public static class LightTowerRuntimeSmokeTest
 
             Record("Player components enabled", player.gameObject.activeInHierarchy && motor != null &&
                 motor.enabled && animancer != null && animancer.enabled);
-            Record("Animancer configuration revision 8", animancer != null && animancer.Config != null &&
-                animancer.Config.ConfigurationRevision == 8);
+            Record("Animancer configuration revision 12", animancer != null && animancer.Config != null &&
+                animancer.Config.ConfigurationRevision == 12);
             Record("Original Animator Controller cleared only at runtime",
                 player.GetComponent<Animator>() != null &&
                 player.GetComponent<Animator>().runtimeAnimatorController == null);
@@ -237,12 +290,24 @@ public static class LightTowerRuntimeSmokeTest
                 $"root z {cameraRoot.localPosition.z:0.###}, minimum {cameraSettings.MinimumCameraLocalForward:0.###}, " +
                 $"near clip {playerCamera.nearClipPlane:0.###}");
             Record(
+                "Camera collision uses the actual near-clip volume",
+                cameraSettings.EnableWallCollision && cameraSettings.UseNearPlaneCollisionVolume &&
+                cameraSettings.NearPlaneSkinWidth >= 0.02f &&
+                playerCamera.nearClipPlane >= 0.1f,
+                $"near {playerCamera.nearClipPlane:0.###}m, skin " +
+                $"{cameraSettings.NearPlaneSkinWidth:0.###}m");
+            Record(
                 "Animated head tracking and player-camera head suppression are active",
                 cameraSettings.TrackAnimatedHead && player.ProtectedHeadBone != null &&
                 cameraSettings.HideHeadForPlayerCamera && player.HeadRenderSuppressionEnabled,
                 player.ProtectedHeadBone != null
                     ? $"head {player.ProtectedHeadBone.name}, suppression {player.HeadRenderSuppressionEnabled}"
                     : "humanoid head bone was not resolved");
+            Record(
+                "Animated face surface anchors are available",
+                cameraSettings.EnableFaceSurfaceConstraint && player.FaceSurfaceSamplingActive,
+                $"enabled {cameraSettings.EnableFaceSurfaceConstraint}, anchors " +
+                $"{player.FaceSurfaceSamplingActive}");
             Record(
                 "Camera look sensitivity is controlled by the animation config",
                 cameraSettings.LookSensitivity > 0f && cameraSettings.LookSensitivity < 100f,
@@ -283,6 +348,16 @@ public static class LightTowerRuntimeSmokeTest
                 globalFades != null
                     ? $"speed {fadeSpeed:0.##}, fade 0.2 resolves to {globalFades.ResolveFadeIn(0.2f):0.###}"
                     : "GlobalFades is missing");
+            Record(
+                "Locomotion mixer uses smoothed CharacterController velocity",
+                animancer.Config.Locomotion.UseMotorVelocityForMixer,
+                $"enabled {animancer.Config.Locomotion.UseMotorVelocityForMixer}");
+            Record(
+                "Normal locomotion has one movement owner",
+                animancer.MotionOwner == CharacterAnimationMotionOwner.CharacterMotor &&
+                !animancer.RootMotionActive &&
+                animancer.ShouldMotorDriveTranslation,
+                $"owner {animancer.MotionOwner}, root motion {animancer.RootMotionActive}");
             VerifyOriginalAnimationAssignments();
             VerifyVisualStyle();
         }
@@ -305,9 +380,53 @@ public static class LightTowerRuntimeSmokeTest
             player.SetCanJump(true);
         }
 
+        VerifyGameModeInputOwnership();
+
         movementStart = player.transform.position;
         motor.Move(player.transform.forward * 0.08f);
         NextPhase();
+    }
+
+    private static void VerifyGameModeInputOwnership()
+    {
+        GameModeSystem modeSystem = GameApp.Interface.GetSystem<GameModeSystem>();
+        GameModeModel modeModel = GameApp.Interface.GetModel<GameModeModel>();
+        GameModeSceneBridge bridge = UnityEngine.Object.FindFirstObjectByType<GameModeSceneBridge>();
+        PlayerInteractionController interaction =
+            player.GetComponentInChildren<PlayerInteractionController>(true);
+        bool originalCanMove = player.CanMove;
+        bool originalCanLook = player.CanLook;
+        bool originalCanRun = player.CanRun;
+        bool originalCanCrouch = player.CanCrouch;
+        bool originalCanJump = player.CanJump;
+        bool originalInteraction = interaction == null || interaction.InteractionEnabled;
+
+        bool enteredCutscene = modeSystem != null && modeSystem.SetMode(GameMode.Cutscene);
+        bool cutsceneLocked = !player.CanMove && !player.CanRun &&
+                              !player.CanCrouch && !player.CanJump &&
+                              (interaction == null || !interaction.InteractionEnabled);
+        modeSystem?.SetMode(GameMode.Paused);
+        bool pauseLocked = Mathf.Approximately(Time.timeScale, 0f) && !player.CanMove;
+        modeSystem?.SetMode(GameMode.Gameplay);
+        bool restoredExactly =
+            player.CanMove == originalCanMove &&
+            player.CanLook == originalCanLook &&
+            player.CanRun == originalCanRun &&
+            player.CanCrouch == originalCanCrouch &&
+            player.CanJump == originalCanJump &&
+            (interaction == null || interaction.InteractionEnabled == originalInteraction) &&
+            Time.timeScale > 0f;
+
+        Record(
+            "GameMode Cutscene and Pause lock player input through the scene bridge",
+            bridge != null && enteredCutscene && cutsceneLocked && pauseLocked,
+            $"bridge {bridge != null}, mode {modeModel?.CurrentMode.Value}, " +
+            $"cutscene lock {cutsceneLocked}, pause lock {pauseLocked}");
+        Record(
+            "GameMode Gameplay restores the exact pre-cutscene capabilities",
+            restoredExactly,
+            $"move {player.CanMove}, look {player.CanLook}, run {player.CanRun}, " +
+            $"crouch {player.CanCrouch}, jump {player.CanJump}, time {Time.timeScale:0.##}");
     }
 
     private static void VerifyMotorAndDriveLocomotion()
@@ -337,10 +456,20 @@ public static class LightTowerRuntimeSmokeTest
     {
         animancer.SetMovement(player.transform.forward * 2f, player.transform.forward);
         if (Elapsed < 0.8f) return;
+        if (animancer.CurrentTransient != LocomotionTransient.None && Elapsed < 2.5f) return;
+        if (animancer.PlayCallsThisFrame > 0 && Elapsed < 1.4f) return;
 
         Record("Animancer receives locomotion speed", animancer.TargetLocomotionSpeed > 1.9f &&
             animancer.CurrentLocomotionSpeed > 0.5f,
             $"target {animancer.TargetLocomotionSpeed:0.##}, current {animancer.CurrentLocomotionSpeed:0.##}");
+        float locomotionWeight = animancer.IdleWeight + animancer.WalkWeight + animancer.JogWeight +
+                                 animancer.RunWeight;
+        Record(
+            "Stable locomotion updates mixer weights without replaying its state",
+            locomotionWeight > 0.9f && animancer.PlayCallsThisFrame == 0,
+            $"weight {locomotionWeight:0.###}, play calls this frame {animancer.PlayCallsThisFrame}, " +
+            $"same requests {animancer.SameStateRequestsThisFrame}, transient {animancer.CurrentTransient}, " +
+            $"grounded {animancer.Grounded}, reason {animancer.LastStateChangeReason}");
         Record("Animancer locomotion clip is active", animancer.CurrentClip != null ||
             animancer.CurrentCameraClip != null, animancer.CurrentAnimationState);
         Record(
@@ -394,6 +523,26 @@ public static class LightTowerRuntimeSmokeTest
             verticalError < 0.06f,
             $"vertical error {verticalError:0.###}m");
 
+        int playCallsBeforeLanding = animancer.PlayCallsThisFrame;
+        animancer.PlayLanding(-7f, true);
+        int playCallsAfterFirstLanding = animancer.PlayCallsThisFrame;
+        animancer.SetMovement(player.transform.forward * 2f, player.transform.forward);
+        animancer.PlayLanding(-7f, true);
+        Record(
+            "Landing ignores repeated requests and is not killed by locomotion input",
+            playCallsAfterFirstLanding > playCallsBeforeLanding &&
+            animancer.PlayCallsThisFrame == playCallsAfterFirstLanding &&
+            animancer.CurrentLogicalState == CharacterAnimationLogicalState.Landing &&
+            animancer.SameStateRequestsThisFrame > 0 &&
+            !animancer.LastPlayResetTime &&
+            !animancer.LastPlayRestartedFade &&
+            !animancer.LastPlayResetWeight,
+            $"plays {playCallsBeforeLanding}->{playCallsAfterFirstLanding}->" +
+            $"{animancer.PlayCallsThisFrame}, state {animancer.CurrentLogicalState}, " +
+            $"same requests {animancer.SameStateRequestsThisFrame}");
+        animancer.SetMovement(Vector3.zero, player.transform.forward);
+        animancer.ReturnToLocomotion("Runtime smoke test landing complete");
+
         crouchStartY = cameraRoot.localPosition.y;
         player.SetCrouching(true);
         animancer.ReturnToLocomotion("Runtime smoke test crouch");
@@ -404,6 +553,9 @@ public static class LightTowerRuntimeSmokeTest
     {
         HoldCrouchPose();
         if (Elapsed < 0.9f) return;
+        if (animancer.CurrentLocomotionSpeed > animancer.Config.Locomotion.IdleSpeedThreshold &&
+            Elapsed < 2f)
+            return;
 
         CharacterAnimationConfig config = animancer.Config;
         CharacterAnimationConfig.MobilityClipTuning crouchTuning =
@@ -413,7 +565,11 @@ public static class LightTowerRuntimeSmokeTest
             out float crouchCameraSpeed);
         Record("Crouch animation has an adjustable camera pose", hasCrouchPose &&
             crouchTuning != null && crouchTuning.OverrideCameraPosition,
-            hasCrouchPose ? $"target {crouchCameraPosition}, speed {crouchCameraSpeed:0.##}" : "missing");
+            hasCrouchPose
+                ? $"target {crouchCameraPosition}, speed {crouchCameraSpeed:0.##}"
+                : $"missing; state {animancer.CurrentAnimationState}, clip {animancer.CurrentClip}, " +
+                  $"camera clip {animancer.CurrentCameraClip}, speed " +
+                  $"{animancer.CurrentLocomotionSpeed:0.###}, mixer {animancer.CurrentMixerParameter}");
         Record("Crouch camera moves down smoothly", cameraRoot.localPosition.y < crouchStartY - 0.1f,
             $"from {crouchStartY:0.###} to {cameraRoot.localPosition.y:0.###}");
 
@@ -449,26 +605,203 @@ public static class LightTowerRuntimeSmokeTest
         collisionObstacle.transform.rotation = Quaternion.LookRotation(offset.normalized, player.transform.up);
         collisionObstacle.transform.localScale = new Vector3(1f, 1f, 0.08f);
         SceneManager.MoveGameObjectToScene(collisionObstacle, player.gameObject.scene);
+        cameraTestOriginalLocalRotation = cameraRoot.localRotation;
+        cameraTestOriginalCanLook = player.CanLook;
+        protectedHeadOriginalScale = player.ProtectedHeadBone != null
+            ? player.ProtectedHeadBone.localScale
+            : Vector3.one;
+        player.SetCanLook(false);
         Physics.SyncTransforms();
         NextPhase();
     }
 
-    private static void VerifyCameraCollisionAndCapture()
+    private static void VerifyCameraCollisionAtFrameRate(int targetFrameRate)
     {
         HoldCrouchPose();
-        if (Elapsed < 0.5f) return;
+        if (!cameraFrameTestInitialized)
+        {
+            Application.targetFrameRate = targetFrameRate;
+            Time.captureFramerate = targetFrameRate;
+            cameraFrameEnvironmentStayedValid = true;
+            cameraFrameNearPlaneStayedClear = true;
+            cameraFrameSamples = 0;
+            cameraFrameDeltaTotal = 0f;
+            cameraFrameTestInitialized = true;
+        }
+
+        if (Elapsed > 0.1f)
+        {
+            cameraFrameEnvironmentStayedValid &= player.FinalEnvironmentValid;
+            cameraFrameNearPlaneStayedClear &= !DoesNearPlaneOverlapObstacle();
+            cameraFrameSamples++;
+            cameraFrameDeltaTotal += Time.unscaledDeltaTime;
+        }
+
+        float pitchAngle = Mathf.Sin((float)Elapsed * 24f) * 58f;
+        cameraRoot.localRotation = Quaternion.Euler(pitchAngle, 0f, 0f);
+        player.SyncCurrentLookState();
+        if (Elapsed < 0.75f) return;
 
         Vector3 anchor = player.transform.TransformPoint(animancer.Config.Camera.CollisionAnchorLocalPosition);
-        obstructedCameraDistance = Vector3.Distance(anchor, playerCamera.transform.position);
-        Record("Camera wall collision pulls the camera in", player.CameraCollisionActive &&
-            obstructedCameraDistance < desiredCameraDistance - 0.01f,
-            $"desired {desiredCameraDistance:0.###}, obstructed {obstructedCameraDistance:0.###}");
+        float sampledDistance = Vector3.Distance(anchor, playerCamera.transform.position);
+        if (targetFrameRate == 30)
+            obstructedCameraDistance = sampledDistance;
+        float averageFps = cameraFrameDeltaTotal > 0.0001f
+            ? cameraFrameSamples / cameraFrameDeltaTotal
+            : 0f;
+        float expectedDelta = 1f / targetFrameRate;
+        Record(
+            $"Near-plane camera collision stays valid at simulated {targetFrameRate} FPS",
+            cameraFrameSamples > 2 &&
+            Mathf.Abs(Time.deltaTime - expectedDelta) < 0.002f &&
+            player.CameraCollisionActive &&
+            sampledDistance < desiredCameraDistance - 0.01f &&
+            cameraFrameEnvironmentStayedValid &&
+            cameraFrameNearPlaneStayedClear,
+            $"simulation delta {Time.deltaTime:0.####}s, editor throughput " +
+            $"{averageFps:0.#} frames/s, samples {cameraFrameSamples}, " +
+            $"desired {desiredCameraDistance:0.###}m, final {sampledDistance:0.###}m, " +
+            $"valid {cameraFrameEnvironmentStayedValid}, near-plane clear " +
+            $"{cameraFrameNearPlaneStayedClear}");
+
+        cameraFrameTestInitialized = false;
+        NextPhase();
+    }
+
+    private static void VerifyCharacterEnvironmentPriorityAndClearObstacle()
+    {
+        HoldCrouchPose();
+        if (!cameraConflictTestInitialized)
+        {
+            cameraRoot.localRotation = cameraTestOriginalLocalRotation;
+            player.SyncCurrentLookState();
+
+            CharacterAnimationConfig.CameraSettings settings = animancer.Config.Camera;
+            originalCrouchHeadSafetyRadius = settings.CrouchHeadSafetyRadius;
+            originalCrouchHeadForwardClearance = settings.CrouchHeadForwardClearance;
+            settings.CrouchHeadSafetyRadius = 2f;
+            settings.CrouchHeadForwardClearance = 2f;
+            Vector3 anchor = player.transform.TransformPoint(settings.CollisionAnchorLocalPosition);
+            Vector3 offset = player.DesiredCameraPosition - anchor;
+            collisionObstacle.transform.position = anchor + offset.normalized * (offset.magnitude * 0.5f);
+            collisionObstacle.transform.rotation = Quaternion.LookRotation(offset.normalized, player.transform.up);
+            Physics.SyncTransforms();
+            cameraConflictTestInitialized = true;
+            return;
+        }
+        if (Elapsed < 0.55f) return;
+
+        float environmentDelta = Vector3.Distance(
+            player.FinalCameraPosition,
+            player.EnvironmentSafeCameraPosition);
+        Record(
+            "Character interior correction cannot push the camera back through a wall",
+            player.CameraCollisionActive &&
+            player.CharacterInteriorConstraintActive &&
+            player.CharacterVisibilityFallbackActive &&
+            player.FinalEnvironmentValid &&
+            environmentDelta < 0.005f &&
+            !DoesNearPlaneOverlapObstacle(),
+            $"character constraint {player.CharacterInteriorConstraintActive}, fallback " +
+            $"{player.CharacterVisibilityFallbackActive}, final valid {player.FinalEnvironmentValid}, " +
+            $"final-to-environment {environmentDelta:0.####}m");
+        Record(
+            "Tight wall fallback avoids the slicing proximity clip and restores the Head bone after rendering",
+            !player.ProximityClipAvailable &&
+            !player.ProximityClipActive &&
+            player.HeadHiddenForPlayerCamera &&
+            !player.BoneScaleFallbackActive &&
+            player.ProtectedHeadBone != null &&
+            Vector3.Distance(player.ProtectedHeadBone.localScale, protectedHeadOriginalScale) < 0.001f,
+            $"clip available {player.ProximityClipAvailable}, active {player.ProximityClipActive}, " +
+            $"head fallback scheduled {player.HeadHiddenForPlayerCamera}, currently scaled " +
+            $"{player.BoneScaleFallbackActive}, scale " +
+            $"{(player.ProtectedHeadBone != null ? player.ProtectedHeadBone.localScale.ToString() : "missing")}");
+
+        RestoreCameraConflictSettings();
 
         if (collisionObstacle != null)
             UnityEngine.Object.Destroy(collisionObstacle);
         collisionObstacle = null;
+        player.SetCanLook(cameraTestOriginalCanLook);
+        cameraRoot.localRotation = cameraTestOriginalLocalRotation;
+        player.SyncCurrentLookState();
         Physics.SyncTransforms();
         NextPhase();
+    }
+
+    private static void VerifyExtremeLookUpCamera()
+    {
+        player.enabled = true;
+        player.SetCrouching(false);
+        animancer.SetGrounded(true);
+        animancer.SetCrouching(false);
+        animancer.SetMovement(Vector3.zero, player.transform.forward);
+
+        if (Elapsed < 0.05f)
+        {
+            player.SetCanLook(false);
+            cameraRoot.localRotation = Quaternion.Euler(-80f, 0f, 0f);
+            player.SyncCurrentLookState();
+            return;
+        }
+        if (Elapsed < 0.65f) return;
+
+        CharacterAnimationConfig.CameraSettings settings = animancer.Config.Camera;
+        Record(
+            "Extreme upward view remains in front of the animated face surface",
+            player.FaceSurfaceSamplingActive &&
+            !float.IsNaN(player.CurrentCameraFaceClearance) &&
+            !float.IsInfinity(player.CurrentCameraFaceClearance) &&
+            player.CurrentCameraFaceClearance >= player.RequiredCameraFaceClearance - 0.005f &&
+            !player.ProximityClipActive &&
+            player.FinalEnvironmentValid,
+            $"face clearance {player.CurrentCameraFaceClearance:0.###}m, required " +
+            $"{player.RequiredCameraFaceClearance:0.###}m, correction " +
+            $"{player.CameraHeadProtectionActive}, clip {player.ProximityClipActive}, " +
+            $"final valid {player.FinalEnvironmentValid}, face direction " +
+            $"{player.CurrentFaceSurfaceForward}");
+        CaptureCameraToPng(playerCamera, ExtremeLookUpScreenshotPath);
+
+        cameraRoot.localRotation = cameraTestOriginalLocalRotation;
+        player.SyncCurrentLookState();
+        player.SetCanLook(cameraTestOriginalCanLook);
+        NextPhase();
+    }
+
+    private static bool DoesNearPlaneOverlapObstacle()
+    {
+        if (collisionObstacle == null || playerCamera == null) return false;
+
+        Collider obstacleCollider = collisionObstacle.GetComponent<Collider>();
+        float nearClip = Mathf.Max(0.01f, playerCamera.nearClipPlane);
+        Quaternion solvedRotation = player.FinalCameraRotation;
+        Vector3 center = player.FinalCameraPosition +
+                         solvedRotation * Vector3.forward * (nearClip * 0.5f);
+        int overlapCount = Physics.OverlapBoxNonAlloc(
+            center,
+            player.NearPlaneCollisionHalfExtents,
+            cameraValidationOverlaps,
+            solvedRotation,
+            animancer.Config.Camera.CollisionMask,
+            QueryTriggerInteraction.Ignore);
+        for (int i = 0; i < overlapCount; i++)
+        {
+            if (cameraValidationOverlaps[i] == obstacleCollider)
+                return true;
+        }
+
+        return false;
+    }
+
+    private static void RestoreCameraConflictSettings()
+    {
+        if (!cameraConflictTestInitialized || animancer == null || animancer.Config == null) return;
+
+        CharacterAnimationConfig.CameraSettings settings = animancer.Config.Camera;
+        settings.CrouchHeadSafetyRadius = originalCrouchHeadSafetyRadius;
+        settings.CrouchHeadForwardClearance = originalCrouchHeadForwardClearance;
+        cameraConflictTestInitialized = false;
     }
 
     private static void VerifyCameraReturnAndCapture()
@@ -482,6 +815,8 @@ public static class LightTowerRuntimeSmokeTest
             $"obstructed {obstructedCameraDistance:0.###}, returned {returnedDistance:0.###}");
         CaptureRuntimePreview();
         CaptureVistaPreview();
+        CaptureWaterAtmospherePreview();
+        CaptureGroundMistPreview();
         NextPhase();
     }
 
@@ -500,6 +835,13 @@ public static class LightTowerRuntimeSmokeTest
         Record("Third-person character remains visible to the player camera",
             thirdPersonScreenshot.Exists && thirdPersonScreenshot.Length > 1024,
             thirdPersonScreenshot.Exists ? $"{thirdPersonScreenshot.Length} bytes" : "missing");
+        FileInfo extremeLookUpScreenshot = new FileInfo(ExtremeLookUpScreenshotPath);
+        Record(
+            "Extreme upward-view preview captured",
+            extremeLookUpScreenshot.Exists && extremeLookUpScreenshot.Length > 1024,
+            extremeLookUpScreenshot.Exists
+                ? $"{extremeLookUpScreenshot.Length} bytes"
+                : "missing");
         FileInfo vistaScreenshot = new FileInfo(VistaScreenshotPath);
         bool generatedVistaExists = player.gameObject.scene.GetRootGameObjects()
             .Any(root => root.name == "Firewatch Distant Vista");
@@ -511,6 +853,18 @@ public static class LightTowerRuntimeSmokeTest
             generatedVistaExists
                 ? (vistaScreenshot.Exists ? $"{vistaScreenshot.Length} bytes" : "missing")
                 : "no generated vista root");
+        FileInfo waterAtmosphereScreenshot = new FileInfo(WaterAtmosphereScreenshotPath);
+        Record(
+            "Water, rock, and atmosphere vertical-slice preview captured",
+            waterAtmosphereScreenshot.Exists && waterAtmosphereScreenshot.Length > 1024,
+            waterAtmosphereScreenshot.Exists
+                ? $"{waterAtmosphereScreenshot.Length} bytes"
+                : "missing");
+        FileInfo groundMistScreenshot = new FileInfo(GroundMistScreenshotPath);
+        Record(
+            "Ground-level local mist preview captured",
+            groundMistScreenshot.Exists && groundMistScreenshot.Length > 1024,
+            groundMistScreenshot.Exists ? $"{groundMistScreenshot.Length} bytes" : "missing");
         FinishRuntimeProbe();
     }
 
@@ -584,6 +938,56 @@ public static class LightTowerRuntimeSmokeTest
                 Quaternion.LookRotation(lookTarget - cameraPosition, Vector3.up));
             playerCamera.fieldOfView = 52f;
             CaptureCameraToPng(playerCamera, VistaScreenshotPath);
+        }
+        finally
+        {
+            cameraTransform.SetPositionAndRotation(previousPosition, previousRotation);
+            playerCamera.fieldOfView = previousFieldOfView;
+        }
+    }
+
+    private static void CaptureWaterAtmospherePreview()
+    {
+        Transform cameraTransform = playerCamera.transform;
+        Vector3 previousPosition = cameraTransform.position;
+        Quaternion previousRotation = cameraTransform.rotation;
+        float previousFieldOfView = playerCamera.fieldOfView;
+
+        Vector3 cameraPosition = new Vector3(-24f, 34f, -92f);
+        Vector3 lookTarget = new Vector3(43f, 2.5f, -10f);
+
+        try
+        {
+            cameraTransform.SetPositionAndRotation(
+                cameraPosition,
+                Quaternion.LookRotation(lookTarget - cameraPosition, Vector3.up));
+            playerCamera.fieldOfView = 55f;
+            CaptureCameraToPng(playerCamera, WaterAtmosphereScreenshotPath);
+        }
+        finally
+        {
+            cameraTransform.SetPositionAndRotation(previousPosition, previousRotation);
+            playerCamera.fieldOfView = previousFieldOfView;
+        }
+    }
+
+    private static void CaptureGroundMistPreview()
+    {
+        Transform cameraTransform = playerCamera.transform;
+        Vector3 previousPosition = cameraTransform.position;
+        Quaternion previousRotation = cameraTransform.rotation;
+        float previousFieldOfView = playerCamera.fieldOfView;
+
+        Vector3 cameraPosition = new Vector3(62f, 7f, -30f);
+        Vector3 lookTarget = new Vector3(102f, 5f, 12f);
+
+        try
+        {
+            cameraTransform.SetPositionAndRotation(
+                cameraPosition,
+                Quaternion.LookRotation(lookTarget - cameraPosition, Vector3.up));
+            playerCamera.fieldOfView = 58f;
+            CaptureCameraToPng(playerCamera, GroundMistScreenshotPath);
         }
         finally
         {
@@ -675,11 +1079,13 @@ public static class LightTowerRuntimeSmokeTest
             profile != null && profile.components.Count(component => component != null) >= 7);
         Record("Buto volumetric fog is active", butoActive);
         bool fogPreservesSurfaceDetail = butoActive &&
-            buto.fogDensity.value >= 1.3f && buto.fogDensity.value <= 1.7f &&
+            buto.fogDensity.value >= 1.8f && buto.fogDensity.value <= 2.2f &&
             buto.maxDistanceVolumetric.value >= 280f &&
             buto.maxDistanceVolumetric.value <= 330f &&
-            buto.lightIntensity.value <= 0.85f &&
-            buto.densityInLight.value <= 0.7f;
+            buto.lightIntensity.value <= 0.9f &&
+            buto.densityInLight.value <= 0.58f &&
+            buto.attenuationBoundarySize.value <= 16f &&
+            buto.noiseTiling.value >= 90f;
         Record(
             "Global fog remains dense without replacing distant surface color too early",
             fogPreservesSurfaceDetail,
@@ -693,11 +1099,102 @@ public static class LightTowerRuntimeSmokeTest
                 .FirstOrDefault(candidate => candidate.gameObject.name == "Firewatch Near Fog Exclusion")
             : null;
         Record(
-            "Player camera local fog boost remains intentional",
-            cameraFogMask != null && Mathf.Approximately(cameraFogMask.DensityMultiplier, 5f),
+            "Player camera uses a bounded local fog shaping mask independent of world fog",
+            cameraFogMask != null && cameraFogMask.DensityMultiplier >= 0f &&
+            cameraFogMask.DensityMultiplier <= 2.5f &&
+            cameraFogMask.Size.x >= 10f && cameraFogMask.Size.x <= 15f,
             cameraFogMask != null
                 ? $"multiplier {cameraFogMask.DensityMultiplier:0.##}, radius {cameraFogMask.Size.x:0.#}m"
                 : "camera fog mask missing");
+
+        FogDensityMask lightShaftZone = player.gameObject.scene.GetRootGameObjects()
+            .SelectMany(root => root.GetComponentsInChildren<FogDensityMask>(true))
+            .FirstOrDefault(candidate =>
+                candidate.gameObject.name.StartsWith(
+                    "Firewatch Light Shaft Zone - ",
+                    StringComparison.Ordinal));
+        Record(
+            "Tyndall light uses a bounded world-space density zone instead of the camera mask",
+            lightShaftZone != null && lightShaftZone.Shape == FogDensityMask.PrimitiveShape.Box &&
+            lightShaftZone.DensityMultiplier >= 3f &&
+            lightShaftZone.BlendDistance <= 10f &&
+            lightShaftZone.GetComponentInParent<Camera>(true) == null,
+            lightShaftZone != null
+                ? $"density {lightShaftZone.DensityMultiplier:0.##}, size {lightShaftZone.Size}, " +
+                  $"blend {lightShaftZone.BlendDistance:0.#}m"
+                : "light shaft zone missing");
+
+        FogDensityMask localMistBank = player.gameObject.scene.GetRootGameObjects()
+            .SelectMany(root => root.GetComponentsInChildren<FogDensityMask>(true))
+            .FirstOrDefault(candidate =>
+                candidate.gameObject.name.StartsWith("Firewatch Mist Bank - ", StringComparison.Ordinal));
+        Record(
+            "Representative coast forest uses a soft Buto local mist bank",
+            localMistBank != null && localMistBank.DensityMultiplier > 1f &&
+            localMistBank.BlendDistance >= 50f &&
+            localMistBank.GetComponentInParent<Camera>(true) == null,
+            localMistBank != null
+                ? $"density {localMistBank.DensityMultiplier:0.##}, radius {localMistBank.Size.x:0.#}m, " +
+                  $"blend {localMistBank.BlendDistance:0.#}m"
+                : "local mist bank missing");
+
+        FirewatchLocalMistLayer visibleMist = player.gameObject.scene.GetRootGameObjects()
+            .SelectMany(root => root.GetComponentsInChildren<FirewatchLocalMistLayer>(true))
+            .FirstOrDefault();
+        ParticleSystem visibleParticles = visibleMist != null ? visibleMist.Particles : null;
+        ParticleSystemRenderer visibleRenderer =
+            visibleMist != null ? visibleMist.ParticleRenderer : null;
+        MaterialPropertyBlock visibleMistProperties = new MaterialPropertyBlock();
+        if (visibleRenderer != null)
+            visibleRenderer.GetPropertyBlock(visibleMistProperties);
+        float visibleMistDensity = visibleMistProperties.GetFloat("_OpacityMultiplier");
+        Record(
+            "Selected lowland has a world-space visible mist supplement",
+            visibleMist != null && visibleParticles != null && visibleRenderer != null &&
+            visibleParticles.main.simulationSpace == ParticleSystemSimulationSpace.World &&
+            visibleParticles.main.maxParticles >= 32 &&
+            visibleRenderer.sharedMaterial != null &&
+            visibleRenderer.sharedMaterial.shader != null &&
+            visibleRenderer.sharedMaterial.shader.name == "LightTower/Firewatch/Local Mist" &&
+            visibleMistDensity >= 1.2f,
+            visibleMist != null && visibleParticles != null
+                ? $"bank {visibleMist.BankLabel}, particles {visibleParticles.particleCount}/" +
+                  $"{visibleParticles.main.maxParticles}, density {visibleMistDensity:0.##}x, shader " +
+                  $"{visibleRenderer?.sharedMaterial?.shader?.name ?? "None"}"
+                : "visible mist layer missing");
+
+        FirewatchAtmosphereController atmosphereController = styleObject != null
+            ? styleObject.GetComponent<FirewatchAtmosphereController>()
+            : null;
+        Material integratedWater = atmosphereController != null &&
+                                   atmosphereController.Config != null &&
+                                   atmosphereController.Config.ButoWaterShader != null
+            ? player.gameObject.scene.GetRootGameObjects()
+                .SelectMany(root => root.GetComponentsInChildren<Renderer>(true))
+                .SelectMany(candidate => candidate.sharedMaterials)
+                .FirstOrDefault(material => material != null &&
+                    material.shader == atmosphereController.Config.ButoWaterShader)
+            : null;
+        bool transparentWaterState = integratedWater != null &&
+                                     integratedWater.HasProperty("_Surface") &&
+                                     integratedWater.GetFloat("_Surface") >= 0.5f &&
+                                     integratedWater.HasProperty("_ZWrite") &&
+                                     integratedWater.GetFloat("_ZWrite") < 0.5f;
+        Record(
+            "Transparent water uses the Buto-integrated original PNB shader",
+            atmosphereController != null && atmosphereController.ButoWaterIntegrationActive &&
+            integratedWater != null && integratedWater.shader.name != "Hidden/InternalErrorShader",
+            atmosphereController != null
+                ? $"materials {atmosphereController.ButoWaterMaterialCount}, " +
+                  $"renderers {atmosphereController.ButoWaterRendererCount}"
+                : "atmosphere controller missing");
+        Record(
+            "Water keeps transparent sorting and ZWrite Off",
+            transparentWaterState,
+            integratedWater != null
+                ? $"queue {integratedWater.renderQueue}, surface {integratedWater.GetFloat("_Surface"):0}, " +
+                  $"zwrite {integratedWater.GetFloat("_ZWrite"):0}"
+                : "integrated water material missing");
         Record("Firewatch warm and cool color separation is active", splitToningActive);
         Record("ACES highlight rolloff is active", acesActive);
         Record(
@@ -721,12 +1218,79 @@ public static class LightTowerRuntimeSmokeTest
         Record("Player camera renders post processing and depth", cameraData != null &&
             cameraData.renderPostProcessing && cameraData.requiresDepthTexture);
 
-        ScriptableRendererData rendererData = AssetDatabase.LoadAssetAtPath<ScriptableRendererData>(
+        UniversalRendererData rendererData = AssetDatabase.LoadAssetAtPath<UniversalRendererData>(
             "Assets/Settings/PC_Renderer.asset");
+        ButoRenderFeature butoFeature = rendererData != null
+            ? rendererData.rendererFeatures.OfType<ButoRenderFeature>().FirstOrDefault()
+            : null;
+        RenderObjects preButoGlassFeature = rendererData != null
+            ? rendererData.rendererFeatures.OfType<RenderObjects>().FirstOrDefault(feature =>
+                feature.name == "Firewatch Pre-Buto Lighthouse Glass")
+            : null;
         Record("PC Renderer keeps SSAO and uses Buto", rendererData != null &&
-            rendererData.rendererFeatures.Any(feature => feature is ButoRenderFeature) &&
+            butoFeature != null &&
             rendererData.rendererFeatures.Any(feature => feature != null &&
                 feature.name == "ScreenSpaceAmbientOcclusion"));
+        Record(
+            "Water receives Buto exactly once after the opaque composite",
+            transparentWaterState && butoFeature != null &&
+            butoFeature.settings.renderPassEvent == RenderPassEvent.BeforeRenderingTransparents,
+            butoFeature != null
+                ? $"Buto event {butoFeature.settings.renderPassEvent}, water queue {integratedWater.renderQueue}"
+                : "Buto renderer feature missing");
+
+        Renderer lighthouseGlass = player.gameObject.scene.GetRootGameObjects()
+            .SelectMany(root => root.GetComponentsInChildren<Renderer>(true))
+            .FirstOrDefault(candidate => candidate.gameObject.name == "LH_WindowGlass.mo");
+        Material lighthouseGlassMaterial = lighthouseGlass != null
+            ? lighthouseGlass.sharedMaterials.FirstOrDefault(material => material != null)
+            : null;
+        bool standardTransparentGlass = lighthouseGlassMaterial != null &&
+                                        lighthouseGlassMaterial.shader != null &&
+                                        lighthouseGlassMaterial.shader.name ==
+                                        "Universal Render Pipeline/Lit" &&
+                                        lighthouseGlassMaterial.renderQueue >= 2500 &&
+                                        lighthouseGlassMaterial.HasProperty("_Surface") &&
+                                        lighthouseGlassMaterial.GetFloat("_Surface") >= 0.5f &&
+                                        lighthouseGlassMaterial.HasProperty("_ZWrite") &&
+                                        lighthouseGlassMaterial.GetFloat("_ZWrite") < 0.5f;
+        int glassLayer = atmosphereController != null && atmosphereController.Config != null
+            ? atmosphereController.Config.PreButoGlassLayer
+            : -1;
+        bool glassExcludedFromDefaultTransparents = rendererData != null &&
+                                                    glassLayer >= 0 && glassLayer <= 31 &&
+                                                    (rendererData.transparentLayerMask.value &
+                                                     (1 << glassLayer)) == 0;
+        bool glassPassOrderIsCorrect = preButoGlassFeature != null &&
+                                       butoFeature != null &&
+                                       preButoGlassFeature.settings.Event ==
+                                       RenderPassEvent.AfterRenderingSkybox &&
+                                       (int)preButoGlassFeature.settings.Event <
+                                       (int)butoFeature.settings.renderPassEvent &&
+                                       preButoGlassFeature.settings.filterSettings.RenderQueueType ==
+                                       RenderQueueType.Transparent &&
+                                       glassLayer >= 0 &&
+                                       (preButoGlassFeature.settings.filterSettings.LayerMask.value &
+                                        (1 << glassLayer)) != 0;
+        Record(
+            "Lighthouse glass keeps the original transparent URP/Lit shader",
+            standardTransparentGlass,
+            lighthouseGlassMaterial != null
+                ? $"shader {lighthouseGlassMaterial.shader.name}, queue " +
+                  $"{lighthouseGlassMaterial.renderQueue}, zwrite " +
+                  $"{lighthouseGlassMaterial.GetFloat("_ZWrite"):0}"
+                : "lighthouse glass material missing");
+        Record(
+            "Lighthouse glass renders after the skybox and before Buto exactly once",
+            atmosphereController != null &&
+            atmosphereController.PreButoGlassIntegrationActive &&
+            lighthouseGlass != null && lighthouseGlass.gameObject.layer == glassLayer &&
+            glassPassOrderIsCorrect && glassExcludedFromDefaultTransparents,
+            preButoGlassFeature != null && butoFeature != null
+                ? $"glass event {preButoGlassFeature.settings.Event}, Buto event " +
+                  $"{butoFeature.settings.renderPassEvent}, layer {glassLayer}, " +
+                  $"default transparent included {!glassExcludedFromDefaultTransparents}"
+                : "pre-Buto glass or Buto feature missing");
 
         SkinnedMeshRenderer renderer = player.GetComponentsInChildren<SkinnedMeshRenderer>(true)
             .FirstOrDefault(candidate => candidate.gameObject.name.StartsWith("Chr_", StringComparison.Ordinal));
@@ -737,6 +1301,10 @@ public static class LightTowerRuntimeSmokeTest
 
     private static void FinishRuntimeProbe()
     {
+        RestoreCameraConflictSettings();
+        Application.targetFrameRate = previousTargetFrameRate;
+        QualitySettings.vSyncCount = previousVSyncCount;
+        Time.captureFramerate = previousCaptureFrameRate;
         if (collisionObstacle != null)
             UnityEngine.Object.Destroy(collisionObstacle);
         collisionObstacle = null;
@@ -784,14 +1352,17 @@ public static class LightTowerRuntimeSmokeTest
         finally
         {
             int batchExitCode = allPassed ? 0 : 1;
+            bool exitWhenFinished =
+                Application.isBatchMode || SessionState.GetBool(CommandLineRunKey, false);
             SessionState.SetBool(PendingKey, false);
             SessionState.SetBool(ExitPendingKey, false);
             SessionState.SetString(PreviousScenesKey, string.Empty);
             SessionState.SetString(PreviousActiveSceneKey, string.Empty);
             SessionState.SetBool(PreserveLoadedSceneKey, false);
+            SessionState.SetBool(CommandLineRunKey, false);
             runtimeStarted = false;
 
-            if (Application.isBatchMode)
+            if (exitWhenFinished)
                 EditorApplication.delayCall += () => EditorApplication.Exit(batchExitCode);
         }
     }

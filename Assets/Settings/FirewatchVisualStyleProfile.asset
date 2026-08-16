@@ -129,19 +129,19 @@ MonoBehaviour:
     m_Value: 0.077
   fogDensity:
     m_OverrideState: 1
-    m_Value: 1.496
+    m_Value: 2.0240002
   anisotropy:
     m_OverrideState: 1
     m_Value: 0.45
   lightIntensity:
     m_OverrideState: 1
-    m_Value: 0.8
+    m_Value: 0.82
   densityInLight:
     m_OverrideState: 1
-    m_Value: 0.68
+    m_Value: 0.52
   densityInShadow:
     m_OverrideState: 1
-    m_Value: 0.82
+    m_Value: 0.74
   overrideDefaultMaxLightDistance:
     m_OverrideState: 1
     m_Value: 0
@@ -153,16 +153,16 @@ MonoBehaviour:
     m_Value: 22
   attenuationBoundarySize:
     m_OverrideState: 1
-    m_Value: 24
+    m_Value: 10
   litColor:
     m_OverrideState: 1
     m_Value: {r: 0.82, g: 0.566875, b: 0.42624998, a: 1}
   shadowedColor:
     m_OverrideState: 1
-    m_Value: {r: 0.20375, g: 0.275, b: 0.42249998, a: 1}
+    m_Value: {r: 0.16499999, g: 0.32375, b: 0.3425, a: 1}
   emitColor:
     m_OverrideState: 1
-    m_Value: {r: 0.0015, g: 0.0005, b: 0.0002, a: 1}
+    m_Value: {r: 0.006, g: 0.018, b: 0.016, a: 1}
   colorRamp:
     m_OverrideState: 1
     m_Value: {fileID: 2800000, guid: b2d58a04bb7bdcd46ae125e914ea658b, type: 3}
@@ -171,13 +171,13 @@ MonoBehaviour:
     m_Value: 0
   colorInfluence:
     m_OverrideState: 1
-    m_Value: 0.16
+    m_Value: 0.38
   directionalForward:
     m_OverrideState: 1
     m_Value: {r: 0.950625, g: 0.58875, b: 0.32999998, a: 1}
   directionalBack:
     m_OverrideState: 1
-    m_Value: {r: 0.28375, g: 0.345625, b: 0.551875, a: 1}
+    m_Value: {r: 0.20625, g: 0.365, b: 0.44375, a: 1}
   directionalRatio:
     m_OverrideState: 1
     m_Value: 1
@@ -192,23 +192,23 @@ MonoBehaviour:
     m_Value: 2
   gain:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.18
   noiseTiling:
     m_OverrideState: 1
-    m_Value: 60
+    m_Value: 110
   noiseWindSpeed:
     m_OverrideState: 1
-    m_Value: {x: 0.08, y: 0, z: 0.025}
+    m_Value: {x: 0.035, y: 0, z: 0.012}
   noiseMap:
     m_OverrideState: 1
-    m_Value: {x: 0.25, y: 0.9}
+    m_Value: {x: 0.36, y: 0.68}
   volumeNoise:
     m_OverrideState: 1
     m_Value:
       frequency: 4
-      octaves: 4
+      octaves: 3
       lacunarity: 2
-      gain: 0.35
+      gain: 0.32
       seed: 17
       noiseType: 4
       noiseQuality: 2

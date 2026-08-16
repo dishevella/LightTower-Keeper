@@ -38,6 +38,27 @@ public class InventoryModel : ModelAbstract
         items.Clear();
         SelectedItem.Value = InventoryItemId.None;
     }
+
+    public void Restore(IEnumerable<InventoryItemId> restoredItems, InventoryItemId selectedItem)
+    {
+        items.Clear();
+        if (restoredItems != null)
+        {
+            foreach (InventoryItemId itemId in restoredItems)
+            {
+                if (itemId != InventoryItemId.None && !items.Contains(itemId))
+                {
+                    items.Add(itemId);
+                }
+            }
+        }
+
+        InventoryItemId resolvedSelection =
+            selectedItem != InventoryItemId.None && items.Contains(selectedItem)
+                ? selectedItem
+                : items.Count > 0 ? items[0] : InventoryItemId.None;
+        SelectedItem.SetValueWithoutNotify(resolvedSelection);
+    }
     public bool SelectItem(InventoryItemId itemId)
     {
         if (itemId == InventoryItemId.None) return false;

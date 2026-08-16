@@ -27,6 +27,10 @@ public class ApproachLighthouseController : ControllerAbstract
     [Header("Playing the opening")]
     public bool opeingAnimation = true;
 
+    [Header("Development Only")]
+    [Tooltip("Explicitly completes the forest path when this component starts. Ignored in release builds.")]
+    [SerializeField] private bool autoAdvanceForestForDevelopment;
+
     [Header("Locked Components")]
     [SerializeField] private MonoBehaviour[] playerControlComponents;
     [SerializeField] private PlayerInteractionController playerInteractionController;
@@ -87,10 +91,15 @@ public class ApproachLighthouseController : ControllerAbstract
     }
     private void Start()
     {
-
         this.GetEvent().Register<ApproachLighthouseStartedEvent>(OnApproachLighthouseStarted)
             .UnRegisterWhenGameObjectDestroyed(gameObject);
-        this.SendCommand(new FinishForestPathCommand());
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        if (autoAdvanceForestForDevelopment)
+        {
+            this.SendCommand(new FinishForestPathCommand());
+        }
+#endif
     }
     private void OnApproachLighthouseStarted(ApproachLighthouseStartedEvent evt)
     {

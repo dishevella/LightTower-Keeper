@@ -15,6 +15,10 @@ public class PlayerInteractionController : MonoBehaviour
     [SerializeField] private bool interactionEnabled = true;
 
     private IInteractable currentInteractable;
+    private readonly PlayerInteractionScanner scanner = new();
+    private readonly PlayerInputAdapter inputAdapter = new();
+
+    public bool InteractionEnabled => interactionEnabled;
 
     private void Update()
     {
@@ -36,39 +40,27 @@ public class PlayerInteractionController : MonoBehaviour
     }
     private void DetectInteractable()
     {
-        currentInteractable = null;
-        if(playerCamera == null)
+        currentInteractable = scanner.FindInteractable(
+            playerCamera,
+            interactionDistance,
+            interactLayerMask);
+        if (currentInteractable != null)
         {
-            HideHint();
+            if (hintPanel != null)
+            {
+                string hint = currentInteractable.GetInteractionText();
+                hintPanel.Show($"[E]{hint}");
+            }
+
             return;
         }
-        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactLayerMask))
-        {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
 
-            if (interactable == null)
-            {
-                interactable = hit.collider.GetComponentInParent<IInteractable>();
-            }
-            if(interactable != null && interactable.CanInteract())
-                {
-                currentInteractable = interactable;
-                if (hintPanel != null)
-                {
-                    string hint = currentInteractable.GetInteractionText();
-                    hintPanel.Show($"[E]{hint}");
-                }
-                return;
-            }
-        
-        }
         HideHint();
     }
     private void HandleInteractionInput()
     {
         if (currentInteractable == null) return;
-        if(Input.GetKeyDown(interactKey)&& currentInteractable.CanInteract())
+        if(inputAdapter.WasPressedThisFrame(interactKey) && currentInteractable.CanInteract())
         {
             currentInteractable.Interact();
             HideHint();

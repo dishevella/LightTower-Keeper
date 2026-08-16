@@ -29,6 +29,40 @@ public class FirewatchVisualStyleConfig : ScriptableObject
         [ColorUsage(false, true)] public Color DistanceFogColor = Color.gray;
     }
 
+    [Serializable]
+    public class LocalMistBankSettings
+    {
+        public string Label = "Coast Forest";
+        public Vector3 Center = new Vector3(65f, 0f, -5f);
+        [MinValue(1f), SuffixLabel("m")] public float Radius = 125f;
+        [MinValue(0f), SuffixLabel("m")] public float BlendDistance = 70f;
+        [Range(1f, 4f)] public float DensityMultiplier = 3.4f;
+        public bool EnableVisibleLayer = true;
+        public Vector3 VisibleLayerOffset = new Vector3(27f, 2.2f, 8f);
+        public Vector3 VisibleLayerSize = new Vector3(95f, 2.5f, 75f);
+        [Range(8, 160)] public int VisibleParticleCount = 96;
+        [MinMaxSlider(4f, 60f, true)] public Vector2 VisibleParticleSize = new Vector2(20f, 38f);
+        [Range(0.1f, 1f)] public float VisibleParticleHeightRatio = 0.16f;
+        [Range(0.01f, 0.35f)] public float VisibleParticleOpacity = 0.3f;
+        [MinValue(5f), SuffixLabel("s")] public float VisibleParticleLifetime = 55f;
+        public Vector3 VisibleDriftVelocity = new Vector3(0.06f, 0f, 0.02f);
+        [Range(0f, 3f)] public float VisibleTurbulence = 0.35f;
+        [Range(0.005f, 0.2f)] public float VisibleTurbulenceFrequency = 0.035f;
+        [Range(0f, 0.2f)] public float VisibleTurbulenceScrollSpeed = 0.018f;
+    }
+
+    [Serializable]
+    public class LocalLightShaftZoneSettings
+    {
+        public bool Enabled = true;
+        public string Label = "Lighthouse Interior";
+        public Vector3 Center = new Vector3(30.45f, 19f, -23.9f);
+        public Vector3 EulerAngles = Vector3.zero;
+        [MinValue(0.1f), SuffixLabel("m")] public Vector3 Size = new Vector3(12f, 8f, 12f);
+        [Range(1f, 8f)] public float DensityMultiplier = 5f;
+        [MinValue(0f), SuffixLabel("m")] public float BlendDistance = 4f;
+    }
+
     [TabGroup("Setup"), ReadOnly] public int ConfigurationRevision;
     [TabGroup("Setup"), Required, AssetsOnly] public VolumeProfile TargetVolumeProfile;
     [TabGroup("Setup"), AssetsOnly] public Material PlayerToonMaterial;
@@ -47,7 +81,7 @@ public class FirewatchVisualStyleConfig : ScriptableObject
 
     [TabGroup("Lighting"), ColorUsage(false, true)] public Color MainSunColor =
         new Color(1f, 0.52f, 0.28f, 1f);
-    [TabGroup("Lighting"), MinValue(0f)] public float MainSunIntensity = 1.35f;
+    [TabGroup("Lighting"), MinValue(0f)] public float MainSunIntensity = 1.25f;
     [TabGroup("Lighting"), Range(0f, 1f)] public float MainSunShadowStrength = 0.78f;
     [TabGroup("Lighting"), ColorUsage(false, true)] public Color FillLightColor =
         new Color(0.2f, 0.32f, 0.52f, 1f);
@@ -61,7 +95,7 @@ public class FirewatchVisualStyleConfig : ScriptableObject
     [TabGroup("Lighting"), Range(0f, 2f)] public float AmbientIntensity = 0.72f;
     [TabGroup("Lighting"), Range(0f, 1f)]
     [Tooltip("Controls sky and reflection-probe contribution. Lower values keep distant sunlit surfaces from washing out.")]
-    public float ReflectionIntensity = 0.5f;
+    public float ReflectionIntensity = 0.42f;
 
     [TabGroup("Buto Fog")]
     [InfoBox("Overall controls affect every time key. Atmosphere Keys still define the time-of-day shape.")]
@@ -81,7 +115,7 @@ public class FirewatchVisualStyleConfig : ScriptableObject
 
     [TabGroup("Buto Fog"), Title("Body And Coverage")]
     [LabelText("Body Density Multiplier"), Range(0f, 20f)]
-    public float FogDensityMultiplier = 0.68f;
+    public float FogDensityMultiplier = 0.92f;
     [TabGroup("Buto Fog"), LabelText("Volumetric Range Multiplier"), Range(0.1f, 2f)]
     public float FogDistanceMultiplier = 0.58f;
     [TabGroup("Buto Fog"), LabelText("Fallback Max Distance"), MinValue(10f)]
@@ -90,23 +124,31 @@ public class FirewatchVisualStyleConfig : ScriptableObject
     public float FogDensity = 2.25f;
     [TabGroup("Buto Fog"), Title("Lighting And Height")]
     [Range(-1f, 1f)] public float Anisotropy = 0.45f;
-    [TabGroup("Buto Fog"), MinValue(0f)] public float LightIntensity = 0.8f;
-    [TabGroup("Buto Fog"), MinValue(0f)] public float DensityInLight = 0.68f;
-    [TabGroup("Buto Fog"), MinValue(0f)] public float DensityInShadow = 0.82f;
+    [TabGroup("Buto Fog"), MinValue(0f)] public float LightIntensity = 0.82f;
+    [TabGroup("Buto Fog"), MinValue(0f)] public float DensityInLight = 0.52f;
+    [TabGroup("Buto Fog"), MinValue(0f)] public float DensityInShadow = 0.74f;
     [TabGroup("Buto Fog")] public float BaseHeight = 22f;
-    [TabGroup("Buto Fog"), MinValue(1f)] public float HeightFalloff = 24f;
+    [TabGroup("Buto Fog"), MinValue(1f)] public float HeightFalloff = 10f;
     [TabGroup("Buto Fog"), LabelText("Enable Camera Fog Zone")]
     public bool EnableNearFogClearZone = true;
     [TabGroup("Buto Fog"), LabelText("Camera Fog Density Multiplier"), Range(0f, 5f)]
-    [Tooltip("Multiplies Buto density around each camera. 0 clears fog, 1 keeps global density, and values above 1 create a denser local fog body.")]
-    public float NearFogDensityMultiplier = 5f;
+    [Tooltip("Multiplies Buto density around each camera. Keep this below 1 for a clear foreground; world-space height and noise create the visible fog banks.")]
+    public float NearFogDensityMultiplier = 0.2f;
     [TabGroup("Buto Fog"), LabelText("Camera Fog Radius"), MinValue(0f), SuffixLabel("m")]
-    public float NearFogClearRadius = 20f;
+    public float NearFogClearRadius = 12f;
     [TabGroup("Buto Fog"), LabelText("Camera Fog Blend"), MinValue(0f), SuffixLabel("m")]
-    public float NearFogClearBlend = 28f;
+    public float NearFogClearBlend = 18f;
+
+    [TabGroup("Buto Fog"), Title("Local Tyndall Light Zones")]
+    [InfoBox("Keep the camera zone below 1x. These fixed world-space zones raise density only around windows or forest light shafts, so the rays remain visible without carrying heavy fog outdoors.")]
+    public bool EnableLocalLightShaftZones = true;
+    [TabGroup("Buto Fog"), ListDrawerSettings(DefaultExpandedState = true)]
+    public LocalLightShaftZoneSettings[] LocalLightShaftZones =
+        CreateDefaultLocalLightShaftZones();
+
     [TabGroup("Buto Fog"), ColorUsage(false, true)] public Color EmissionFogColor =
-        new Color(0.0015f, 0.0005f, 0.0002f, 1f);
-    [TabGroup("Buto Fog"), Range(0f, 1f)] public float FogColorInfluence = 0.16f;
+        new Color(0.006f, 0.018f, 0.016f, 1f);
+    [TabGroup("Buto Fog"), Range(0f, 1f)] public float FogColorInfluence = 0.38f;
     [TabGroup("Buto Fog")] public float DirectionalRatio = 1f;
 
     [TabGroup("Buto Fog"), Title("Distance Color Ramp")]
@@ -115,11 +157,11 @@ public class FirewatchVisualStyleConfig : ScriptableObject
     [TabGroup("Buto Fog"), GradientUsage(true)] public Gradient FogDistanceColorRamp =
         CreateDefaultFogDistanceColorRamp();
     [TabGroup("Buto Fog"), LabelText("Shadow Ramp Brightness"), Range(0f, 2f)]
-    public float FogShadowRampBrightness = 0.58f;
+    public float FogShadowRampBrightness = 0.72f;
     [TabGroup("Buto Fog"), LabelText("Lit Ramp Brightness"), Range(0f, 2f)]
     public float FogLitRampBrightness = 0.78f;
     [TabGroup("Buto Fog"), LabelText("Emission Ramp Brightness"), Range(0f, 1f)]
-    public float FogEmissionRampBrightness = 0.02f;
+    public float FogEmissionRampBrightness = 0.035f;
     [TabGroup("Buto Fog"), AssetsOnly, PreviewField(64), LabelText("Generated Ramp Texture")]
     public Texture2D FogColorRampTexture;
 
@@ -128,13 +170,13 @@ public class FirewatchVisualStyleConfig : ScriptableObject
     [TabGroup("Buto Fog")] public VolumeNoise.NoiseQuality FogNoiseQuality =
         VolumeNoise.NoiseQuality.High;
     [TabGroup("Buto Fog"), LabelText("Noise Detail Frequency"), Range(1, 64)]
-    public int FogNoiseFrequency = 6;
+    public int FogNoiseFrequency = 4;
     [TabGroup("Buto Fog"), LabelText("Generated Noise Octaves"), Range(1, 4)]
-    public int FogNoiseGeneratedOctaves = 4;
+    public int FogNoiseGeneratedOctaves = 3;
     [TabGroup("Buto Fog"), LabelText("Generated Noise Lacunarity"), Range(1, 8)]
     public int FogNoiseGeneratedLacunarity = 2;
     [TabGroup("Buto Fog"), LabelText("Generated Noise Gain"), Range(0f, 1f)]
-    public float FogNoiseGeneratedGain = 0.42f;
+    public float FogNoiseGeneratedGain = 0.32f;
     [TabGroup("Buto Fog")] public int FogNoiseSeed = 17;
     [TabGroup("Buto Fog")] public bool InvertFogNoise;
     [TabGroup("Buto Fog"), LabelText("Sampled Noise Octaves"), Range(1, 3)]
@@ -142,11 +184,72 @@ public class FirewatchVisualStyleConfig : ScriptableObject
     [TabGroup("Buto Fog"), LabelText("Sampled Noise Lacunarity"), Range(1f, 8f)]
     public float FogNoiseSamplingLacunarity = 2f;
     [TabGroup("Buto Fog"), LabelText("Sampled Noise Gain"), Range(0f, 1f)]
-    public float FogNoiseSamplingGain = 0.25f;
+    public float FogNoiseSamplingGain = 0.18f;
     [TabGroup("Buto Fog"), LabelText("Fog Patch Scale"), MinValue(0f)]
-    public float NoiseTiling = 60f;
-    [TabGroup("Buto Fog")] public Vector3 NoiseWindSpeed = new Vector3(0.08f, 0f, 0.025f);
-    [TabGroup("Buto Fog")] public Vector2 NoiseRemap = new Vector2(0.25f, 0.9f);
+    public float NoiseTiling = 110f;
+    [TabGroup("Buto Fog")] public Vector3 NoiseWindSpeed = new Vector3(0.035f, 0f, 0.012f);
+    [TabGroup("Buto Fog")] public Vector2 NoiseRemap = new Vector2(0.36f, 0.68f);
+
+    [TabGroup("Buto Fog"), Title("Representative Local Mist")]
+    [InfoBox("The array + button only adds configuration data. Give every entry a unique Label and use Rebuild Mist Hierarchy, or use Add Particle Mist At Scene View to create and place one immediately.")]
+    public bool EnableLocalMistBanks = true;
+    [TabGroup("Buto Fog"), ListDrawerSettings(DefaultExpandedState = true)]
+    public LocalMistBankSettings[] LocalMistBanks = CreateDefaultLocalMistBanks();
+    [TabGroup("Buto Fog"), Button("Add Particle Mist At Scene View", ButtonSizes.Large)]
+    private void AddParticleMistAtSceneView()
+    {
+#if UNITY_EDITOR
+        UnityEditor.SceneView sceneView = UnityEditor.SceneView.lastActiveSceneView;
+        Vector3 center = sceneView != null ? sceneView.pivot : Vector3.zero;
+        LocalMistBankSettings bank = new LocalMistBankSettings
+        {
+            Label = CreateUniqueLocalMistLabel("Particle Mist"),
+            Center = center,
+            Radius = 45f,
+            BlendDistance = 25f,
+            DensityMultiplier = 1f,
+            EnableVisibleLayer = true,
+            VisibleLayerOffset = new Vector3(0f, 1.5f, 0f),
+            VisibleLayerSize = new Vector3(45f, 2.5f, 35f),
+            VisibleParticleCount = 56,
+            VisibleParticleSize = new Vector2(14f, 26f),
+            VisibleParticleHeightRatio = 0.16f,
+            VisibleParticleOpacity = 0.2f,
+            VisibleParticleLifetime = 55f,
+            VisibleDriftVelocity = new Vector3(0.04f, 0f, 0.015f),
+            VisibleTurbulence = 0.3f,
+            VisibleTurbulenceFrequency = 0.035f,
+            VisibleTurbulenceScrollSpeed = 0.018f
+        };
+
+        int index = LocalMistBanks != null ? LocalMistBanks.Length : 0;
+        Array.Resize(ref LocalMistBanks, index + 1);
+        LocalMistBanks[index] = bank;
+        RequestLocalMistHierarchyRebuild();
+#endif
+    }
+    [TabGroup("Buto Fog"), Button("Rebuild Mist Hierarchy", ButtonSizes.Medium)]
+    private void RebuildMistHierarchy()
+    {
+#if UNITY_EDITOR
+        RequestLocalMistHierarchyRebuild();
+#endif
+    }
+    [TabGroup("Buto Fog"), Title("Visible Local Mist Supplement")]
+    [InfoBox("Buto remains the only global fog owner. This shared particle material only makes selected lowlands visibly misty.")]
+    public bool EnableVisibleLocalMist = true;
+    [TabGroup("Buto Fog"), AssetsOnly, ReadOnly] public Material LocalMistMaterial;
+    [TabGroup("Buto Fog"), LabelText("Visible Mist Density"), Range(0f, 3f)]
+    [Tooltip("Master opacity for the visible low-lying mist layer. This does not increase global Buto fog or light-shaft density.")]
+    public float VisibleMistDensity = 1.35f;
+    [TabGroup("Buto Fog"), MinValue(0.1f), SuffixLabel("m")]
+    public float LocalMistSoftIntersectionDistance = 4f;
+    [TabGroup("Buto Fog"), Range(0f, 1f)] public float LocalMistSunScatter = 0.52f;
+    [TabGroup("Buto Fog"), Range(0f, 3f)] public float LocalMistBrightness = 2.05f;
+    [TabGroup("Buto Fog"), MinMaxSlider(0f, 40f, true)]
+    public Vector2 LocalMistNearFade = new Vector2(8f, 18f);
+    [TabGroup("Buto Fog"), MinMaxSlider(50f, 300f, true)]
+    public Vector2 LocalMistFarFade = new Vector2(125f, 195f);
 
     [TabGroup("Buto Fog"), ListDrawerSettings(DefaultExpandedState = false)]
     public AtmosphereKey[] AtmosphereKeys = CreateDefaultAtmosphereKeys();
@@ -177,11 +280,58 @@ public class FirewatchVisualStyleConfig : ScriptableObject
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly, LabelText("Noise Strength")]
     private float DebugNoiseStrength => 1f - Mathf.Clamp01(NoiseRemap.y - NoiseRemap.x);
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly, LabelText("Local Fog Influence")]
-    private string DebugLocalFogInfluence => EnableNearFogClearZone
-        ? $"Each camera: {NearFogDensityMultiplier:F1}x density inside {NearFogClearRadius:F0}m, {NearFogClearBlend:F0}m blend"
-        : "None";
+    private string DebugLocalFogInfluence =>
+        $"Camera clear: {(EnableNearFogClearZone ? NearFogDensityMultiplier : 1f):F2}x; " +
+        $"Light shafts: {(EnableLocalLightShaftZones ? LocalLightShaftZones?.Length ?? 0 : 0)}; " +
+        $"World mist banks: {(EnableLocalMistBanks ? LocalMistBanks?.Length ?? 0 : 0)}; " +
+        $"Visible mist: {VisibleMistDensity:F2}x";
     [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly, LabelText("Unity Native Fog")]
     private string DebugUnityFog => RenderSettings.fog ? "Enabled (conflict)" : "Disabled";
+
+    [TabGroup("Water"), InfoBox("The original PNB water Shader Graph now includes Buto's official transparent fog blend. Runtime material instances preserve shared assets while applying the Firewatch water tuning.")]
+    [LabelText("Enable Buto Water Integration")]
+    public bool EnableButoWaterIntegration = true;
+    [TabGroup("Water"), Required, AssetsOnly, LabelText("Source Water Material")]
+    public Material WaterSourceMaterial;
+    [TabGroup("Water"), Required, AssetsOnly, LabelText("Buto Water Shader")]
+    public Shader ButoWaterShader;
+
+    [TabGroup("Water"), Title("Golden Hour Response")]
+    [ColorUsage(false, true)] public Color WaterShallowTint =
+        new Color(0.4f, 0.5f, 0.43f, 1f);
+    [TabGroup("Water"), ColorUsage(false, true)] public Color WaterDeepTint =
+        new Color(0.14f, 0.3f, 0.32f, 1f);
+    [TabGroup("Water"), ColorUsage(false, true)] public Color WaterVeryDeepTint =
+        new Color(0.08f, 0.16f, 0.24f, 1f);
+    [TabGroup("Water"), ColorUsage(false, true)] public Color WaterDistantTint =
+        new Color(0.25f, 0.3f, 0.46f, 1f);
+    [TabGroup("Water"), ColorUsage(false, true)] public Color WaterFoamTint =
+        new Color(0.86f, 0.74f, 0.62f, 1f);
+    [TabGroup("Water"), Range(0f, 1f), LabelText("Atmosphere Tint Strength")]
+    public float WaterAtmosphereTintStrength = 0.55f;
+    [TabGroup("Water"), Range(0f, 2f), LabelText("Warm Sun Specular")]
+    public float WaterSunSpecularStrength = 0.65f;
+    [TabGroup("Water"), Range(0f, 1f), LabelText("Maximum Smoothness")]
+    public float WaterMaxSmoothness = 0.5f;
+    [TabGroup("Water"), Range(0f, 5f), LabelText("Distant Water Intensity")]
+    public float WaterDistantIntensity = 1.8f;
+    [TabGroup("Water"), Range(0f, 1f), LabelText("Maximum Surface Opacity")]
+    public float WaterMaxOpacity = 0.96f;
+
+    [TabGroup("Glass"), InfoBox("The lighthouse glass keeps its original URP/Lit material. A dedicated URP Render Objects pass draws it after the skybox and before Buto, then excludes it from the normal transparent pass so it is fogged exactly once.")]
+    [LabelText("Render Lighthouse Glass Before Buto")]
+    public bool EnablePreButoLighthouseGlass = true;
+    [TabGroup("Glass"), LabelText("Glass Object Name")]
+    public string LighthouseGlassObjectName = "LH_WindowGlass.mo";
+    [TabGroup("Glass"), ReadOnly, LabelText("Dedicated Layer")]
+    public string PreButoGlassLayerName = "PreButoGlass";
+    [TabGroup("Glass"), ReadOnly, LabelText("Layer Index")]
+    public int PreButoGlassLayer = 27;
+
+    [TabGroup("Runtime Debug"), ShowInInspector, ReadOnly, LabelText("Lighthouse Glass Order")]
+    private string DebugLighthouseGlassOrder => EnablePreButoLighthouseGlass
+        ? $"After Skybox -> {PreButoGlassLayerName} -> Buto"
+        : "Default transparent order";
 
     [TabGroup("Buto Fog"), Button("Apply Fog Preview", ButtonSizes.Medium)]
     private void ApplyFogPreview()
@@ -192,6 +342,34 @@ public class FirewatchVisualStyleConfig : ScriptableObject
         UnityEditor.SceneView.RepaintAll();
 #endif
     }
+
+#if UNITY_EDITOR
+    private string CreateUniqueLocalMistLabel(string baseLabel)
+    {
+        int suffix = 1;
+        string candidate = baseLabel;
+        while (LocalMistBanks != null && Array.Exists(LocalMistBanks, bank =>
+                   bank != null && string.Equals(
+                       bank.Label,
+                       candidate,
+                       StringComparison.OrdinalIgnoreCase)))
+        {
+            suffix++;
+            candidate = $"{baseLabel} {suffix}";
+        }
+
+        return candidate;
+    }
+
+    private void RequestLocalMistHierarchyRebuild()
+    {
+        UnityEditor.EditorUtility.SetDirty(this);
+        UnityEditor.AssetDatabase.SaveAssets();
+        System.IO.File.WriteAllText(
+            "FirewatchLocalMistBanks.request",
+            DateTime.Now.ToString("O"));
+    }
+#endif
 
     [TabGroup("Foliage"), Range(2, 3)] public int FoliageLightBands = 3;
     [TabGroup("Foliage"), Range(0f, 0.49f)] public float FoliageBandSoftness = 0.08f;
@@ -309,6 +487,18 @@ public class FirewatchVisualStyleConfig : ScriptableObject
         if (FogDistanceColorRamp == null || FogDistanceColorRamp.colorKeys.Length == 0)
         {
             FogDistanceColorRamp = CreateDefaultFogDistanceColorRamp();
+            changed = true;
+        }
+
+        if (LocalMistBanks == null || LocalMistBanks.Length == 0)
+        {
+            LocalMistBanks = CreateDefaultLocalMistBanks();
+            changed = true;
+        }
+
+        if (LocalLightShaftZones == null || LocalLightShaftZones.Length == 0)
+        {
+            LocalLightShaftZones = CreateDefaultLocalLightShaftZones();
             changed = true;
         }
 
@@ -666,6 +856,12 @@ public class FirewatchVisualStyleConfig : ScriptableObject
         material.enableInstancing = true;
     }
 
+    public Color EvaluateLitFogColor(float hour) => EvaluateAtmosphere(hour).LitFogColor;
+
+    public Color EvaluateShadowFogColor(float hour) => EvaluateAtmosphere(hour).ShadowFogColor;
+
+    public Color EvaluateDistanceFogColor(float hour) => EvaluateAtmosphere(hour).DistanceFogColor;
+
     private AtmosphereSample EvaluateAtmosphere(float hour)
     {
         if (AtmosphereKeys == null || AtmosphereKeys.Length == 0)
@@ -748,9 +944,9 @@ public class FirewatchVisualStyleConfig : ScriptableObject
                 FogDensity = 1.45f,
                 MaxDistance = 520f,
                 LitFogColor = new Color(0.9f, 0.73f, 0.52f, 1f),
-                ShadowFogColor = new Color(0.27f, 0.38f, 0.45f, 1f),
+                ShadowFogColor = new Color(0.24f, 0.38f, 0.38f, 1f),
                 TowardSunColor = new Color(1f, 0.75f, 0.45f, 1f),
-                AwayFromSunColor = new Color(0.34f, 0.48f, 0.58f, 1f),
+                AwayFromSunColor = new Color(0.3f, 0.44f, 0.5f, 1f),
                 FoliageLitTint = new Color(1f, 0.82f, 0.48f, 1f),
                 FoliageShadowTint = new Color(0.3f, 0.4f, 0.4f, 1f),
                 DistanceFogColor = new Color(0.56f, 0.58f, 0.67f, 1f)
@@ -762,9 +958,9 @@ public class FirewatchVisualStyleConfig : ScriptableObject
                 FogDensity = 2.25f,
                 MaxDistance = 520f,
                 LitFogColor = new Color(0.96f, 0.48f, 0.25f, 1f),
-                ShadowFogColor = new Color(0.2f, 0.22f, 0.36f, 1f),
+                ShadowFogColor = new Color(0.16f, 0.32f, 0.34f, 1f),
                 TowardSunColor = new Color(1f, 0.38f, 0.12f, 1f),
-                AwayFromSunColor = new Color(0.3f, 0.3f, 0.5f, 1f),
+                AwayFromSunColor = new Color(0.2f, 0.36f, 0.44f, 1f),
                 FoliageLitTint = new Color(1f, 0.66f, 0.32f, 1f),
                 FoliageShadowTint = new Color(0.22f, 0.3f, 0.4f, 1f),
                 DistanceFogColor = new Color(0.52f, 0.43f, 0.61f, 1f)
@@ -782,6 +978,50 @@ public class FirewatchVisualStyleConfig : ScriptableObject
                 FoliageLitTint = new Color(0.45f, 0.52f, 0.68f, 1f),
                 FoliageShadowTint = new Color(0.1f, 0.16f, 0.24f, 1f),
                 DistanceFogColor = new Color(0.2f, 0.25f, 0.38f, 1f)
+            }
+        };
+    }
+
+    private static LocalMistBankSettings[] CreateDefaultLocalMistBanks()
+    {
+        return new[]
+        {
+            new LocalMistBankSettings
+            {
+                Label = "Coast Forest",
+                Center = new Vector3(65f, 0f, -5f),
+                Radius = 125f,
+                BlendDistance = 70f,
+                DensityMultiplier = 3.4f,
+                EnableVisibleLayer = true,
+                VisibleLayerOffset = new Vector3(27f, 2.2f, 8f),
+                VisibleLayerSize = new Vector3(95f, 2.5f, 75f),
+                VisibleParticleCount = 96,
+                VisibleParticleSize = new Vector2(20f, 38f),
+                VisibleParticleHeightRatio = 0.16f,
+                VisibleParticleOpacity = 0.3f,
+                VisibleParticleLifetime = 55f,
+                VisibleDriftVelocity = new Vector3(0.06f, 0f, 0.02f),
+                VisibleTurbulence = 0.35f,
+                VisibleTurbulenceFrequency = 0.035f,
+                VisibleTurbulenceScrollSpeed = 0.018f
+            }
+        };
+    }
+
+    private static LocalLightShaftZoneSettings[] CreateDefaultLocalLightShaftZones()
+    {
+        return new[]
+        {
+            new LocalLightShaftZoneSettings
+            {
+                Enabled = true,
+                Label = "Lighthouse Interior",
+                Center = new Vector3(30.45f, 19f, -23.9f),
+                EulerAngles = Vector3.zero,
+                Size = new Vector3(12f, 8f, 12f),
+                DensityMultiplier = 5f,
+                BlendDistance = 4f
             }
         };
     }

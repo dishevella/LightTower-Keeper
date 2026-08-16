@@ -17,4 +17,18 @@ public class LighthouseDutyModel : ModelAbstract
         LightActivated = new BindableProperty<bool>(false);
         BeamSweepCompleted = new BindableProperty<bool>(false);
     }
+
+    public void Restore(
+        bool generatorChecked,
+        bool lampRoomChecked,
+        bool lensChecked,
+        bool lightActivated,
+        bool beamSweepCompleted)
+    {
+        GeneratorChecked.SetValueWithoutNotify(generatorChecked);
+        LampRoomChecked.SetValueWithoutNotify(lampRoomChecked);
+        LensChecked.SetValueWithoutNotify(lensChecked);
+        LightActivated.SetValueWithoutNotify(lightActivated);
+        BeamSweepCompleted.SetValueWithoutNotify(beamSweepCompleted);
+    }
 }

@@ -25,8 +25,12 @@ public static class FirewatchVisualStyleConfigurator
     private const string EnvironmentVariantRoot = "Assets/Materials/Firewatch/Environment";
     private const string VistaRootName = "Firewatch Distant Vista";
     private const string NearFogExclusionName = "Firewatch Near Fog Exclusion";
-    private const string AutoSessionKey = "LightTower.FirewatchVisualStyleConfigurator.v6";
-    private const int ConfigurationRevision = 6;
+    private const string AutoSessionKey = "LightTower.FirewatchVisualStyleConfigurator.v7";
+    private const int ConfigurationRevision = 7;
+    private const string WaterSourceMaterialPath =
+        "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Water_Ocean_Day.mat";
+    private const string ButoWaterShaderPath =
+        "Assets/PolygonNatureBiomes/PNB_Core/Shaders/Water.shadergraph";
 
     private const string BackgroundTreesAPath =
         "Assets/PolygonNatureBiomes/PNB_Alpine_Mountain/Prefabs/SM_Env_Background_Trees_01.prefab";
@@ -376,6 +380,13 @@ public static class FirewatchVisualStyleConfigurator
                 ApplyRevisionSixPalette(config);
                 configChanged = true;
             }
+            if (config.ConfigurationRevision < 7)
+            {
+                config.EnableLocalLightShaftZones = true;
+                config.NearFogDensityMultiplier = 0.2f;
+                config.VisibleMistDensity = 1.35f;
+                configChanged = true;
+            }
             if (configCreated || config.ConfigurationRevision < ConfigurationRevision)
             {
                 config.ConfigurationRevision = ConfigurationRevision;
@@ -508,13 +519,36 @@ public static class FirewatchVisualStyleConfigurator
         changed |= AssignIfMissing(ref config.NearMountainB, NearMountainBPath);
         changed |= AssignIfMissing(ref config.FarMountainA, FarMountainAPath);
         changed |= AssignIfMissing(ref config.FarMountainB, FarMountainBPath);
+
+        if (config.WaterSourceMaterial == null)
+        {
+            config.WaterSourceMaterial =
+                AssetDatabase.LoadAssetAtPath<Material>(WaterSourceMaterialPath);
+            if (config.WaterSourceMaterial == null)
+                throw new FileNotFoundException(
+                    "The PNB source water material was not found.",
+                    WaterSourceMaterialPath);
+            changed = true;
+        }
+
+        Shader butoWaterShader = AssetDatabase.LoadAssetAtPath<Shader>(ButoWaterShaderPath);
+        if (butoWaterShader == null)
+            throw new FileNotFoundException(
+                "The Buto-integrated original PNB water Shader Graph was not found.",
+                ButoWaterShaderPath);
+        if (config.ButoWaterShader != butoWaterShader)
+        {
+            config.ButoWaterShader = butoWaterShader;
+            changed = true;
+        }
+
         return changed;
     }
 
     private static void ApplyRevisionSixPalette(FirewatchVisualStyleConfig config)
     {
         config.MainSunColor = new Color(1f, 0.72f, 0.52f, 1f);
-        config.MainSunIntensity = 1.35f;
+        config.MainSunIntensity = 1.25f;
         config.MainSunShadowStrength = 0.82f;
         config.FillLightColor = new Color(0.22f, 0.34f, 0.56f, 1f);
         config.FillLightIntensity = 0.08f;
@@ -522,19 +556,33 @@ public static class FirewatchVisualStyleConfigurator
         config.AmbientEquatorColor = new Color(0.3f, 0.33f, 0.42f, 1f);
         config.AmbientGroundColor = new Color(0.12f, 0.16f, 0.22f, 1f);
         config.AmbientIntensity = 0.68f;
-        config.ReflectionIntensity = 0.5f;
+        config.ReflectionIntensity = 0.42f;
         config.MidPaletteTint = new Color(0.64f, 0.61f, 0.59f, 1f);
         config.FarPaletteTint = new Color(0.38f, 0.43f, 0.64f, 1f);
 
-        config.FogDensityMultiplier = 0.68f;
+        config.FogDensityMultiplier = 0.92f;
         config.FogDistanceMultiplier = 0.58f;
         config.Anisotropy = 0.45f;
-        config.LightIntensity = 0.8f;
-        config.DensityInLight = 0.68f;
-        config.DensityInShadow = 0.82f;
-        config.FogColorInfluence = 0.16f;
+        config.LightIntensity = 0.82f;
+        config.DensityInLight = 0.52f;
+        config.DensityInShadow = 0.74f;
+        config.HeightFalloff = 10f;
+        config.EmissionFogColor = new Color(0.006f, 0.018f, 0.016f, 1f);
+        config.FogColorInfluence = 0.38f;
         config.DirectionalRatio = 1f;
-        config.NearFogDensityMultiplier = 5f;
+        config.NearFogDensityMultiplier = 0.2f;
+        config.NearFogClearRadius = 12f;
+        config.NearFogClearBlend = 18f;
+        config.FogShadowRampBrightness = 0.72f;
+        config.FogLitRampBrightness = 0.78f;
+        config.FogEmissionRampBrightness = 0.035f;
+        config.FogNoiseFrequency = 4;
+        config.FogNoiseGeneratedOctaves = 3;
+        config.FogNoiseGeneratedGain = 0.32f;
+        config.FogNoiseSamplingGain = 0.18f;
+        config.NoiseTiling = 110f;
+        config.NoiseWindSpeed = new Vector3(0.035f, 0f, 0.012f);
+        config.NoiseRemap = new Vector2(0.36f, 0.68f);
 
         config.ToneMapper = TonemappingMode.ACES;
         config.Exposure = -0.15f;
@@ -559,9 +607,9 @@ public static class FirewatchVisualStyleConfigurator
                 Mathf.Abs(key.Hour - 18f) < 0.1f)
             {
                 key.LitFogColor = new Color(0.82f, 0.56f, 0.42f, 1f);
-                key.ShadowFogColor = new Color(0.2f, 0.27f, 0.42f, 1f);
+                key.ShadowFogColor = new Color(0.16f, 0.32f, 0.34f, 1f);
                 key.TowardSunColor = new Color(0.95f, 0.58f, 0.32f, 1f);
-                key.AwayFromSunColor = new Color(0.28f, 0.34f, 0.55f, 1f);
+                key.AwayFromSunColor = new Color(0.2f, 0.36f, 0.44f, 1f);
                 key.FoliageLitTint = new Color(0.92f, 0.72f, 0.48f, 1f);
                 key.FoliageShadowTint = new Color(0.22f, 0.31f, 0.44f, 1f);
                 key.DistanceFogColor = config.FarPaletteTint;
@@ -570,9 +618,9 @@ public static class FirewatchVisualStyleConfigurator
                      Mathf.Abs(key.Hour - 14f) < 0.1f)
             {
                 key.LitFogColor = new Color(0.82f, 0.67f, 0.52f, 1f);
-                key.ShadowFogColor = new Color(0.26f, 0.35f, 0.46f, 1f);
+                key.ShadowFogColor = new Color(0.24f, 0.38f, 0.38f, 1f);
                 key.TowardSunColor = new Color(0.96f, 0.72f, 0.48f, 1f);
-                key.AwayFromSunColor = new Color(0.34f, 0.43f, 0.58f, 1f);
+                key.AwayFromSunColor = new Color(0.3f, 0.44f, 0.5f, 1f);
                 key.FoliageLitTint = new Color(0.95f, 0.78f, 0.5f, 1f);
                 key.FoliageShadowTint = new Color(0.27f, 0.38f, 0.46f, 1f);
                 key.DistanceFogColor = new Color(0.45f, 0.49f, 0.65f, 1f);

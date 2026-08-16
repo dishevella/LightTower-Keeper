@@ -38,6 +38,12 @@ public sealed class GameApp : IApp// sealed means can not be inherited anymore
 
         if (initialized) return;
         RegisterModel(new GameStateModel());
+        RegisterModel(new GameModeModel());
+        RegisterModel(new StoryProgressModel());
+        RegisterModel(new WorldStateModel());
+        RegisterModel(new ObjectiveGroupModel());
+        RegisterModel(new GirlStoryStateModel());
+        RegisterModel(new CollectibleStateModel());
         RegisterModel(new TaskModel());
         RegisterModel(new ToolInventoryModel());
         RegisterModel(new LighthouseDutyModel());
@@ -45,10 +51,18 @@ public sealed class GameApp : IApp// sealed means can not be inherited anymore
         RegisterModel(new Day1RouteModel());
         RegisterModel(new TimeOfDayModel());
 
+        RegisterSystem(new GameModeSystem());
+        RegisterSystem(new StorySystem());
+        RegisterSystem(new WorldStateSystem());
+        RegisterSystem(new ObjectiveSystem());
+        RegisterSystem(new GirlStorySystem());
+        RegisterSystem(new CollectibleStateSystem());
         RegisterSystem(new TaskSystem());
         RegisterSystem(new TimeSystem());
         RegisterSystem(new GameFlowSystem());
         RegisterSystem(new InventorySystem());
+        RegisterSystem(new SaveSystem());
+        RegisterSystem(new StoryDirectorSystem());
 
         foreach (var model in pendingModels)
         {  

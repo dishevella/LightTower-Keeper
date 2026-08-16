@@ -95,6 +95,9 @@ public class CinematicSequenceTrigger : ControllerAbstract
     private bool cachedCanJump;
     private bool cachedCursorLocked;
     private bool[] cachedComponentStates;
+    private bool playerStateCached;
+    private bool ownsCutsceneMode;
+    private GameMode modeBeforeSequence = GameMode.Gameplay;
 
     private void Reset()
     {
@@ -135,6 +138,7 @@ public class CinematicSequenceTrigger : ControllerAbstract
         {
             RestorePlayerState();
             SetAdditionalComponentsLocked(false);
+            RestoreGameMode();
             playing = false;
         }
     }
@@ -166,6 +170,7 @@ public class CinematicSequenceTrigger : ControllerAbstract
 
         yield return PreparePlayerRoutine();
         CachePlayerState();
+        EnterCutsceneMode();
         onSequenceStarted?.Invoke();
         if (audioSourceWhileLetter != null)
         audioSourceWhileLetter.Play();
@@ -201,6 +206,7 @@ public class CinematicSequenceTrigger : ControllerAbstract
         CommitCurrentViewToPlayerController();
         RestorePlayerState();
         SetAdditionalComponentsLocked(false);
+        RestoreGameMode();
         lookLocked = false;
         currentFocusTarget = null;
         playing = false;
@@ -251,6 +257,8 @@ public class CinematicSequenceTrigger : ControllerAbstract
             cachedCursorLocked = Cursor.lockState == CursorLockMode.Locked;
         }
 
+        playerStateCached = true;
+
         if (additionalComponentsToLock == null)
         {
             cachedComponentStates = null;
@@ -297,7 +305,7 @@ public class CinematicSequenceTrigger : ControllerAbstract
 
     private void RestorePlayerState()
     {
-        if (playerController == null)
+        if (!playerStateCached || playerController == null)
         {
             return;
         }
@@ -308,6 +316,25 @@ public class CinematicSequenceTrigger : ControllerAbstract
         playerController.SetCanCrouch(cachedCanCrouch);
         playerController.SetCanJump(cachedCanJump);
         playerController.SetCursorLocked(cachedCursorLocked);
+        playerStateCached = false;
+    }
+
+    private void EnterCutsceneMode()
+    {
+        GameModeModel modeModel = this.GetModel<GameModeModel>();
+        modeBeforeSequence = modeModel?.CurrentMode.Value ?? GameMode.Gameplay;
+        ownsCutsceneMode = this.GetSystem<GameModeSystem>()?.SetMode(GameMode.Cutscene) == true;
+    }
+
+    private void RestoreGameMode()
+    {
+        if (!ownsCutsceneMode)
+        {
+            return;
+        }
+
+        this.GetSystem<GameModeSystem>()?.SetMode(modeBeforeSequence);
+        ownsCutsceneMode = false;
     }
 
     private void CommitCurrentViewToPlayerController()

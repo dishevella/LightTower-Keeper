@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 380969377098d8844829887eec20d3dc, type: 3}
+  m_Name: day1_find_bottle_drawing
+  m_EditorClassIdentifier: Assembly-CSharp::StoryBeatDefinition
+  stableBeatId: day1.find_bottle_drawing
+  chapter: 2
+  displayName: Find the Bottle Drawing
+  requiredWorldFacts: []
+  objectiveGroup: {fileID: 0}
+  entryGameMode: 2
+  overrideTime: 1
+  targetHour: 13
+  weatherProfileKey: 
+  sequenceKey: 
+  factsOnEnter: []
+  factsOnComplete:
+  - world.first_drawing_found
+  overrideGirlState: 0
+  girlState: 0
+  nextBeatId: day1.return_to_lighthouse
+  createsCheckpoint: 0
+  checkpointId: 
+  legacyCompatibleNextBeatIds: []

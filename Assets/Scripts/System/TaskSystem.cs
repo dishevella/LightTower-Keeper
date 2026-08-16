@@ -19,12 +19,14 @@ public class TaskSystem : SystemAbstract
         taskModel.IsCompleted.Value = false;
         taskModel.HasTask.Value = true;
         Publish();
+        this.GetSystem<ObjectiveSystem>()?.MirrorLegacyTask(taskId, title, description);
     }
     public void CompleteCurrentTask()
     {
         if (!taskModel.HasTask.Value) return;
         taskModel.IsCompleted.Value = true;
         Publish();
+        this.GetSystem<ObjectiveSystem>()?.MirrorLegacyCompletion(taskModel.TaskId.Value);
     }
     public void ClearTask()
     {
@@ -33,6 +35,24 @@ public class TaskSystem : SystemAbstract
         taskModel.TaskDescription.Value = string.Empty;
         taskModel.IsCompleted.Value = false;
         taskModel.HasTask.Value = false;
+        Publish();
+        this.GetSystem<ObjectiveSystem>()?.ClearLegacyTask();
+    }
+
+    public void SetObjectiveGroupPresentation(
+        string taskId,
+        string title,
+        string description,
+        bool completed,
+        bool hasTask)
+    {
+        if (taskModel == null) return;
+
+        taskModel.TaskId.Value = taskId ?? string.Empty;
+        taskModel.TaskTitle.Value = title ?? string.Empty;
+        taskModel.TaskDescription.Value = description ?? string.Empty;
+        taskModel.IsCompleted.Value = completed;
+        taskModel.HasTask.Value = hasTask;
         Publish();
     }
     private void Publish()

@@ -56,6 +56,14 @@ public class InventorySystem : SystemAbstract
         PublishChanged();
     }
 
+    public void Restore(IEnumerable<InventoryItemId> items, InventoryItemId selectedItem)
+    {
+        if (inventoryModel == null) return;
+
+        inventoryModel.Restore(items, selectedItem);
+        PublishChanged();
+    }
+
     private void PublishChanged()
     {
         if (inventoryModel == null) return;

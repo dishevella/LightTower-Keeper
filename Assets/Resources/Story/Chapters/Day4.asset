@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8baa1399234514a4bac5cba7251a71f9, type: 3}
+  m_Name: Day4
+  m_EditorClassIdentifier: Assembly-CSharp::StoryChapterDefinition
+  chapter: 5
+  displayName: Day 4
+  initialBeatId: day4.second_cup_morning
+  beats:
+  - {fileID: 11400000, guid: d6b17b93e3644cd458c1e88a1eef1f82, type: 2}
+  - {fileID: 11400000, guid: 8bb629cf8611de84084f1ad943b84ee2, type: 2}
+  - {fileID: 11400000, guid: 51983fd3744f37e4e81a850238a5f8ae, type: 2}
+  - {fileID: 11400000, guid: 4c05f74ab7a289a4a87b677da42f3e47, type: 2}
+  - {fileID: 11400000, guid: 7002d14d3fcef10409dd3015a7eb4c98, type: 2}

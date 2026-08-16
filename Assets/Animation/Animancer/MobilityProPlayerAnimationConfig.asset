@@ -19,13 +19,13 @@ MonoBehaviour:
     ClearRuntimeAnimatorControllerOnInitialize: 1
   SourceAnimationPack: Project original locomotion first; Unity MOBILITY PRO 2.7B1
     fills missing roles
-  ConfiguredScenePath: Assets/_Recovery/0 (58).unity
-  ConfigurationRevision: 8
+  ConfiguredScenePath: Assets/_Recovery/0 (7).unity
+  ConfigurationRevision: 12
   DefaultLocomotionRootMotion: 0
   DefaultParkourRootMotion: 2
   UseCodeDrivenEvents: 1
   Camera:
-    LookSensitivity: 65
+    LookSensitivity: 30
     EnablePerAnimationPositions: 1
     CrouchDownBlendSpeed: 10
     StandUpBlendSpeed: 10
@@ -34,25 +34,49 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 63
     CollisionRadius: 0.16
-    CollisionPadding: 0.04
+    CollisionPadding: 0.03
     MinimumDistance: 0.36
     MinimumDistanceRatio: 0.65
     PullInSpeed: 30
     ReturnSpeed: 10
     CollisionAnchorLocalPosition: {x: 0, y: 1.25, z: 0.05}
     CameraNearClip: 0.18
+    UseNearPlaneCollisionVolume: 1
+    NearPlaneSkinWidth: 0.03
+    PenetrationIterations: 4
+    MaximumPenetrationCorrection: 0.5
     EnableCharacterInteriorProtection: 1
-    MinimumCameraLocalForward: 0.55
-    CrouchMinimumCameraLocalForward: 0.85
+    MinimumCameraLocalForward: 0.38
+    CrouchMinimumCameraLocalForward: 0.55
     TrackAnimatedHead: 1
+    EnableFaceSurfaceConstraint: 1
+    FaceSurfaceClearance: 0.025
+    CrouchFaceSurfaceClearance: 0.035
+    FaceAnchorFallbackDepth: 0.48
+    FaceDirectionFollow: 0.45
+    LookUpExtraFaceClearance: 0.14
+    LookUpFaceClearanceStartAngle: 20
+    LookUpFaceClearanceFullAngle: 70
     HeadForwardClearance: 0.35
     CrouchHeadForwardClearance: 0.45
     HeadSafetyRadius: 0.3
     CrouchHeadSafetyRadius: 0.42
+    TrackUpperBodyBones: 1
+    NeckSafetyRadius: 0.24
+    ChestSafetyRadius: 0.28
+    ShoulderSafetyRadius: 0.22
+    CrouchUpperBodyRadiusScale: 1.15
+    EnableProximityClip: 0
+    ProximityClipShader: {fileID: 4800000, guid: fe7b0e49d0414c97be52f53ad8660f80, type: 3}
+    ProximityClipRadius: 0.2
     HideHeadForPlayerCamera: 1
+    HeadScaleEmergencyOnly: 1
     CharacterHideDistance: 0.9
     HiddenHeadScale: 0.001
     InteriorProtectionBlendSpeed: 30
+    EnableRuntimeSafetyWarnings: 1
+    SafetyWarningCooldown: 2
+    DrawSolverGizmos: 1
   Locomotion:
     Idle: {fileID: 7400000, guid: 60eb678fb83a7414ba163f9a40c42925, type: 2}
     IdleVariations:
@@ -348,6 +372,7 @@ MonoBehaviour:
     DirectionSmoothTime: 0.11
     MaximumVisualAcceleration: 30
     IdleSpeedThreshold: 0.05
+    UseMotorVelocityForMixer: 1
     WalkSpeed: 2
     JogSpeed: 3
     RunSpeed: 4
@@ -679,6 +704,11 @@ MonoBehaviour:
     UseSharedDurations: 0
     SharedFadeIn: 0.1
     SharedFadeOut: 0.12
+  Diagnostics:
+    EnableConsoleLogging: 0
+    SameStateReplayWarningThreshold: 3
+    StateChangeWarningThreshold: 8
+    InterruptWarningThreshold: 4
   ClipTunings:
   - Source: 0
     Category: 0

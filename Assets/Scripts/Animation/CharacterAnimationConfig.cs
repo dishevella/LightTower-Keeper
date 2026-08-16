@@ -400,6 +400,9 @@ public class CharacterAnimationConfig : ScriptableObject
         [BoxGroup("Velocity Smoothing"), MinValue(0f)] public float DirectionSmoothTime = 0.1f;
         [BoxGroup("Velocity Smoothing"), MinValue(0f)] public float MaximumVisualAcceleration = 30f;
         [BoxGroup("Velocity Smoothing"), MinValue(0f)] public float IdleSpeedThreshold = 0.05f;
+        [BoxGroup("Velocity Smoothing"), LabelText("Use Motor Velocity")]
+        [Tooltip("Uses the CharacterController's measured horizontal velocity for the visual mixer while requested input still drives state intent. This prevents blocked movement and ground correction from snapping the gait.")]
+        public bool UseMotorVelocityForMixer = true;
 
         [BoxGroup("Mixer Speed Thresholds"), MinValue(0f)] public float WalkSpeed = 2f;
         [BoxGroup("Mixer Speed Thresholds"), MinValue(0f)] public float JogSpeed = 3f;
@@ -526,6 +529,23 @@ public class CharacterAnimationConfig : ScriptableObject
     }
 
     [Serializable]
+    public class DiagnosticsSettings
+    {
+        [BoxGroup("Logging"), LabelText("Enable Console Logging")]
+        [Tooltip("Logs actual animation state changes. Keep disabled during normal play.")]
+        public bool EnableConsoleLogging;
+
+        [BoxGroup("Warnings"), LabelText("Same-State Replay Limit"), MinValue(1)]
+        public int SameStateReplayWarningThreshold = 3;
+
+        [BoxGroup("Warnings"), LabelText("State Changes Limit"), MinValue(1)]
+        public int StateChangeWarningThreshold = 8;
+
+        [BoxGroup("Warnings"), LabelText("Interrupts Limit"), MinValue(1)]
+        public int InterruptWarningThreshold = 4;
+    }
+
+    [Serializable]
     public class CameraSettings
     {
         [BoxGroup("Look Input"), LabelText("Mouse Look Sensitivity"), Range(1f, 200f)]
@@ -541,7 +561,7 @@ public class CharacterAnimationConfig : ScriptableObject
         [BoxGroup("Wall Collision")] public bool EnableWallCollision = true;
         [BoxGroup("Wall Collision")] public LayerMask CollisionMask = ~0;
         [BoxGroup("Wall Collision"), MinValue(0.01f)] public float CollisionRadius = 0.16f;
-        [BoxGroup("Wall Collision"), MinValue(0f)] public float CollisionPadding = 0.04f;
+        [BoxGroup("Wall Collision"), MinValue(0f)] public float CollisionPadding = 0.03f;
         [BoxGroup("Wall Collision"), MinValue(0.01f)] public float MinimumDistance = 0.36f;
         [BoxGroup("Wall Collision"), LabelText("Near Pose Minimum Ratio"), Range(0.05f, 0.95f)]
         public float MinimumDistanceRatio = 0.65f;
@@ -551,15 +571,54 @@ public class CharacterAnimationConfig : ScriptableObject
         public Vector3 CollisionAnchorLocalPosition = new Vector3(0f, 1.25f, 0.05f);
         [BoxGroup("Wall Collision"), Range(0.01f, 0.3f)] public float CameraNearClip = 0.12f;
 
+        [BoxGroup("Near Plane Collision"), LabelText("Use Near Plane Volume")]
+        [Tooltip("Sweeps the camera near-clip rectangle as an oriented box so screen corners cannot pass through walls while the camera point remains outside.")]
+        public bool UseNearPlaneCollisionVolume = true;
+        [BoxGroup("Near Plane Collision"), LabelText("Near Plane Skin Width"), Range(0.005f, 0.1f)]
+        public float NearPlaneSkinWidth = 0.03f;
+        [BoxGroup("Near Plane Collision"), LabelText("Penetration Iterations"), Range(1, 8)]
+        public int PenetrationIterations = 4;
+        [BoxGroup("Near Plane Collision"), LabelText("Max Recovery Per Frame"), MinValue(0.05f)]
+        public float MaximumPenetrationCorrection = 0.5f;
+
         [BoxGroup("Character Interior Protection")] public bool EnableCharacterInteriorProtection = true;
         [BoxGroup("Character Interior Protection"), LabelText("Minimum Camera Forward"), MinValue(0f)]
-        [Tooltip("Stable player-local Z minimum used while standing. It does not follow head-bob animation.")]
-        public float MinimumCameraLocalForward = 0.55f;
+        [Tooltip("Small stable player-local Z guard used while standing. Environment collision always has priority over this framing preference.")]
+        public float MinimumCameraLocalForward = 0.38f;
         [BoxGroup("Character Interior Protection"), LabelText("Crouch Minimum Camera Forward"), MinValue(0f)]
-        [Tooltip("Stable player-local Z minimum used while crouching. Increase it if crouch poses lean the head into the camera.")]
-        public float CrouchMinimumCameraLocalForward = 0.85f;
+        [Tooltip("Small stable player-local Z guard used while crouching. Animated bone volumes handle pose-specific intrusion.")]
+        public float CrouchMinimumCameraLocalForward = 0.55f;
         [BoxGroup("Character Interior Protection"), LabelText("Track Animated Head")]
         public bool TrackAnimatedHead = true;
+        [BoxGroup("Character Interior Protection"), LabelText("Keep Camera Outside Face")]
+        [Tooltip("Uses the animated eyes and eyebrows as the front surface of the face. This keeps the camera outside the head while allowing hair in front of that surface to remain visible.")]
+        public bool EnableFaceSurfaceConstraint = true;
+        [BoxGroup("Character Interior Protection"), LabelText("Standing Face Clearance"), Range(0f, 0.2f)]
+        [Tooltip("Small distance kept between the animated face surface and both the camera point and its near-clip corners while standing. Lower values show more fringe; higher values provide more protection from the inside of the head.")]
+        [ShowIf(nameof(EnableFaceSurfaceConstraint))]
+        public float FaceSurfaceClearance = 0.025f;
+        [BoxGroup("Character Interior Protection"), LabelText("Crouching Face Clearance"), Range(0f, 0.2f)]
+        [Tooltip("Small distance kept between the animated face surface and both the camera point and its near-clip corners while crouching.")]
+        [ShowIf(nameof(EnableFaceSurfaceConstraint))]
+        public float CrouchFaceSurfaceClearance = 0.035f;
+        [BoxGroup("Character Interior Protection"), LabelText("Fallback Face Depth"), Range(0.2f, 0.7f)]
+        [Tooltip("Distance from the Head bone used only if the character has no eyes or eyebrows transform.")]
+        [ShowIf(nameof(EnableFaceSurfaceConstraint))]
+        public float FaceAnchorFallbackDepth = 0.48f;
+        [BoxGroup("Character Interior Protection"), LabelText("Follow Animated Face Direction"), Range(0f, 1f)]
+        [Tooltip("Blends the protection direction from character-forward toward the animated Head-to-Eyes direction. A partial blend follows animation without introducing excessive lateral camera motion.")]
+        [ShowIf(nameof(EnableFaceSurfaceConstraint))]
+        public float FaceDirectionFollow = 0.45f;
+        [BoxGroup("Character Interior Protection"), LabelText("Look Up Extra Clearance"), Range(0f, 0.4f)]
+        [Tooltip("Adds forward clearance only while looking upward. This keeps some fringe in normal views but moves the near plane in front of the forehead at steep upward angles.")]
+        [ShowIf(nameof(EnableFaceSurfaceConstraint))]
+        public float LookUpExtraFaceClearance = 0.14f;
+        [BoxGroup("Character Interior Protection"), LabelText("Look Up Clearance Starts"), Range(0f, 80f), SuffixLabel("deg")]
+        [ShowIf(nameof(EnableFaceSurfaceConstraint))]
+        public float LookUpFaceClearanceStartAngle = 20f;
+        [BoxGroup("Character Interior Protection"), LabelText("Look Up Clearance Full"), Range(10f, 90f), SuffixLabel("deg")]
+        [ShowIf(nameof(EnableFaceSurfaceConstraint))]
+        public float LookUpFaceClearanceFullAngle = 70f;
         [BoxGroup("Character Interior Protection"), LabelText("Head Forward Clearance"), MinValue(0.01f)]
         [Tooltip("Forward distance restored if the standing camera enters the animated Head safety volume.")]
         public float HeadForwardClearance = 0.35f;
@@ -572,11 +631,35 @@ public class CharacterAnimationConfig : ScriptableObject
         [BoxGroup("Character Interior Protection"), LabelText("Crouch Head Safety Radius"), MinValue(0.01f)]
         [Tooltip("Minimum three-dimensional distance from the crouching animated Head bone to the final camera.")]
         public float CrouchHeadSafetyRadius = 0.42f;
+        [BoxGroup("Character Interior Protection"), LabelText("Track Neck / Chest / Shoulders")]
+        [Tooltip("Includes nearby upper-body bones because the Head bone is not the boundary of the actual skinned mesh.")]
+        public bool TrackUpperBodyBones = true;
+        [BoxGroup("Character Interior Protection"), LabelText("Neck Safety Radius"), MinValue(0.01f)]
+        public float NeckSafetyRadius = 0.24f;
+        [BoxGroup("Character Interior Protection"), LabelText("Chest Safety Radius"), MinValue(0.01f)]
+        public float ChestSafetyRadius = 0.28f;
+        [BoxGroup("Character Interior Protection"), LabelText("Shoulder Safety Radius"), MinValue(0.01f)]
+        public float ShoulderSafetyRadius = 0.22f;
+        [BoxGroup("Character Interior Protection"), LabelText("Crouch Upper Body Radius Scale"), Range(1f, 2f)]
+        public float CrouchUpperBodyRadiusScale = 1.15f;
+        [BoxGroup("Visibility Fallback"), LabelText("Enable Proximity Clip")]
+        [Tooltip("Legacy emergency world-space clip. Leave this disabled for single-piece character meshes because a spherical cut can expose large interior polygons.")]
+        public bool EnableProximityClip = false;
+        [BoxGroup("Visibility Fallback"), LabelText("Proximity Clip Shader"), AssetsOnly]
+        [Tooltip("Project-owned URP Lit variant used only by runtime clones of the local player's materials.")]
+        public Shader ProximityClipShader;
+        [BoxGroup("Visibility Fallback"), LabelText("Proximity Clip Radius"), Range(0.05f, 0.3f)]
+        [Tooltip("Emergency clip radius around the player camera. Keep this only slightly larger than the camera near clip plane.")]
+        public float ProximityClipRadius = 0.2f;
         [BoxGroup("Character Interior Protection"), LabelText("Hide Head For Player Camera")]
-        [Tooltip("Temporarily scales only the animated Head bone while the player camera is close. The body, clothing, held items, and other cameras remain visible.")]
+        [Tooltip("Enables the camera-only Head bone scale fallback. It is intended for cases where the environment and character leave no valid camera correction.")]
         public bool HideHeadForPlayerCamera = true;
+        [BoxGroup("Character Interior Protection"), LabelText("Head Scale Emergency Only")]
+        [Tooltip("Keeps the Head bone visible during normal camera motion and uses bone scaling only when the environment-safe pose is still inside the character volume.")]
+        [ShowIf(nameof(HideHeadForPlayerCamera))]
+        public bool HeadScaleEmergencyOnly = true;
         [BoxGroup("Character Interior Protection"), LabelText("Head Hide Distance"), MinValue(0.05f)]
-        [Tooltip("The Head bone is hidden only while the player camera is within this distance. At normal third-person distance the complete character remains visible.")]
+        [Tooltip("Legacy proximity threshold used only when Head Scale Emergency Only is disabled.")]
         [ShowIf(nameof(HideHeadForPlayerCamera))]
         public float CharacterHideDistance = 0.9f;
         [BoxGroup("Character Interior Protection"), LabelText("Head Fallback Scale"), Range(0.0001f, 0.1f)]
@@ -585,6 +668,13 @@ public class CharacterAnimationConfig : ScriptableObject
         public float HiddenHeadScale = 0.001f;
         [BoxGroup("Character Interior Protection"), LabelText("Protection Blend Speed"), MinValue(0.01f)]
         public float InteriorProtectionBlendSpeed = 30f;
+
+        [BoxGroup("Safety Debug"), LabelText("Runtime Safety Warnings")]
+        public bool EnableRuntimeSafetyWarnings = true;
+        [BoxGroup("Safety Debug"), LabelText("Warning Cooldown"), MinValue(0.25f)]
+        public float SafetyWarningCooldown = 2f;
+        [BoxGroup("Safety Debug"), LabelText("Draw Solver Gizmos")]
+        public bool DrawSolverGizmos = true;
     }
 
     [Serializable]
@@ -599,7 +689,9 @@ public class CharacterAnimationConfig : ScriptableObject
         public bool AllowMovement = true;
         public bool LockRotation;
         public bool Interruptible = true;
+        [Range(0f, 1f)] public float CommitNormalizedTime = 0.55f;
         [Range(0f, 1f)] public float InterruptibleNormalizedTime = 0.75f;
+        public bool QueueWhenBlocked = true;
         public CharacterAnimationRootMotionStrategy RootMotion = CharacterAnimationRootMotionStrategy.Disabled;
         public CharacterAnimationLogicalState ReturnState = CharacterAnimationLogicalState.Locomotion;
     }
@@ -770,6 +862,11 @@ public class CharacterAnimationConfig : ScriptableObject
     [InfoBox("Global Fade Speed adjusts every animation and layer fade together. Enable shared durations only when all transitions should use one Fade In/Fade Out pair.")]
     [InlineProperty, HideLabel]
     public GlobalFadeSettings GlobalFades = new GlobalFadeSettings();
+
+    [TabGroup("Animation Tabs", "Tuning")]
+    [Title("Runtime Diagnostics")]
+    [InlineProperty, HideLabel]
+    public DiagnosticsSettings Diagnostics = new DiagnosticsSettings();
 
     [TabGroup("Animation Tabs", "Tuning")]
     [Title("Animation Parameter Library")]

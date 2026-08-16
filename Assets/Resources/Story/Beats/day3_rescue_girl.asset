@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 380969377098d8844829887eec20d3dc, type: 3}
+  m_Name: day3_rescue_girl
+  m_EditorClassIdentifier: Assembly-CSharp::StoryBeatDefinition
+  stableBeatId: day3.rescue_girl
+  chapter: 4
+  displayName: Rescue the Girl
+  requiredWorldFacts: []
+  objectiveGroup: {fileID: 0}
+  entryGameMode: 2
+  overrideTime: 1
+  targetHour: 21
+  weatherProfileKey: 
+  sequenceKey: 
+  factsOnEnter: []
+  factsOnComplete:
+  - world.girl_rescued
+  overrideGirlState: 1
+  girlState: 4
+  nextBeatId: day4.second_cup_morning
+  createsCheckpoint: 1
+  checkpointId: checkpoint.day3.rescue_girl
+  legacyCompatibleNextBeatIds: []
